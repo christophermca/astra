@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.css';
+import {TestComponent, LMC} from './Components'
 
 export default class App extends React.Component {
   constructor(props) {
@@ -21,6 +22,10 @@ export default class App extends React.Component {
     return (
       <div className="App">
         hello {this.state.name}
+        <h2>
+          Astra Components
+        </h2>
+        <LMC />
         {/* build react component here <create> */}
       </div>
     );
