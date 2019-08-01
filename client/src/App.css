@@ -27,6 +27,12 @@
   display: inline-block;
 }
 
+section.component {
+  border: 1px solid grey;
+  margin: 20px 0;
+  padding: 10px;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

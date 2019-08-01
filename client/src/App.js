@@ -21,12 +21,13 @@ export default class App extends React.Component {
 
     return (
       <div className="App">
-        hello {this.state.name}
         <h2>
-          Astra Components
+          ASTRA Component Library
         </h2>
-        <LMC />
-        {/* build react component here <create> */}
+        {/* TODO loop through exported components and add them to the page */}
+        {/* Place Components below*/}
+        <section className="component"><LMC /></section>
+        <section className="component"><TestComponent name='George'/></section>
       </div>
     );
   }
