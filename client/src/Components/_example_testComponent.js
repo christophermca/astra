@@ -1,5 +1,6 @@
 import React from 'react';
 
+/* a basic component, no unique styles for this component */
 export default class TestComponent extends React.Component {
   constructor(props) {
     super(props);
