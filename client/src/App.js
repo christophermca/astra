@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import {TestComponent, LMC} from './Components'
+import {TestComponent, LMC, TemplateCreation} from './Components'
 
 export default class App extends React.Component {
   constructor(props) {
@@ -26,8 +26,9 @@ export default class App extends React.Component {
         </h2>
         {/* TODO loop through exported components and add them to the page */}
         {/* Place Components below*/}
-        <section className="component"><LMC /></section>
-        <section className="component"><TestComponent name='George'/></section>
+        <section className="component" name="templateCreation">
+          <TemplateCreation />
+        </ section>
       </div>
     );
   }

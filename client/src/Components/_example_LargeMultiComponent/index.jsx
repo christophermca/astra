@@ -1,5 +1,5 @@
 import React from 'react';
-import TestComponent  from '../_example_testComponent.js';
+import TestComponent  from '../_example_testComponent.jsx';
 import './style.css'
 
 /* This component has unique style */

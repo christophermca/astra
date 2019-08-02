@@ -1,0 +1,17 @@
+#template-header-input {
+  border: 1px solid black;
+  display: flex;
+  height: 52px;
+  justify-content:flex-start;
+  padding-left:20px;
+  flex-basis: 100%;
+}
+
+#template-header-input input {
+  display: inline-flex;
+  flex-basis: 300px;
+  border: none;
+  border-bottom:1px solid grey;
+  height: 40px;
+  margin-right: 200px
+}
