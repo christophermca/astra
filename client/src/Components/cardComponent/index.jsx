@@ -23,7 +23,7 @@ export default class CardComponent extends React.Component {
             <span className="card-label">Team Name</span>value
           </div>
         </div>
-        <div>details</div>
+        <div className="card-detail">details</div>
       </section>
     );
   }
