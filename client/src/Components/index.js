@@ -4,6 +4,7 @@
 import TestComponent  from './_example_testComponent.jsx';
 import LMC  from './_example_LargeMultiComponent/index.jsx';
 import TemplateCreation  from './templateCreation/index.jsx';
+import CardComponent from './cardComponent/index.jsx';
 
 
-export {TestComponent, LMC, TemplateCreation}
+export {TestComponent, LMC, TemplateCreation, CardComponent}
