@@ -1,6 +1,13 @@
 import React from 'react';
 import './App.css';
-import {TestComponent, LMC, TemplateCreation} from './Components'
+import {TemplateCreation} from './Components'
+
+// holding for reference - delete before merging
+// function displayComponent(props) {
+//   return (
+//     <section className="component"> <h3>{props.name}</h3> </section>
+//   )
+// }
 
 export default class App extends React.Component {
   constructor(props) {
@@ -26,9 +33,11 @@ export default class App extends React.Component {
         </h2>
         {/* TODO loop through exported components and add them to the page */}
         {/* Place Components below*/}
-        <section className="component" name="templateCreation">
-          <TemplateCreation />
-        </ section>
+        <React.Fragment>
+          <section className="component" name="templateCreation">
+            <TemplateCreation />
+          </section>
+        </React.Fragment>
       </div>
     );
   }

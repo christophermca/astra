@@ -1,0 +1,22 @@
+{
+  "services": [
+    "alpha",
+    "bravo",
+    "charlie",
+    "delta"
+  ],
+
+  "environment": [
+    "alpha",
+    "bravo",
+    "charlie",
+    "delta"
+  ],
+
+  "configuration": [
+    "alpha",
+    "bravo",
+    "charlie",
+    "delta"
+  ]
+}

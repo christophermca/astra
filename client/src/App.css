@@ -4,17 +4,40 @@ html, body {
 }
 
 html {
-  background:#eee;
+  background-color: #efefef;
 }
 
 section.component {
   margin: 20px 0;
   background:#fff;
   padding: 10px;
+
+}
+
+section.component input,
+section.component select {
+  border-top: none;
+  border-left: none;
+  border-right: none;
+}
+
+section.component section {
+  padding: 0 20px;
 }
 
 .App {
   text-align: center;
+}
+
+.App h2 {
+align-items: center;
+background-color: #103fff;
+color: yellow;
+display: flex;
+height: 100px;
+justify-content: center;
+margin: 0;
+
 }
 
 .App-logo {
@@ -41,7 +64,6 @@ section.component {
 #mock-id {
   display: inline-block;
 }
-
 
 @keyframes App-logo-spin {
   from {
