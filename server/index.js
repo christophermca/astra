@@ -1,8 +1,11 @@
-const express = require('express');
-const proxy = express();
-const TestEngine = require('./stubs/testEngine.js');
-const testEngine = new TestEngine();
+const express = require("express");
+const bodyParser = require("body-parser");
+const cors = require("cors");
 
-proxy.listen(3001, () => console.log('proxy server connected'));
-proxy.get('/test', (req, res) =>
-  testEngine.getUserData().then(data => res.send(data)));
+
+const proxy = express();
+
+proxy.listen(3001, () => console.log("proxy server connected"));
+proxy.get("/test", (req, res) =>
+  testEngine.getUserData().then(data => res.send(data))
+);
