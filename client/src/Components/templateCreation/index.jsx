@@ -17,9 +17,9 @@ export default class TemplateCreation extends React.Component {
             <input placeholder="Template Description *Required" required />
         </section>
         <section id="template-config">
-          <Dropdown name="service" data={this.state.services}/>
-          <Dropdown name="environemt" />
-          <Dropdown name="configuration" />
+          <Dropdown name="service" data={stubData.services}/>
+          <Dropdown name="environemt" data={stubData.environment}/>
+          <Dropdown name="configuration" data={stubData.configuration}/>
           <Dropdown name="method" />
         </section>
       </form>
