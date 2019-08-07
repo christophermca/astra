@@ -1,5 +1,6 @@
 import React from 'react';
 import Dropdown from './dropdown.jsx';
+import Button from './button.jsx'
 import './style.css';
 import * as stubData from './stubData.json'
 
@@ -21,6 +22,9 @@ export default class TemplateCreation extends React.Component {
           <Dropdown name="environemt" data={stubData.environment}/>
           <Dropdown name="configuration" data={stubData.configuration}/>
           <Dropdown name="method" />
+        </section>
+        <section id="template-button">
+          <Button />
         </section>
       </form>
     )
