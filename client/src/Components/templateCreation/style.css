@@ -50,6 +50,10 @@
   margin: 20px 0;
 }
 
+label{
+  padding-bottom: 5px;
+}
+
 .template-header textarea{
   overflow: scroll;
   width: 450px;
@@ -63,4 +67,18 @@
   height: 200px;
   display: flex;
   flex-direction: column;
+}
+
+.table{
+  display: flex;
+  width: 100%;
+}
+
+.checkbox{
+  width: 40px
+}
+td{
+  padding: 5px;
+  width: auto;
+  border: 1px solid black;
 }
