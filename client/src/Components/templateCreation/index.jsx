@@ -25,7 +25,7 @@ export default class TemplateCreation extends React.Component {
           <Dropdown name="configMethod" />
         </section>
         <section id="template-builderHeader">
-          <Dropdown name="method" />
+          <Dropdown name="method" data={stubData.method}/>
           <input placeholder="url" className="template-url" />
         </section>
         <section id="template-builderBody">
