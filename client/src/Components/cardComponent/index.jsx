@@ -1,12 +1,10 @@
 import React from "react";
 import "./style.css";
 
-export default class CardComponent extends React.Component {
-
-  handleClick = () =>{
-    console.log("clicked");
+  function handleClick() {
+    console.log('clicked')
   }
-  render() {
+  export default function CardComponent() {
     return (
       <section id="card-container">
         <div className="card-header">flow title area</div>
@@ -16,7 +14,7 @@ export default class CardComponent extends React.Component {
 
         <div className="card-main">
           <div className="card-checkbox">
-            <input onClick={this.handleClick} type="checkBox" />
+            <input onClick={handleClick} type="checkBox" />
           </div>
           <div className="card-info">
             <div className="card-value">
@@ -37,4 +35,3 @@ export default class CardComponent extends React.Component {
       </section>
     );
   }
-}
