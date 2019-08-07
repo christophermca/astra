@@ -1,6 +1,7 @@
 import React from "react";
 import Dropdown from "./dropdown.jsx";
 import Button from "./button.jsx";
+import TemplateBody from './templatebody.jsx';
 import "./style.css";
 import * as stubData from "./stubData.json";
 
@@ -25,11 +26,10 @@ export default class TemplateCreation extends React.Component {
         </section>
         <section id="template-builderHeader">
           <Dropdown name="method" />
-          <input className="template-url" />
+          <input placeholder="url" className="template-url" />
         </section>
         <section id="template-builderBody">
-          <textarea className="template-header" />
-          <textarea className="template-body" />
+          <TemplateBody />
         </section>
         <section id="template-button">
           <Button />
