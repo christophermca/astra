@@ -1,43 +1,42 @@
 import React from 'react';
 import './App.css';
-import {CardComponent, Leftnav, TemplateCreation} from './Components'
+import {TemplateCreation, Leftnav, ListView} from './Components'
+import { Route, BrowserRouter as Router } from "react-router-dom";
 
+
+// NOTE: temp homepage, should we display a log in message ?
+function Home(props) {
+  return (
+    <React.Fragment>
+      <h2> It&apos;s Astra </h2>
+      <p> '*no login required*'</p>
+    </React.Fragment>
+  );
+}
 
 export default class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {title: 'Template List'};
+    this.state = Object.assign({}, props)
   }
-
-  componentDidMount() {
-    fetch('/api/templates/templateList', { headers: { accepts: 'application/json' } })
-      .then(response => response.json())
-      .then(json =>  this.setState({"list": json }))
-    }
 
   render () {
     return (
     <div className="App">
-    <Leftnav />
-      <div id="content-container">
-        <header>
-          <h2>
-            {this.state.title}
-          </h2>
-        </header>
-        {/* TODO loop through exported components and add them to the page */}
-        {/* Place Components below*/}
-        <React.Fragment>
-            <section className="component" name="cardComponent">
-            { this.state.list
-              ? this.state.list.map(item => {
-                return (<CardComponent key={item.templateId} data={item} />)})
-              : ''
-            }
+      <Router>
+        <Leftnav />
+        <div id="content-container">
+          <header>
+            <h2> {this.state.title} </h2>
+          </header>
 
-            </section>
-        </React.Fragment>
+          <section className="component">
+              <Route exact path="/" component={Home} />
+              <Route path="/templates" component={ListView} title="Templates"/>
+              <Route path="/templates/create" component={TemplateCreation} />
+          </section>
         </div>
+      </Router>
     </div>
     );
   }
