@@ -6,6 +6,10 @@
     padding: 10px 10px;
 }
 
+.card-checkbox{
+    float: left;
+}
+
 .card-header{
     float: left;
 }
@@ -14,10 +18,14 @@
     float: right;
 }
 .card-info {
-    margin-top: 30px;
     width: 700px;
 }
 
+.card-main{
+    display: flex;
+    margin-top: 30px;
+    align-items: center;
+}
 .card-detail{
     float: right;
     margin: 10px 0;
