@@ -6,6 +6,10 @@ export default class CardComponent extends React.Component {
   handleClick = () =>{
     console.log("clicked");
   }
+
+  handleDetailClick = () =>{
+    console.log("clicked")
+  }
   render() {
     return (
       <section id="card-container">
@@ -33,7 +37,7 @@ export default class CardComponent extends React.Component {
             </div>
           </div>
         </div>
-        <div className="card-detail">details</div>
+        <div onClick={this.handleDetailClick} className="card-detail">details</div>
       </section>
     );
   }
