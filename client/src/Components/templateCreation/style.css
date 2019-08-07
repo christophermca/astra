@@ -27,9 +27,15 @@
   flex-grow: .175;
 }
 
-.template-builderBody{
+#template-builderHeader{
   display: flex;
-  justify-content: space-evenly
+  margin: 20px 0;
+}
+
+#template-builderBody{
+  display: flex;
+  justify-content: space-between;
+  padding: 0;
 }
 
 .template-url{
@@ -38,4 +44,15 @@
 
 .template-builderBody{
   margin-top: 20px;
+}
+
+.template-header{
+  overflow: scroll;
+  width: 500px;
+  height: 200px;
+}
+
+.template-body{
+  width: 500px;
+  height: 200px;
 }
