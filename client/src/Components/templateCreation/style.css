@@ -27,3 +27,58 @@
   flex-grow: .175;
 }
 
+#template-builderHeader{
+  display: flex;
+  margin: 20px 0;
+}
+
+
+
+.template-url{
+  width: 700px;
+  margin-left: 30px;
+}
+
+#template-builderBody{
+  padding: 0;
+}
+
+.template-builderBody{
+  display: flex;
+  justify-content: space-between;
+  padding: 0;
+  margin: 20px 0;
+}
+
+label{
+  padding-bottom: 5px;
+}
+
+.template-header textarea{
+  overflow: scroll;
+  width: 450px;
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+}
+
+.template-body textarea{
+  width: 450px;
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+}
+
+.table{
+  display: flex;
+  width: 100%;
+}
+
+.checkbox{
+  width: 40px
+}
+td{
+  padding: 5px;
+  width: auto;
+  border: 1px solid black;
+}

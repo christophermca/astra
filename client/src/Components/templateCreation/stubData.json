@@ -18,5 +18,10 @@
     "bravo",
     "charlie",
     "delta"
+  ],
+
+  "method": [
+    "POST",
+    "GET"
   ]
 }
