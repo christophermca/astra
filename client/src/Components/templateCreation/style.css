@@ -27,3 +27,15 @@
   flex-grow: .175;
 }
 
+.template-builderBody{
+  display: flex;
+  justify-content: space-evenly
+}
+
+.template-url{
+  width: 700px;
+}
+
+.template-builderBody{
+  margin-top: 20px;
+}
