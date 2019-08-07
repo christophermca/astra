@@ -1,0 +1,13 @@
+#left-bar {
+  background-color: rgb(24, 35, 51);
+  width:115px;
+}
+
+#left-bar ul {
+  list-style: none;
+  padding: 0;
+}
+
+#left-bar li {
+ color: cyan;
+}

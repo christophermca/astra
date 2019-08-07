@@ -1,4 +1,7 @@
-html, body {
+/* Normalizing elements*/
+#content-container, #root, html, body {
+  height: 100%;
+  width: 100%;
   padding: 0;
   margin: 0;
 }
@@ -8,7 +11,7 @@ html {
 }
 
 section.component {
-  margin: 20px 0;
+  margin: 50px;
   background:#fff;
   padding: 10px;
 
@@ -26,13 +29,15 @@ section.component section {
 }
 
 .App {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
   text-align: center;
+  width: 100%;
 }
 
 .App h2 {
 align-items: center;
-background-color: #103fff;
-color: yellow;
 display: flex;
 height: 100px;
 justify-content: center;
@@ -40,21 +45,8 @@ margin: 0;
 
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.App header {
+  background: rgb(25, 153, 255);
 }
 
 .App-link {
@@ -73,3 +65,4 @@ margin: 0;
     transform: rotate(360deg);
   }
 }
+
