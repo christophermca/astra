@@ -32,27 +32,35 @@
   margin: 20px 0;
 }
 
-#template-builderBody{
-  display: flex;
-  justify-content: space-between;
-  padding: 0;
-}
+
 
 .template-url{
   width: 700px;
+  margin-left: 30px;
+}
+
+#template-builderBody{
+  padding: 0;
 }
 
 .template-builderBody{
-  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  padding: 0;
+  margin: 20px 0;
 }
 
-.template-header{
+.template-header textarea{
   overflow: scroll;
-  width: 500px;
+  width: 450px;
   height: 200px;
+  display: flex;
+  flex-direction: column;
 }
 
-.template-body{
-  width: 500px;
+.template-body textarea{
+  width: 450px;
   height: 200px;
+  display: flex;
+  flex-direction: column;
 }
