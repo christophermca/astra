@@ -12,8 +12,8 @@ export default class App extends React.Component {
   componentDidMount() {
     fetch('/api/templates/templateList', { headers: { accepts: 'application/json' } })
       .then(response => response.json())
-      .then(json =>  this.setState(json))
-  }
+      .then(json =>  this.setState({"list": json }))
+    }
 
   render () {
     return (
@@ -28,9 +28,13 @@ export default class App extends React.Component {
         {/* TODO loop through exported components and add them to the page */}
         {/* Place Components below*/}
         <React.Fragment>
-          <section className="component" name="cardComponent">
-            <CardComponent />
-          </section>
+            <section className="component" name="cardComponent">
+            { this.state.list
+              ? this.state.list.map(item => {
+                return (<CardComponent key={item.templateId} data={item} />)})
+              : ''
+            }
+            </section>
         </React.Fragment>
         </div>
     </div>

@@ -1,4 +1,4 @@
-#card-container{
+.card-container{
     border: 1px solid black;
     height: auto;
     overflow: hidden;

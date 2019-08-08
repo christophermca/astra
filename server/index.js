@@ -9,7 +9,7 @@ const PORT = 3002;
 app.use(cors());
 app.use(express.json());
 
-app.use('/api/templates', templateCrud.getAllTemplates);
+app.use('/api/templates', templateRouter);
 
 app.listen(PORT, () => console.log(`Proxy Server running on ${PORT}`));
 
