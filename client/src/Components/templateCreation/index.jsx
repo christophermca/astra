@@ -14,22 +14,19 @@ export default class TemplateCreation extends React.Component {
   render() {
     return (
       <form>
-        {/* <section id="template-header">
+        <section id="template-header">
           <input placeholder="Template Name *Required" required />
           <input placeholder="Template Description *Required" required />
-        </section> */}
+        </section>
         <section id="template-config">
           <Dropdown name="service" data={stubData.services} />
           <Dropdown name="environemt" data={stubData.environment} />
           <Dropdown name="configuration" data={stubData.configuration} />
           <Dropdown name="configMethod" />
-        </section>
-        <section id="template-builderHeader">
-          <Dropdown name="method" data={stubData.method}/>
-          <input placeholder="url" className="template-url" />
-        </section>
-        <section id="template-builderBody">
-          <TemplateBody />
+          <section id="template-builderHeader">
+            <Dropdown name="method" data={stubData.method}/>
+            <input placeholder="url" className="template-url" />
+          </section>
         </section>
         <section id="template-button">
           <Button />
