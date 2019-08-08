@@ -82,3 +82,7 @@ td{
   width: auto;
   border: 1px solid black;
 }
+
+.uploadButton{
+  float: right
+}

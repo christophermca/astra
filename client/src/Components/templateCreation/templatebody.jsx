@@ -1,4 +1,5 @@
 import React from "react";
+import Modal from "react-modal";
 import "./style.css";
 
 export default class TemplateBody extends React.Component {
@@ -6,10 +7,15 @@ export default class TemplateBody extends React.Component {
     super(props);
     this.state = {
       bodyVisibility: true,
-      line: "body"
+      line: "body",
+      modalIsOpen: false
     };
+
+    this.openModal = this.openModal.bind(this);
+    this.closeModal = this.closeModal.bind(this);
   }
 
+  
   handleBody = () => {
     console.log("body clicked");
     this.setState({ bodyVisibility: true });
@@ -18,6 +24,15 @@ export default class TemplateBody extends React.Component {
   handleData = () => {
     console.log("data click");
     this.setState({ bodyVisibility: false });
+  };
+
+  openModal = (e) => {
+    e.preventDefault();
+    this.setState({ modalIsOpen: true });
+  };
+
+  closeModal = () => {
+    this.setState({ modalIsOpen: false });
   };
   render() {
     return (
@@ -38,15 +53,29 @@ export default class TemplateBody extends React.Component {
 
           {!this.state.bodyVisibility && (
             <div>
+              <button className="uploadButton" onClick={this.openModal}>
+                {" "}
+                upload
+              </button>
+              <Modal
+                isOpen={this.state.modalIsOpen}
+                onRequestClose={this.closeModal}
+                contentLabel="Example Modal"
+              >
+                <button onClick={this.closeModal}>close</button>
+                <div>I am a modal</div>
+              </Modal>
               <table>
                 <tr>
-                    <td></td>
+                  <td />
                   <td>key</td>
                   <td>value</td>
                   <td>description</td>
                 </tr>
                 <tr>
-                    <td><input type="checkbox"></input></td>
+                  <td>
+                    <input type="checkbox" />
+                  </td>
                   <td>
                     <input placeholder="key" />
                   </td>
