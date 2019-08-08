@@ -26,6 +26,22 @@ const getOneTemplate = async (req, res) => {
   }
 }
 
+const createTemplate = async (req, res) => {
+  try {
+    const newTemplate = await fetch(createTemplateURL, {
+      method: "POST",
+      body: JSON.stringify(req.body),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    });
+    res.status(200).send({ message: "Template created successfully" });
+  } catch (err) {
+    console.error(err);
+    res.status(400);
+  }
+};
+
 module.exports = {
   getAllTemplates,
   getOneTemplate,
