@@ -1,15 +1,15 @@
 const express = require('express');
 const cors = require('cors');
 
-const templateRouter = require('./resources/template/template.router')
+const templateCrud = require('./resources/template/templateCrud.utils');
 
-const app = express()
-const PORT = 3002
+const app = express();
+const PORT = 3002;
 
-app.use(cors())
-app.use(express.json())
+app.use(cors());
+app.use(express.json());
 
-app.use('/api/templates', templateRouter);
+app.use('/api/templates', templateCrud.getAllTemplates);
 
 app.listen(PORT, () => console.log(`Proxy Server running on ${PORT}`));
 

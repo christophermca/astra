@@ -1,5 +1,4 @@
 import React from 'react';
-import * as stubData from './stubData.json'
 
 export default class Dropdown extends React.Component {
   constructor(props) {
@@ -7,7 +6,7 @@ export default class Dropdown extends React.Component {
     this.state = Object.assign({}, props);
     console.log(props.data)
 
-    
+
   }
 
   render() {
