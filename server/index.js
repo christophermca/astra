@@ -1,8 +1,14 @@
 const express = require('express');
-const proxy = express();
-const TestEngine = require('./stubs/testEngine.js');
-const testEngine = new TestEngine();
+const cors = require('cors');
 
-proxy.listen(3001, () => console.log('proxy server connected'));
-proxy.get('/test', (req, res) =>
-  testEngine.getUserData().then(data => res.send(data)));
+const templateRouter = require('./resources/template/template.router')
+
+const app = express()
+const PORT = 3002
+
+app.use(cors())
+app.use(express.json())
+
+app.use('/api/templates', templateRouter);
+
+app.listen(PORT, () => console.log(`Proxy Server running on ${PORT}`));
