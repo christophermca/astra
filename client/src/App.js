@@ -9,6 +9,12 @@ export default class App extends React.Component {
     this.state = {title: 'Template List'};
   }
 
+  componentDidMount() {
+    fetch('/api/templates/templateList', { headers: { accepts: 'application/json' } })
+      .then(response => response.json())
+      .then(json =>  this.setState(json))
+  }
+
   render () {
     return (
     <div className="App">
@@ -16,7 +22,7 @@ export default class App extends React.Component {
       <div id="content-container">
         <header>
           <h2>
-      {this.state.title}
+            {this.state.title}
           </h2>
         </header>
         {/* TODO loop through exported components and add them to the page */}
