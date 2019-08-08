@@ -1,0 +1,31 @@
+#template-header {
+  border: 1px solid black;
+  display: flex;
+  flex-basis: 100%;
+  height: 500px;
+  justify-content:flex-start;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.response-body{
+  display: flex;
+}
+#template-response{
+  margin: 10px;
+  width: 300px;
+  height: 400px;
+  border: 1px solid black;
+}
+
+#template-response label{
+  border: 1px solid black;
+  display: inherit;
+  background-color: grey; 
+}
+
+#template-response p{
+  text-align: left;
+  margin-top: 10px
+}

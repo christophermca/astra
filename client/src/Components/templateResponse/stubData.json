@@ -1,0 +1,12 @@
+{
+  "method": [
+    "POST",
+    "GET"
+  ],
+  
+  "requestHeader": "test request header information, this came from stubData.json",
+
+  "requestBody": "test request body information, this came from stubData.json",
+  
+  "responseBody": "test response body information, this came from stubData.json"
+}
