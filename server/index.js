@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 
-const templateCrud = require('./resources/template/templateCrud.utils');
+const templateRouter = require('./resources/template/template.router');
 
 const app = express();
 const PORT = 3002;

@@ -10,7 +10,7 @@ export default class App extends React.Component {
   }
 
   componentDidMount() {
-    fetch('/api/templates', { headers: { accepts: 'application/json' } })
+    fetch('/api/templates/templateList', { headers: { accepts: 'application/json' } })
       .then(response => response.json())
       .then(json =>  this.setState(json))
   }
