@@ -17,7 +17,15 @@ export default class CardComponent extends React.Component {
     //TODO pass templateID
     const templateId = this.state.data.templateId
 
-    fetch(`/api/templates/templatedetails?id=${templateId}`, {
+
+    /*
+     * TODO remove logic around templateID,
+     * This was only needed for initial demo, current data is not normalized
+     *
+     * templateID ['e2fe334ccd', '2', '3']
+     * templateID [1, 2, 3]
+     **/
+    fetch(`/api/templates/templatedetails?id=${(templateId.length > 3) ? 1 : templateId}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'
