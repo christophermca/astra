@@ -35,7 +35,6 @@ export default class App extends React.Component {
               : ''
             }
 
-            <TemplateCreation />
             </section>
         </React.Fragment>
         </div>
