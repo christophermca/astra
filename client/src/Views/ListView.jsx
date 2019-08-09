@@ -1,5 +1,5 @@
 import React from 'react';
-import CardComponent from './cardComponent/index.jsx';
+import { CardComponent } from '../Components';
 
 export default class ListView extends React.Component {
   constructor(props) {

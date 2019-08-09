@@ -4,6 +4,5 @@
 import TemplateCreation  from './templateCreation/index.jsx';
 import Leftnav from './leftNav.jsx';
 import TemplateResponse from './templateResponse/index.jsx';
-import ListView from './ListView.jsx';
-
-export {TemplateCreation, Leftnav, TemplateResponse, ListView}
+import CardComponent from './cardComponent/index.jsx'
+export {TemplateCreation, Leftnav, TemplateResponse, CardComponent}

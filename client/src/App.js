@@ -1,7 +1,8 @@
 import React from 'react';
 import './App.css';
-import {TemplateCreation, Leftnav, ListView} from './Components'
-import { Route, BrowserRouter as Router } from "react-router-dom";
+import { Route, BrowserRouter as Router } from 'react-router-dom';
+import {TemplateCreation, Leftnav} from './Components';
+import ListView from './Views/ListView.jsx';
 
 
 // NOTE: temp homepage, should we display a log in message ?
