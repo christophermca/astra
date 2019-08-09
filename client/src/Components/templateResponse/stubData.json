@@ -8,5 +8,11 @@
 
   "requestBody": "test request body information, this came from stubData.json",
   
-  "responseBody": "test response body information, this came from stubData.json"
+  "responseBody": "test response body information, this came from stubData.json",
+
+  "datasets": {
+    "id": 1234,
+    "filePath": "TestFile.csv",
+    "primary" : true
+  }
 }
