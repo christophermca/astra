@@ -69,6 +69,9 @@ label{
   flex-direction: column;
 }
 
+.template-body label{
+  margin: 5px;
+}
 .table{
   display: flex;
   width: 100%;
@@ -81,4 +84,14 @@ td{
   padding: 5px;
   width: auto;
   border: 1px solid black;
+}
+
+.uploadButton{
+  float: right
+}
+
+.uploadDropzone{
+  width: 500px;
+  height: 500px;
+  border: 1px dotted grey;
 }
