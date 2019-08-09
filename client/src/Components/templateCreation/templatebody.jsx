@@ -18,14 +18,11 @@ export default class TemplateBody extends React.Component {
   }
 
   onDrop = files => {
-    console.log(files[0].name)
-    const req = request.post("https://httpbin.org/post");
-
-    files.forEach(file => {
-      req.attach(file.name, file);
+    console.log(files[0].name);
+    fetch("https://httpbin.org/post", {
+      method: "POST",
+      body: files
     });
-
-    req.end();
   };
 
   handleBody = () => {
