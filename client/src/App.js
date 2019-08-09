@@ -1,11 +1,6 @@
 import React from "react";
 import "./App.css";
-import { createStore } from "redux";
-import { Provider } from 'react-redux';
-import rootReducers from "./reducers/index";
 import { CardComponent, Leftnav, TemplateCreation } from "./Components";
-
-const store = createStore(rootReducers);
 
 export default class App extends React.Component {
   constructor(props) {
@@ -23,7 +18,6 @@ export default class App extends React.Component {
 
   render() {
     return (
-      <Provider store={store}>
         <div className="App">
           <Leftnav />
           <div id="content-container">
@@ -45,7 +39,6 @@ export default class App extends React.Component {
             </React.Fragment>
           </div>
         </div>
-      </Provider>
     );
   }
 }
