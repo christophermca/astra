@@ -1,5 +1,7 @@
 import React from "react";
 import Modal from "react-modal";
+import ReactDropzone from "react-dropzone";
+import request from "superagent";
 import "./style.css";
 
 export default class TemplateBody extends React.Component {
@@ -15,7 +17,17 @@ export default class TemplateBody extends React.Component {
     this.closeModal = this.closeModal.bind(this);
   }
 
-  
+  onDrop = files => {
+    console.log(files[0].name)
+    const req = request.post("https://httpbin.org/post");
+
+    files.forEach(file => {
+      req.attach(file.name, file);
+    });
+
+    req.end();
+  };
+
   handleBody = () => {
     console.log("body clicked");
     this.setState({ bodyVisibility: true });
@@ -26,7 +38,7 @@ export default class TemplateBody extends React.Component {
     this.setState({ bodyVisibility: false });
   };
 
-  openModal = (e) => {
+  openModal = e => {
     e.preventDefault();
     this.setState({ modalIsOpen: true });
   };
@@ -61,31 +73,43 @@ export default class TemplateBody extends React.Component {
                 isOpen={this.state.modalIsOpen}
                 onRequestClose={this.closeModal}
                 contentLabel="Example Modal"
+                ariaHideApp={false}
               >
+                <div>Upload</div>
+                <ReactDropzone onDrop={this.onDrop}>
+                  {({ getRootProps }) => (
+                    <div className="uploadDropzone" {...getRootProps()}>
+                      Upload File
+                    </div>
+                  )}
+                </ReactDropzone>
                 <button onClick={this.closeModal}>close</button>
-                <div>I am a modal</div>
               </Modal>
               <table>
-                <tr>
-                  <td />
-                  <td>key</td>
-                  <td>value</td>
-                  <td>description</td>
-                </tr>
-                <tr>
-                  <td>
-                    <input type="checkbox" />
-                  </td>
-                  <td>
-                    <input placeholder="key" />
-                  </td>
-                  <td>
-                    <input placeholder="value" />
-                  </td>
-                  <td>
-                    <input placeholder="description" />
-                  </td>
-                </tr>
+                <tbody>
+                  <tr>
+                    <td />
+                    <td>key</td>
+                    <td>value</td>
+                    <td>description</td>
+                  </tr>
+                </tbody>
+                <tbody>
+                  <tr>
+                    <td>
+                      <input type="checkbox" />
+                    </td>
+                    <td>
+                      <input placeholder="key" />
+                    </td>
+                    <td>
+                      <input placeholder="value" />
+                    </td>
+                    <td>
+                      <input placeholder="description" />
+                    </td>
+                  </tr>
+                </tbody>
               </table>
             </div>
           )}

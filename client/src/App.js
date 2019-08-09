@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import {CardComponent, Leftnav} from './Components'
+import {CardComponent, Leftnav, TemplateCreation} from './Components'
 
 
 export default class App extends React.Component {
@@ -34,6 +34,8 @@ export default class App extends React.Component {
                 return (<CardComponent key={item.templateId} data={item} />)})
               : ''
             }
+
+            <TemplateCreation />
             </section>
         </React.Fragment>
         </div>

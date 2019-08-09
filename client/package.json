@@ -4,8 +4,10 @@
   "dependencies": {
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
+    "react-dropzone": "^10.1.7",
     "react-modal": "^3.9.1",
-    "react-scripts": "3.0.1"
+    "react-scripts": "3.0.1",
+    "superagent": "^5.1.0"
   },
   "proxy": "http://localhost:3002/",
   "scripts": {
