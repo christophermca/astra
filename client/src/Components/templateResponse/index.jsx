@@ -1,6 +1,7 @@
 import React from "react";
 import TemplateHeader from './templateHeader.jsx';
 import Dropdown from '../templateCreation/dropdown.jsx';
+import TemplateDownload from './templateDownload.jsx';
 import "./style.css";
 import * as stubData from "./stubData.json";
 
@@ -19,9 +20,10 @@ export default class TemplateResponse extends React.Component {
           <input placeholder="url" className="template-url" />
         </section>
         <section className="response-body">
-          <TemplateHeader name="requestHeader" data={stubData.requestHeader}/>
-          <TemplateHeader name="requestBody" data={stubData.requestBody}/>
-          <TemplateHeader name="responseBody" data={stubData.responseBody}/>
+          <TemplateHeader name="Request Header" data={stubData.requestHeader}/>
+          <TemplateHeader name="Request Body" data={stubData.requestBody}/>
+          <TemplateHeader name="Response Body" data={stubData.responseBody}/>
+          <TemplateDownload name="Data Files" files={stubData.datasets}/>
         </section>
       </form>
     );

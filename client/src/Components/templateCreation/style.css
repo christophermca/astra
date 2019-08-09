@@ -95,3 +95,13 @@ td{
   height: 500px;
   border: 1px dotted grey;
 }
+
+.inline{
+  float: left;
+}
+
+.fileList{
+ margin: 7px;
+ display: flex;
+ justify-content: space-evenly;
+}
