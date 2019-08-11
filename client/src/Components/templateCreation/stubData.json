@@ -1,5 +1,5 @@
 {
-  "services": [
+  "service": [
     "alpha",
     "bravo",
     "charlie",
@@ -20,6 +20,10 @@
     "delta"
   ],
 
+  "api": [
+    "rest",
+    "kafka"
+  ],
   "method": [
     "POST",
     "GET"
@@ -28,6 +32,6 @@
   "requestHeader": "test request body information, this came from stubData.json",
 
   "requestBody": "test request body information, this came from stubData.json",
-  
+
   "responseBody": "test request body information, this came from stubData.json"
 }

@@ -8,18 +8,18 @@ export default class Inline extends React.Component {
         this.state = {
           modalIsOpen: false
         };
-    
+
       }
 
       openModal = e => {
         e.preventDefault();
         this.setState({ modalIsOpen: true });
       };
-    
+
       closeModal = () => {
         this.setState({ modalIsOpen: false });
       };
-    
+
   render() {
     return (
       <div>

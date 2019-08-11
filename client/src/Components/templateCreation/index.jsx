@@ -9,6 +9,20 @@ export default class TemplateCreation extends React.Component {
   constructor(props) {
     super(props);
     this.state = Object.assign({}, props, stubData);
+    this.handleChange = this.handleChange.bind(this)
+  }
+
+  handleChange(evt) {
+    if (evt.target.value) {
+      this.setState({"showTemplateBuilder": true})
+    }
+
+  }
+
+  handleSubmit(evt) {
+    evt.preventDefault();
+    console.log('[CALLS to save template]');
+
   }
 
   render() {
@@ -19,17 +33,21 @@ export default class TemplateCreation extends React.Component {
           <input placeholder="Template Description *Required" required />
         </section>
         <section id="template-config">
-          <Dropdown name="service" data={stubData.services} />
-          <Dropdown name="environemt" data={stubData.environment} />
+          <Dropdown name="service" data={stubData.service} />
+          <Dropdown name="environment" data={stubData.environment} />
           <Dropdown name="configuration" data={stubData.configuration} />
-          <Dropdown name="configMethod" />
-          <section id="template-builderHeader">
-            <Dropdown name="method" data={stubData.method}/>
-            <input placeholder="url" className="template-url" />
-          </section>
+          <Dropdown name="configAPI" onChange={this.handleChange} data={stubData.api} />
         </section>
+
+        {this.state.showTemplateBuilder ?
+        (<section id="template-builderHeader">
+          <input disabled placeholder="GET" />
+          <input placeholder="url" className="template-url" />
+        </section>
+        ) : ''
+        }
         <section id="template-button">
-          <Button />
+          <button onClick={this.handleSubmit} type="submit">Send</button>
         </section>
       </form>
     );
