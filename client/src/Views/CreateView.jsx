@@ -8,9 +8,6 @@ export default class ListView extends React.Component {
     this.state = Object.assign({}, props)
   }
 
-  componentDidMount() {
-    }
-
   render() {
     return (
         <section className="component" name="cardComponent">

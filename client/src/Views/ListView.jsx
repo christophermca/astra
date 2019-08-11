@@ -8,6 +8,7 @@ export default class ListView extends React.Component {
     this.state = Object.assign({}, props);
     this.setTemplateData = this.setTemplateData.bind(this);
 
+    // Handle showing template details
     window.addEventListener('displayTemplateDetails', (data) => {
       this.setTemplateData(data)
     });

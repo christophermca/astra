@@ -1,6 +1,7 @@
 #left-bar {
   background-color: rgb(24, 35, 51);
-  width:115px;
+  min-width:115px;
+  padding: 0 5px 0;
 }
 
 #left-bar ul {

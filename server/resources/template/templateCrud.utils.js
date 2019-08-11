@@ -7,17 +7,16 @@ const templateDetailsURL = 'http://172.22.8.151:8080/v2/template/getTemplateDeta
 const createTemplateURL = 'http://172.22.8.151:8080/v2/template/createTemplate';
 
 const useStubData = process.env.OFFLINE === 'true';
-console.log({useStubData})
 
 const getAllTemplates = async (req, res) => {
-  console.log('GET TEMPLATES LIST');
+console.log('[GET] all Templates - ')
   try {
     let data;
     if(useStubData) {
       console.log('using stub response');
       data = JSON.parse(fs.readFileSync(path.resolve(__dirname, '../../stubs/templatelist.stub.json')));
     } else {
-      console.log('making request');
+      console.log('request - calling templateListURL');
       const getTemplates = await fetch(templateListURL);
       data = await getTemplates.json()
     }
