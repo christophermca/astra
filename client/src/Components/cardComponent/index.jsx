@@ -4,7 +4,7 @@ import "./style.css";
 export default class CardComponent extends React.Component {
   constructor(props) {
     super(props);
-    this.props = props;
+    this.state = Object.assign({}, props);
     this.handleClick = this.handleClick.bind(this);
     this.handleDetail = this.handleDetail.bind(this);
   }
@@ -13,19 +13,35 @@ export default class CardComponent extends React.Component {
     console.log("clicked");
   }
 
-  handleDetail = () =>{
+  handleDetail = () => {
     //TODO pass templateID
-    const templateId = this.props.data.templateId
+    const templateId = this.state.data.templateId
 
-    fetch('/api/getOneTemplate/')
-    .then(data => this.setState({ templateData: data }))
 
+    /*
+     * TODO remove logic around templateID,
+     * This was only needed for initial demo, current data is not normalized
+     *
+     * templateID ['e2fe334ccd', '2', '3']
+     * templateID [1, 2, 3]
+     **/
+    fetch(`/api/templates/templatedetails?id=${(templateId.length > 3) ? 1 : templateId}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(data => {
+      if (!data) return
+      const event = new Event('displayTemplateDetails', data);
+      window.dispatchEvent(event);
+    });
   }
 
   render() {
     return (
-      <section key={this.props.data.templateName} className="card-container">
-        <div className="card-header">{this.props.data.templateName}</div>
+      <section key={this.state.data.templateName} className="card-container">
+        <div className="card-header">{this.state.data.templateName}</div>
         <div className="card-button">
           execute<span>...</span>
         </div>
