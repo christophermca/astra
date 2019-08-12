@@ -1,4 +1,4 @@
-const templateDetails = (state= [], action) =>{
+const TemplateDetails = (state= [], action) =>{
     switch(action.type){
         case 'ADD_TEMPLATE_DETAILS':
             return[
@@ -14,4 +14,4 @@ const templateDetails = (state= [], action) =>{
     }
 }
 
-export default templateDetails;
+export default TemplateDetails;

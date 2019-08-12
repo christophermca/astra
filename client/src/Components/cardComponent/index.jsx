@@ -32,10 +32,12 @@ export default class CardComponent extends React.Component {
       }
     })
     .then(data => {
+      console.log(data)
       if (!data) return
       const event = new Event('displayTemplateDetails', data);
       window.dispatchEvent(event);
     });
+
   }
 
   render() {
