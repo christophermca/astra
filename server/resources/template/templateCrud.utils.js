@@ -52,7 +52,7 @@ const createTemplate = async (req, res) => {
         "Content-Type": "application/json"
       }
     });
-    res.status(200).json({ message: "Template created successfully" });
+    res.status(200).send({ message: "Template created successfully" });
   } catch (err) {
     console.error(err);
     res.status(400);

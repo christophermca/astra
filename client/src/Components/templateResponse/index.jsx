@@ -9,6 +9,7 @@ export default class TemplateResponse extends React.Component {
   constructor(props) {
     super(props);
     this.state = Object.assign({}, props, stubData);
+    console.log(stubData)
   }
 
   render() {

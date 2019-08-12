@@ -1,17 +1,21 @@
 import React from 'react';
 import { CardComponent, TemplateResponse } from '../Components';
 import { Link } from "react-router-dom";
-import View from './View.jsx'
 
-export default class ListView extends View {
+export default class ListView extends React.Component {
   constructor(props) {
     super(props);
     this.state = Object.assign({}, props);
+    this.setTemplateData = this.setTemplateData.bind(this);
 
     // Handle showing template details
     window.addEventListener('displayTemplateDetails', (data) => {
       this.setTemplateData(data)
     });
+  }
+
+  setTemplateData(data) {
+    this.setState({templateData: data})
   }
 
   componentDidMount() {

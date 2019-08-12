@@ -9,7 +9,7 @@ export default class TemplateCreation extends React.Component {
   constructor(props) {
     super(props);
     this.state = Object.assign({}, props, stubData);
-    this.handleChange = this.handleChange.bind(this);
+    this.handleChange = this.handleChange.bind(this)
   }
 
   handleChange(evt) {
@@ -21,17 +21,8 @@ export default class TemplateCreation extends React.Component {
 
   handleSubmit(evt) {
     evt.preventDefault();
-    fetch('/api/templates/createtemplate/', {
-      method: 'POST',
-      headers: {
-        "Content-Type": "application/json"
-      }
-    })
-    .then(data => {
-      const event = new Event('templateData', data)
-      window.dispatchEvent(event);
+    console.log('[CALLS to save template]');
 
-    })
   }
 
   render() {
@@ -53,13 +44,15 @@ export default class TemplateCreation extends React.Component {
         </section>
 
         {this.state.showTemplateBuilder ?
-          (<section id="template-builderHeader">
-            <input disabled placeholder="GET" />
-            <input placeholder="url" className="template-url" />
-          </section>
-          ) : ''
+        (<section id="template-builderHeader">
+          <input disabled placeholder="GET" />
+          <input placeholder="url" className="template-url" />
+        </section>
+        ) : ''
         }
-
+        <section id="template-button">
+          <button onClick={this.handleSubmit} type="submit">Send</button>
+        </section>
       </form>
     );
   }
