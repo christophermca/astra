@@ -34,9 +34,28 @@ export default class TemplateBody extends React.Component {
     this.setState({ modalIsOpen: false });
   };
 
-  handleFiles = files => {
-    const fileList = this.files;
-    console.log(fileList)
+  handleFiles = async e => {
+    const file = e.target.files;
+
+    var reader = new FileReader();
+    let binaryFile;
+    reader.onload = async function(e) {
+      var contents = e.target.result;
+      binaryFile = window.btoa(unescape(encodeURIComponent(contents)));
+
+      var fileObj = {'fileContents': binaryFile, 'name': file[0].name, 'extension':file[0].type }
+      console.log(fileObj);
+
+      // const fileUpload = await fetch(, {
+      //   method: "POST",
+      //   body: JSON.stringify(fileObj),
+      //   headers: {
+      //     "Content-Type": "application/json"
+      //   }
+      // });
+    };
+
+    reader.readAsText(file[0]);
   }
 
   render() {
@@ -71,7 +90,7 @@ export default class TemplateBody extends React.Component {
               >
                 <div>Upload</div>
                 <form action="/" method="post" encType="multipart/form-data">
-                  <input id="input-file" type="file" accept=".csv,.xls " multiple/>
+                  <input id="input-file" type="file" accept=".csv,.xls " multiple onChange={this.handleFiles}/>
                 </form>
                 <button onClick={this.closeModal}>close</button>
                 <button onClick={this.saveModal}>save</button>
