@@ -5,7 +5,9 @@ import { Link } from "react-router-dom";
 function Leftnav(props) {
   return (
       <div id="left-bar">
-        <img width="75" height="62" alt="astra logo" src="/logo.png"/>
+        <Link to="/">
+          <img width="75" height="62" alt="astra logo" src="/logo.png"/>
+        </Link>
           <nav>
             <ul>
               <li>
