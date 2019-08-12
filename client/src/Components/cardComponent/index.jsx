@@ -52,16 +52,16 @@ export default class CardComponent extends React.Component {
           </div>
           <div className="card-info">
             <div className="card-value">
-              <span className="card-label">Service</span> value
+              <span className="card-label">Service</span> {this.state.data.serviceId}
             </div>
             <div className="card-value">
-              <span className="card-label">Created Time</span> value
+              <span className="card-label">Created Time</span> {this.state.data.createdAt}
             </div>
             <div className="card-value">
-              <span className="card-label">User ID</span> value
+              <span className="card-label">User ID</span> {this.state.data.userId}
             </div>
             <div className="card-value">
-              <span className="card-label">Team Name</span>value
+              <span className="card-label">Team Name</span>{this.state.data.teamName}
             </div>
           </div>
         </div>
