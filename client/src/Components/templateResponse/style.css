@@ -1,4 +1,4 @@
-#template-header {
+form#template-header {
   border: 1px solid black;
   display: flex;
   flex-basis: 100%;
@@ -22,7 +22,7 @@
 #template-response label{
   border: 1px solid black;
   display: inherit;
-  background-color: grey; 
+  background-color: grey;
 }
 
 #template-response p{

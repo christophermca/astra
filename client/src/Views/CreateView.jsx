@@ -1,5 +1,5 @@
 import React from 'react';
-import { TemplateCreation } from '../Components';
+import { TemplateResponse, TemplateCreation } from '../Components';
 import './styles/createView.css'
 
 export default class ListView extends React.Component {
@@ -12,6 +12,9 @@ export default class ListView extends React.Component {
     return (
         <section className="component" name="cardComponent">
           <TemplateCreation />
+          {this.state.templateData ?
+            <TemplateResponse /> : ''
+          }
         </section>
     );
   }

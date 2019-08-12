@@ -27,21 +27,21 @@ export default class ListView extends React.Component {
   render() {
     return (
       <div>
-      <React.Fragment>
-        <section className="component" name="cardComponent">
-          <div className="create">
-            <button>
-              <Link to="/templates/create">Create</Link>
-            </button>
-          </div>
-          { this.state.list
-            ? this.state.list.map(item => {
-              return (<CardComponent key={item.templateId} data={item} />)})
-            : ''
-          }
-        </section>
-      </React.Fragment>
-      { this.state.templateData ?  (<React.Fragment><TemplateResponse data="{this.state.templateData}"/> </React.Fragment>) : ''}
+        <React.Fragment>
+          <section className="component" name="cardComponent">
+            <div className="create">
+              <button>
+                <Link to="/templates/create">Create</Link>
+              </button>
+            </div>
+            { this.state.list
+              ? this.state.list.map(item => {
+                return (<CardComponent key={item.templateId} data={item} />)})
+              : ''
+            }
+          </section>
+        </React.Fragment>
+        { this.state.templateData ?  (<React.Fragment><TemplateResponse data="{this.state.templateData}"/> </React.Fragment>) : ''}
       </div>
     );
   }

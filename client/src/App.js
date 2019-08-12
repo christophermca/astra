@@ -22,11 +22,9 @@ export default class App extends React.Component {
           <header>
             <h2> {this.state.title} </h2>
           </header>
-          <section className="component">
-              <Route exact path="/" component={HomeView} />
-              <Route exact path="/templates" component={ListView} title="Templates List"/>
-              <Route exact path="/templates/create" component={CreateView} title="Templates Create"/>
-          </section>
+          <Route exact path="/" component={HomeView} />
+          <Route exact path="/templates" component={ListView} title="Templates List"/>
+          <Route exact path="/templates/create" component={CreateView} title="Templates Create"/>
         </div>
       </Router>
     </div>

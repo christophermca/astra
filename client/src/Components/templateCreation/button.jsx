@@ -7,11 +7,7 @@ export default class Button extends React.Component{
         console.log("hit")
     }
 
-    onSubmit = (e) =>{
-        e.preventDefault();
-        console.log(this.props);
-    }
-    render(){
+    render() {
         return(
             <div >
                 <button onClick={this.onSubmit} type="submit">Send</button>
