@@ -87,10 +87,20 @@ export default class TemplateCreation extends React.Component {
           <input placeholder="Template Description *Required" required />
         </section>
         <section id="template-config">
-          <Dropdown name="service" data={stubData.service} />
-          <Dropdown name="environment" data={stubData.environment} />
-          <Dropdown name="configuration" onChange={this.handleChange} data={stubData.configuration} />
+          <Dropdown name="service" data={stubData.services} />
+          <Dropdown name="environemt" data={stubData.environment} />
+          <Dropdown name="configuration" data={stubData.configuration} />
           <Dropdown name="configAPI" data={this.state.api} />
+          <section id="template-builderHeader">
+            <Dropdown name="method" data={stubData.method}/>
+            <input placeholder="url" className="template-url" />
+          </section>
+        </section>
+        <section>
+          <TemplateBody />
+        </section>
+        <section id="template-button">
+          <Button />
         </section>
 
 

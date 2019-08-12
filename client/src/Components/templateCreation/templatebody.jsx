@@ -1,7 +1,5 @@
 import React from "react";
 import Modal from "react-modal";
-import ReactDropzone from "react-dropzone";
-import request from "superagent";
 import "./style.css";
 
 export default class TemplateBody extends React.Component {
@@ -16,14 +14,6 @@ export default class TemplateBody extends React.Component {
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
   }
-
-  onDrop = files => {
-    console.log(files[0].name);
-    fetch("https://httpbin.org/post", {
-      method: "POST",
-      body: files
-    });
-  };
 
   handleBody = () => {
     console.log("body clicked");
@@ -43,6 +33,11 @@ export default class TemplateBody extends React.Component {
   closeModal = () => {
     this.setState({ modalIsOpen: false });
   };
+
+  handleFiles = files => {
+    const fileList = this.files;
+    console.log(fileList)
+  }
 
   render() {
     return (
@@ -72,12 +67,14 @@ export default class TemplateBody extends React.Component {
                 onRequestClose={this.closeModal}
                 contentLabel="Example Modal"
                 ariaHideApp={false}
+                enctype='multipart/form-data'
               >
                 <div>Upload</div>
                 <form action="/" method="post" encType="multipart/form-data">
                   <input id="input-file" type="file" accept=".csv,.xls " multiple/>
                 </form>
                 <button onClick={this.closeModal}>close</button>
+                <button onClick={this.saveModal}>save</button>
               </Modal>
               <table>
                 <tbody>
