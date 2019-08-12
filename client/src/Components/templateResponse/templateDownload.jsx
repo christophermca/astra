@@ -1,7 +1,6 @@
 import React from "react";
 import Modal from "react-modal";
-import ReactDropzone from "react-dropzone";
-import request from "superagent";
+import ReactDropzone from "react-dropzone"; 
 
 import Inline from './inline.jsx'
 
