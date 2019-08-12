@@ -73,13 +73,9 @@ export default class TemplateBody extends React.Component {
                 ariaHideApp={false}
               >
                 <div>Upload</div>
-                <ReactDropzone onDrop={this.onDrop}>
-                  {({ getRootProps }) => (
-                    <div className="uploadDropzone" {...getRootProps()}>
-                      Upload File
-                    </div>
-                  )}
-                </ReactDropzone>
+                <form action="/" method="post" encType="multipart/form-data">
+                  <input id="input-file" type="file" accept=".csv,.xls " multiple/>
+                </form>
                 <button onClick={this.closeModal}>close</button>
               </Modal>
               <table>
