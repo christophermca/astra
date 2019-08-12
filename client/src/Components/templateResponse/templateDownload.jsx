@@ -16,14 +16,19 @@ export default class TemplateDownload extends React.Component {
   }
 
   onDrop = files => {
-    console.log(files[0].name);
-    const req = request.post("https://httpbin.org/post");
 
-    files.forEach(file => {
-      req.attach(file.name, file);
-    });
+    console.log(files[0])
+    var reader = new FileReader();
+    let binaryFile;
+    reader.onload = function(e) {
+      var contents = e.target.result;
+      binaryFile = window.btoa(unescape(encodeURIComponent(contents)));
 
-    req.end();
+      var fileObj = {'fileContents': binaryFile, 'name': files[0].name, 'extension':files[0].type }
+      sessionStorage.setItem("binaryFile", JSON.stringify(fileObj));
+    };
+
+    reader.readAsText(files[0]);
   };
 
   openModal = e => {
