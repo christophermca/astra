@@ -48,6 +48,10 @@ export default class TemplateCreation extends React.Component {
           <Dropdown name="configAPI" onChange={this.handleChange} data={stubData.api} />
         </section>
 
+        <section>
+          <TemplateBody />
+        </section>
+
         {this.state.showTemplateBuilder ?
           (<section id="template-builderHeader">
             <input disabled placeholder="GET" />
