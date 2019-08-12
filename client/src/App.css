@@ -31,8 +31,9 @@ section.component section {
 .App {
   display: flex;
   flex-direction: row;
-  height: 100%;
+  height: auto;
   text-align: center;
+  min-height: 100%;
   width: 100%;
 }
 

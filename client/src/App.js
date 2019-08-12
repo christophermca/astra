@@ -1,19 +1,11 @@
 import React from 'react';
 import './App.css';
 import { Route, BrowserRouter as Router } from 'react-router-dom';
-import {TemplateCreation, Leftnav} from './Components';
-import ListView from './Views/ListView.jsx';
+import {Leftnav} from './Components';
+import { HomeView, ListView, CreateView } from './Views/index';
 
 
 // NOTE: temp homepage, should we display a log in message ?
-function Home(props) {
-  return (
-    <React.Fragment>
-      <h2> It&apos;s Astra </h2>
-      <p> '*no login required*'</p>
-    </React.Fragment>
-  );
-}
 
 export default class App extends React.Component {
   constructor(props) {
@@ -30,11 +22,10 @@ export default class App extends React.Component {
           <header>
             <h2> {this.state.title} </h2>
           </header>
-
           <section className="component">
-              <Route exact path="/" component={Home} />
-              <Route path="/templates" component={ListView} title="Templates"/>
-              <Route path="/templates/create" component={TemplateCreation} />
+              <Route exact path="/" component={HomeView} />
+              <Route exact path="/templates" component={ListView} title="Templates List"/>
+              <Route exact path="/templates/create" component={CreateView} title="Templates Create"/>
           </section>
         </div>
       </Router>
