@@ -39,7 +39,6 @@ export default class CardComponent extends React.Component {
   }
 
   render() {
-    console.log(this.state.data)
     return (
       <section key={this.state.data.templateName} className="card-container">
         <div className="card-header">{this.state.data.templateName}</div>
