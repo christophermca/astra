@@ -1,7 +1,6 @@
 import React from 'react';
 
 const TemplateHeader = (props) => {
-    console.log(props);
     return(
         <div id="template-response">
                 <label className="header-title">{props.name}</label>

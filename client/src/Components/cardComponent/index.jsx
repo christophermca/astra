@@ -31,7 +31,7 @@ export default class CardComponent extends React.Component {
               <span className="card-label">Service</span> {this.state.data.serviceId}
             </div>
             <div className="card-value">
-              <span className="card-label">Created Time</span> {this.state.data.createdAt}
+              <span className="card-label">Created Time</span> {this.state.data.createAt}
             </div>
             <div className="card-value">
               <span className="card-label">User ID</span> {this.state.data.userId}

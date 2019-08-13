@@ -14,7 +14,8 @@ form#template-header {
 }
 #template-response{
   margin: 10px;
-  width: 300px;
+  width: auto;
+  max-width: 500px;
   height: 400px;
   border: 1px solid black;
 }
@@ -27,5 +28,9 @@ form#template-header {
 
 #template-response p{
   text-align: left;
-  margin-top: 10px
+  margin-top: 10px; 
+}
+
+#json{
+ overflow: visible;
 }

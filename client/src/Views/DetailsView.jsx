@@ -16,17 +16,15 @@ export default class DetailsView extends View {
         'Content-Type': 'application/json'
       }
     })
-    .then(data => {
-      if (!data) return
-      this.setState({'templateData': data})
-    });
+    .then(resp => resp.json())
+    .then(json => this.setState({'details': json}))
   }
 
   render() {
     return (
       <div>
-      { this.state.templateData ?
-        (<TemplateResponse data={this.state.templateData} />): ''}
+      { this.state.details ?
+        (<TemplateResponse data={this.state.details} />): ''}
       </div>
     );
   }
