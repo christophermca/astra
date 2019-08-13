@@ -9,12 +9,16 @@ const downloadFilesURL =
 
 const upload = async (req, res) => {
   try {
-    const filesToUpload = req.files
+    const filesToUpload = req.body
     let uploadFile = await fetch(uploadFilesURL, {
-      method: "POST",
-      body: filesToUpload
+      "method": "POST",
+      "headers": {
+        "Content-Type": "multipart/form-data"
+      },
+      "body": filesToUpload
     });
-    res.status(201).send({ message: "Uploaded successfully" });
+    console.log(uploadFile);
+    res.status(201).send(uploadFile);
   } catch (err) {
     console.error(err);
     res.status(400);
@@ -24,7 +28,7 @@ const upload = async (req, res) => {
 const download = async (req, res) => {
   try {
     const downloadFiles = await fetch(downloadFilesURL)
-    const files = await downloadFiles.json( req.files)
+    const files = await downloadFiles.json(req.files)
     res.send(files)
     } catch (err) {
       console.error(err);

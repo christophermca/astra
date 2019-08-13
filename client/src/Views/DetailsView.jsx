@@ -24,9 +24,9 @@ export default class DetailsView extends View {
     return (
       <div>
       { this.state.details ?
-            (<section className="component">
-        (<TemplateResponse data={this.state.details} />): ''}
-              </section>) : ''}
+            <section className="component">
+              <TemplateResponse data={this.state.details} />
+            </section> : ''}
       </div>
     );
   }

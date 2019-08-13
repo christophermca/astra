@@ -3,7 +3,7 @@ import Dropdown from "./dropdown.jsx";
 import Button from "./button.jsx";
 import TemplateBody from './templatebody.jsx';
 import "./style.css";
-import * as stubData from "./stubData.json";
+import stubData from "./stubData.json";
 import {TemplateResponse} from '../index.js'
 
 export default class TemplateCreation extends React.Component {
@@ -88,27 +88,16 @@ export default class TemplateCreation extends React.Component {
         </section>
         <section id="template-config">
           <Dropdown name="service" data={stubData.services} />
-          <Dropdown name="environemt" data={stubData.environment} />
-          <Dropdown name="configuration" data={stubData.configuration} />
+          <Dropdown name="environment" data={stubData.environment} />
+          <Dropdown name="configuration" onChange={this.handleChange} data={stubData.configuration} />
           <Dropdown name="configAPI" data={this.state.api} />
-          <section id="template-builderHeader">
-            <Dropdown name="method" data={stubData.method}/>
-            <input placeholder="url" className="template-url" />
-          </section>
         </section>
-        <section>
-          <TemplateBody />
-        </section>
-        <section id="template-button">
-          <Button />
-        </section>
-
 
         {this.state.showTemplateBuilder ?
         (
           <div>
             <section id="template-builderHeader">
-              <input disabled placeholder={this.state.config.method} />
+              <input disabled placeholder={this.state.config.api} />
               <input placeholder={this.state.config.url} className="template-url" />
             </section>
             <TemplateBody header={this.state.config.headers}/>

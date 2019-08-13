@@ -31,6 +31,9 @@ export default class TemplateDownload extends React.Component {
 
       const fileUpload = await fetch("http://localhost:3002/api/files/upload", {
       method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
       body: JSON.stringify(fileObj),
     });
     };
@@ -39,7 +42,7 @@ export default class TemplateDownload extends React.Component {
   };
 
   saveModal = async e =>{
-    
+
   }
 
   openModal = e => {
