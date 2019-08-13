@@ -21,8 +21,7 @@
   ],
 
   "api": [
-    "rest",
-    "kafka"
+    "rest"
   ],
 
   "requestHeader": "test request body information, this came from stubData.json",
