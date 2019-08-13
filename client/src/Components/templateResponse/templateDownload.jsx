@@ -38,7 +38,7 @@ export default class TemplateDownload extends React.Component {
       <div id="template-response">
         <label className="header-title">{this.props.name}</label>
         <div className="header-info">
-        
+
         <Inline />
 
           <a className="upload" onClick={this.openModal}>
