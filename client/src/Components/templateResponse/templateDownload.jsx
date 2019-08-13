@@ -29,17 +29,21 @@ export default class TemplateDownload extends React.Component {
       };
       console.log(fileObj);
 
-      const fileUpload = await fetch("/api/files/upload", {
-        method: "POST",
-        body: JSON.stringify(fileObj),
-        headers: {
-          "Content-Type": "application/json"
-        }
-      });
+      return fileObj;
     };
 
     reader.readAsText(file[0]);
   };
+
+  saveModal = async e =>{
+    const fileUpload = await fetch("http://localhost:3002/api/files/upload", {
+      method: "POST",
+      body: JSON.stringify(this.handleFiles),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    });
+  }
 
   openModal = e => {
     e.preventDefault();
@@ -78,6 +82,7 @@ export default class TemplateDownload extends React.Component {
               />
             </form>
             <button onClick={this.closeModal}>close</button>
+            <button onClick={this.saveModal}>save</button>
           </Modal>
 
           <div className="fileList">

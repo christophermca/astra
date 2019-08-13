@@ -37,6 +37,16 @@ export default class TemplateBody extends React.Component {
     this.setState({ modalIsOpen: false });
   };
 
+  saveModal = async e =>{
+    const fileUpload = await fetch("http://localhost:3002/api/files/upload", {
+      method: "POST",
+      body: JSON.stringify(this.handleFiles),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    });
+  }
+
   handleFiles = async e => {
     const file = e.target.files;
 
@@ -51,19 +61,15 @@ export default class TemplateBody extends React.Component {
         name: file[0].name,
         extension: file[0].type
       };
-      console.log(fileObj);
 
-      const fileUpload = await fetch("/api/files/upload", {
-        method: "POST",
-        body: JSON.stringify(fileObj),
-        headers: {
-          "Content-Type": "application/json"
-        }
-      });
+      console.log(fileObj)
+      return fileObj;
     };
 
     reader.readAsText(file[0]);
   };
+
+
   render() {
     return (
       <section className="template-builderBody">
