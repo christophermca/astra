@@ -7,11 +7,11 @@ import "./style.css";
 export default class TemplateBody extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
+    this.state = Object.assign({
       bodyVisibility: true,
       line: "body",
       modalIsOpen: false
-    };
+    }, props);
 
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
@@ -43,12 +43,13 @@ export default class TemplateBody extends React.Component {
   closeModal = () => {
     this.setState({ modalIsOpen: false });
   };
+
   render() {
     return (
       <section className="template-builderBody">
         <div className="template-header">
           <label>Header</label>
-          <textarea />
+          <textarea value={JSON.stringify(this.state.header)} />
         </div>
 
         <div className="template-body">

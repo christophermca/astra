@@ -24,10 +24,6 @@
     "rest",
     "kafka"
   ],
-  "method": [
-    "POST",
-    "GET"
-  ],
 
   "requestHeader": "test request body information, this came from stubData.json",
 
