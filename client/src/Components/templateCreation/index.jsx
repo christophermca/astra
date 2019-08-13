@@ -4,15 +4,18 @@ import Button from "./button.jsx";
 import TemplateBody from './templatebody.jsx';
 import "./style.css";
 import * as stubData from "./stubData.json";
+import {TemplateResponse} from '../index.js'
 
 export default class TemplateCreation extends React.Component {
   constructor(props) {
     super(props);
     this.state = Object.assign({}, props, stubData);
-    this.handleChange = this.handleChange.bind(this)
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleChange(evt) {
+
     switch(evt.target.value) {
       case 'alpha':
         this.setState({ 'config': {
@@ -54,13 +57,18 @@ export default class TemplateCreation extends React.Component {
         break;
     }
 
-    this.setState({'showTemplateBuilder': true})
+    this.setState({'api': ['rest'], 'showTemplateBuilder': true})
 
   }
 
   handleSubmit(evt) {
     evt.preventDefault();
-    console.log('[CALLS to save template]');
+    if(!this.state.showTemplateDetails) {
+      console.log('[CREATE template]');
+      this.setState({"showTemplateDetails": true });
+    } else {
+      console.log('[SAVE template]');
+    }
   }
 
   render() {
@@ -74,7 +82,7 @@ export default class TemplateCreation extends React.Component {
           <Dropdown name="service" data={stubData.service} />
           <Dropdown name="environment" data={stubData.environment} />
           <Dropdown name="configuration" onChange={this.handleChange} data={stubData.configuration} />
-          <Dropdown name="configAPI" data={stubData.api} />
+          <Dropdown name="configAPI" data={this.state.api} />
         </section>
 
 
@@ -86,12 +94,17 @@ export default class TemplateCreation extends React.Component {
               <input placeholder={this.state.config.url} className="template-url" />
             </section>
             <TemplateBody header={this.state.config.headers}/>
+            <section id="template-button">
+              <button onClick={this.handleSubmit} type="submit">Send</button>
+            </section>
           </div>
         ) : ''
         }
-        <section id="template-button">
-          <button onClick={this.handleSubmit} type="submit">Send</button>
-        </section>
+        {this.state.showTemplateDetails ?
+            (
+              <TemplateResponse />
+            ) : ''
+        }
       </form>
     );
   }

@@ -7,8 +7,7 @@ import * as stubData from "./stubData.json";
 export default class TemplateResponse extends React.Component {
   constructor(props) {
     super(props);
-    this.state = Object.assign({}, props, stubData);
-    console.log(stubData)
+    this.state = Object.assign({}, props);
   }
 
   render() {
