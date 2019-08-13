@@ -40,10 +40,6 @@ export default class TemplateBody extends React.Component {
 
   saveModal = async e =>{
     console.log(this.fileObject)
-    const fileUpload = await fetch("http://localhost:3002/api/files/upload", {
-      method: "POST",
-      body: JSON.stringify(this.handleFiles),
-    });
   }
 
   handleFiles = async e => {
@@ -61,6 +57,10 @@ export default class TemplateBody extends React.Component {
         extension: file[0].type
       };
 
+      const fileUpload = await fetch("http://localhost:3002/api/files/upload", {
+      method: "POST",
+      body: JSON.stringify(fileObj),
+    });
       this.setState({ fileObject: fileObj})
     };
 
