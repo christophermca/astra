@@ -12,6 +12,7 @@ export default class TemplateResponse extends React.Component {
 
   render() {
     const data = this.props.data;
+    console.log(data)
     return (
       <form id="template-header">
       {/*
@@ -21,7 +22,7 @@ export default class TemplateResponse extends React.Component {
         </section>
       */}
         <section className="response-body">
-          <TemplateHeader name="Request Header" data={<pre id="json">{JSON.stringify(data.requestHeaders, null, 2)}</pre>}/>
+          <TemplateHeader name="Request Header" data={JSON.stringify(data.requestHeaders, null, 2)}/>
           <TemplateHeader name="Request Body" data={data.requestBody}/>
           <TemplateHeader name="Response Body" data={data.responseBody}/>
           <TemplateDownload name="Data Files" files={data.datasets}/>

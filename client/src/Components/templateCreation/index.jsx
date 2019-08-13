@@ -65,13 +65,21 @@ export default class TemplateCreation extends React.Component {
     evt.preventDefault();
     if(!this.state.showTemplateDetails) {
       console.log('[CREATE template]');
-      this.setState({"showTemplateDetails": true });
+      fetch(`/api/templates/templatedetails?id=1`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+      .then(resp => resp.json())
+      .then(json => this.setState({'details': json, "showTemplateDetails": true}))
     } else {
       console.log('[SAVE template]');
     }
   }
 
   render() {
+    console.log(this.state.details)
     return (
       <form>
         <section id="template-header">
@@ -102,7 +110,7 @@ export default class TemplateCreation extends React.Component {
         }
         {this.state.showTemplateDetails ?
             (
-              <TemplateResponse />
+              <TemplateResponse data={this.state.details}/>
             ) : ''
         }
       </form>
