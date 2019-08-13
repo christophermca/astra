@@ -11,12 +11,9 @@ export default class TemplateDownload extends React.Component {
     this.state = {
       modalIsOpen: false
     };
-
-    console.log(props);
   }
 
   onDrop = files => {
-    console.log(files[0].name);
     const req = request.post("https://httpbin.org/post");
 
     files.forEach(file => {
@@ -36,6 +33,7 @@ export default class TemplateDownload extends React.Component {
   };
 
   render() {
+    console.log(this.props.files)
     return (
       <div id="template-response">
         <label className="header-title">{this.props.name}</label>
