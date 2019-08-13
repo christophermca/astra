@@ -7,10 +7,11 @@ import * as stubData from "./stubData.json";
 export default class TemplateResponse extends React.Component {
   constructor(props) {
     super(props);
-    this.state = Object.assign({}, props);
+    this.state = Object.assign({}, props, stubData);
   }
 
   render() {
+    const data = this.props.data;
     return (
       <form id="template-header">
       {/*
@@ -20,10 +21,10 @@ export default class TemplateResponse extends React.Component {
         </section>
       */}
         <section className="response-body">
-          <TemplateHeader name="Request Header" data={stubData.requestHeader}/>
-          <TemplateHeader name="Request Body" data={stubData.requestBody}/>
-          <TemplateHeader name="Response Body" data={stubData.responseBody}/>
-          <TemplateDownload name="Data Files" files={stubData.datasets}/>
+          <TemplateHeader name="Request Header" data={<pre id="json">{JSON.stringify(data.requestHeaders, null, 2)}</pre>}/>
+          <TemplateHeader name="Request Body" data={data.requestBody}/>
+          <TemplateHeader name="Response Body" data={data.responseBody}/>
+          <TemplateDownload name="Data Files" files={data.datasets}/>
         </section>
       </form>
     );
