@@ -1,11 +1,12 @@
 const express = require("express");
-const uploadUtils = require('./uploadFile.utils');
+const { upload, download } = require("./uploadFile.utils");
 
 const router = express.Router();
 
 //* /api/files/upload
 
-router
-    .route('/upload')
-    .post(uploadUtils.upload)
+router.route("/upload").post(upload);
+
+router.route("/download").get(download);
+
 module.exports = router;
