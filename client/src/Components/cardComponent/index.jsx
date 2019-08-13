@@ -17,7 +17,7 @@ export default class CardComponent extends React.Component {
     let templateDetail = `/templates/details/${this.state.data.templateId}`
     return (
       <section key={this.state.data.templateName} className="card-container">
-        <div className="card-header">{this.state.data.templateName}</div>
+        <Link to={templateDetail} className="card-header">{this.state.data.templateName}</Link>
         <div className="card-button">
           execute<span>...</span>
         </div>
@@ -41,7 +41,6 @@ export default class CardComponent extends React.Component {
             </div>
           </div>
         </div>
-        <Link to={templateDetail} className="card-detail">details</Link>
       </section>
     );
   }
