@@ -41,9 +41,6 @@ export default class TemplateBody extends React.Component {
     const fileUpload = await fetch("http://localhost:3002/api/files/upload", {
       method: "POST",
       body: JSON.stringify(this.handleFiles),
-      headers: {
-        "Content-Type": "application/json"
-      }
     });
   }
 
