@@ -45,6 +45,7 @@ const getOneTemplate = async (req, res) => {
 
 const createTemplate = async (req, res) => {
   try {
+    if(!useStubData) {
     const newTemplate = await fetch(createTemplateURL, {
       method: "POST",
       body: JSON.stringify(req.body),
@@ -52,6 +53,9 @@ const createTemplate = async (req, res) => {
         "Content-Type": "application/json"
       }
     });
+    } else {
+      console.log('would call to create Template')
+    }
     res.status(200).send({ message: "Template created successfully" });
   } catch (err) {
     console.error(err);

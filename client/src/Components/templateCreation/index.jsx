@@ -10,18 +10,30 @@ export default class TemplateCreation extends React.Component {
     super(props);
     this.state = Object.assign({}, props, stubData);
     this.handleChange = this.handleChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
+
+    // Handle showing template details
+    window.addEventListener('displayTemplateDetails', (data) => {
+      this.setTemplateData(data)
+    });
+
   }
 
   handleChange(evt) {
     if (evt.target.value) {
       this.setState({"showTemplateBuilder": true})
     }
-
   }
 
   handleSubmit(evt) {
     evt.preventDefault();
     console.log('[CALLS to save template]');
+    fetch('api/templates/createtemplate', {method: 'POST'})
+    .then(data => {
+      const event = new Event('getTempalteData', data)
+      window.dispatchEvent(event)
+    })
+
 
   }
 

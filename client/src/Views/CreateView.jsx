@@ -1,8 +1,9 @@
 import React from 'react';
 import { TemplateResponse, TemplateCreation } from '../Components';
 import './styles/createView.css'
+import View from './View.jsx'
 
-export default class ListView extends React.Component {
+export default class CreateView extends View {
   constructor(props) {
     super(props);
     this.state = Object.assign({}, props)
@@ -10,7 +11,7 @@ export default class ListView extends React.Component {
 
   render() {
     return (
-        <section className="component" name="cardComponent">
+        <section className="component">
           <TemplateCreation />
           {this.state.templateData ?
             <TemplateResponse /> : ''
