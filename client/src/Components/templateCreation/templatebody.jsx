@@ -9,7 +9,8 @@ export default class TemplateBody extends React.Component {
       {
         bodyVisibility: true,
         line: "body",
-        modalIsOpen: false
+        modalIsOpen: false,
+        fileObject: ""
       },
       props
     );
@@ -38,6 +39,7 @@ export default class TemplateBody extends React.Component {
   };
 
   saveModal = async e =>{
+    console.log(this.fileObject)
     const fileUpload = await fetch("http://localhost:3002/api/files/upload", {
       method: "POST",
       body: JSON.stringify(this.handleFiles),
@@ -49,7 +51,7 @@ export default class TemplateBody extends React.Component {
 
     var reader = new FileReader();
     let binaryFile;
-    reader.onload = async function(e) {
+    reader.onload = async e => {
       var contents = e.target.result;
       binaryFile = window.btoa(unescape(encodeURIComponent(contents)));
 
@@ -59,8 +61,7 @@ export default class TemplateBody extends React.Component {
         extension: file[0].type
       };
 
-      console.log(fileObj)
-      return fileObj;
+      this.setState({ fileObject: fileObj})
     };
 
     reader.readAsText(file[0]);
