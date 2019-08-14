@@ -6,6 +6,26 @@ section#template-header {
   margin-bottom: 10px;
 }
 
+main {
+  border: 1px solid black;
+  display: flex;
+  flex-direction: column;
+  min-height: 122px;
+  justify-content: center;
+  padding: 50px;
+  box-sizing: border-box;
+}
+
+aside.meta-info {
+  display:flex;
+}
+aside.meta-info div {
+  border: 1px solid black;
+  padding: 5px;
+  flex-basis: 10%;
+  border-radius: 5px;
+}
+
 section#template-header input {
   display: inline-flex;
   height: 40px;
@@ -15,6 +35,7 @@ section#template-header input {
 
 #template-config {
   display: flex;
+  flex-basis: 100%;
   justify-content: space-between;
 }
 
@@ -30,8 +51,6 @@ section#template-header input {
   display: flex;
   margin: 20px 0;
 }
-
-
 
 .template-url{
   width: 700px;

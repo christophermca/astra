@@ -7,7 +7,7 @@
 }
 
 html {
-  background-color: #efefef;
+  background-color: #ffffff;
 }
 
 section.component {
@@ -15,6 +15,10 @@ section.component {
   background:#fff;
   padding: 10px;
 
+}
+
+section[name="card-component"] {
+  background-color: rgb(242, 242, 242);
 }
 
 section.component input,

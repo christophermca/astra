@@ -1,0 +1,38 @@
+{
+  "alpha": {
+    "method": "GET",
+    "url": "https://www.walmart.com/globalnav/vanilla-fragments/mobile/get-all",
+    "headers": {
+      "Host": "www.walmart.com",
+      "User-Agent": "Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101 Firefox/68.0",
+      "Accept": "application/json",
+      "Accept-Language": "en-US,en;q=0.5",
+      "Accept-Encoding": "gzip, deflate, br",
+      "Content-Type": "application/json",
+      "appReferer": "?tid=0&returnUrl=%2Fsearch%2F%3Fcat_id%3D0%26query%3Ddogs%2Bfood",
+      "isExternal": "false",
+      "Connection": "keep-alive",
+      "Referer": "https://www.walmart.com/search/?cat_id=0&query=dogs+food",
+      "TE": "Trailers"
+    }
+  },
+  "bravo": {
+    "method": "POST",
+    "url": "https://www.walmart.com/cp/api/logger",
+    "headers": {
+      "Host": "www.walmart.com",
+      "User-Agent": "Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101 Firefox/68.0",
+      "Accept": "application/json",
+      "Accept-Language": "en-US,en;q=0.5",
+      "Accept-Encoding": "gzip, deflate, br",
+      "Referer": "https://www.walmart.com/cp/back-to-college/8174172?athcpid=f56109ed-ca18-4f87-998c-cb662220d264&athpgid=athenaHomepage&athznid=athenaModuleZone&athmtid=AthenaPOVCarouselStory&athtvid=4&athena=true&athstid=CS011%7CCS041&athftid=P0000&athguid=466001f5-46cfa622-a11b7499a18a716",
+      "Content-Type": "application/json",
+      "Origin": "https://www.walmart.com",
+      "Content-Length": "747",
+      "Connection": "keep-alive",
+      "TE": "Trailers"
+      }
+    },
+    "charlie": {},
+    "delta": {}
+}

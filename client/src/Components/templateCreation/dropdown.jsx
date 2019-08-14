@@ -7,8 +7,7 @@ function Dropdown(props) {
   return (
     <select onChange={props.onChange} name={props.name}>
       <option value="" selected disabled hidden> Choose {props.name}</option>
-    // TODO logic should be handled by the profile service
-      { stub.map(data => data === 'rest' ? <option selected="selected">{data}</option> : <option>{data}</option>) }}
+      { stub.map(data => <option>{data}</option>) }
     </select>
   )
 }

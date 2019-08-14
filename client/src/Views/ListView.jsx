@@ -28,7 +28,7 @@ export default class ListView extends React.Component {
     return (
       <div>
         <React.Fragment>
-          <section className="component" name="cardComponent">
+          <section className="component" name="card-component">
             <div className="create">
               <button>
                 <Link to="/templates/create">Create</Link>
