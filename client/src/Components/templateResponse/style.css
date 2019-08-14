@@ -11,8 +11,10 @@ form#template-header {
 
 .response-body{
   display: flex;
+  flex-direction: column;
 }
-#template-response{
+
+.template-response {
   margin: 10px;
   width: auto;
   max-width: 500px;
@@ -20,17 +22,17 @@ form#template-header {
   border: 1px solid black;
 }
 
-#template-response label{
+.template-response label {
   border: 1px solid black;
   display: inherit;
   background-color: grey;
 }
 
-#template-response p{
+.template-response p {
   text-align: left;
-  margin-top: 10px; 
+  margin-top: 10px;
 }
 
-#json{
+#json {
  overflow: visible;
 }
