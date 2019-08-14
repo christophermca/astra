@@ -16,6 +16,16 @@ main {
   box-sizing: border-box;
 }
 
+aside.meta-info {
+  display:flex;
+}
+aside.meta-info div {
+  border: 1px solid black;
+  padding: 5px;
+  flex-basis: 10%;
+  border-radius: 5px;
+}
+
 section#template-header input {
   display: inline-flex;
   height: 40px;

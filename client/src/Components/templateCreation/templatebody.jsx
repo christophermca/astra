@@ -19,30 +19,31 @@ export default class TemplateBody extends React.Component {
     this.closeModal = this.closeModal.bind(this);
   }
 
-  handleBody = () => {
+
+  handleBody() {
     console.log("body clicked");
     this.setState({ bodyVisibility: true });
   };
 
-  handleData = () => {
+  handleData() {
     console.log("data click");
     this.setState({ bodyVisibility: false });
   };
 
-  openModal = e => {
+  openModal(e) {
     e.preventDefault();
     this.setState({ modalIsOpen: true });
   };
 
-  closeModal = () => {
+  closeModal() {
     this.setState({ modalIsOpen: false });
   };
 
-  saveModal = async e =>{
+  async saveModal(e) {
     console.log(this.fileObject)
   }
 
-  handleFiles = async e => {
+  async handleFiles(e) {
     const file = e.target.files;
 
     var reader = new FileReader();
@@ -73,7 +74,7 @@ export default class TemplateBody extends React.Component {
       <section className="template-builderBody">
         <div className="template-header">
           <label>Header</label>
-          <textarea value={JSON.stringify(this.state.header)} />
+          <textarea value={JSON.stringify(this.props.header)} />
         </div>
 
         <div className="template-body">

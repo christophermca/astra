@@ -1,6 +1,5 @@
 import React from "react";
 import Dropdown from "./dropdown.jsx";
-import Button from "./button.jsx";
 import TemplateBody from './templatebody.jsx';
 import "./style.css";
 import { profileConfig, responseStub as stubData } from './stubs/index'
@@ -10,12 +9,12 @@ export default class TemplateCreation extends React.Component {
   constructor(props) {
     super(props);
     this.state = Object.assign({}, props);
-    this.handleChange = this.handleChange.bind(this);
+    this.handleConfigChange = this.handleConfigChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleChange(evt) {
-
+  // TODO logic should be handled by the profile service
+  handleConfigChange(evt) {
     switch(evt.target.value) {
       case 'alpha':
         this.setState({ 'config': profileConfig['alpha']})
@@ -55,10 +54,10 @@ export default class TemplateCreation extends React.Component {
           <input placeholder="Template Description *Required" required />
         </section>
         <main>
-          <section id="template-config">
+          <section id="template-config" >
             <Dropdown name="service" data={stubData.services} />
             <Dropdown name="environment" data={stubData.environment} />
-            <Dropdown name="configuration" onChange={this.handleChange} data={stubData.configuration} />
+            <Dropdown name="configuration" data={stubData.configuration} onChange={this.handleConfigChange}/>
           </section>
 
           {this.state.showTemplateBuilder ?
@@ -69,7 +68,9 @@ export default class TemplateCreation extends React.Component {
                 <input placeholder={this.state.config.url} className="template-url" />
               </section>
               <section>
-                <div>{stubData.api}</div>
+                <aside className="meta-info">
+                  <div>{stubData.api}</div>
+                </aside>
                 <TemplateBody header={this.state.config.headers}/>
                 <section id="template-button">
                   <button onClick={this.handleSubmit} type="submit">Send</button>
