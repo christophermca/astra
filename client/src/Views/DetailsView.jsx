@@ -2,11 +2,12 @@ import React from 'react';
 import { TemplateResponse } from '../Components';
 import { Link } from "react-router-dom";
 import View from './View.jsx'
+import { profileConfig } from '../Stubs/ProfileService'
 
 export default class DetailsView extends View {
   constructor(props) {
     super(props);
-    this.state = Object.assign({}, props);
+    this.state = Object.assign({}, props, {config: profileConfig['alpha']});
   }
 
   componentDidMount() {
@@ -25,7 +26,7 @@ export default class DetailsView extends View {
       <div>
       { this.state.details ?
             <section className="component">
-              <TemplateResponse data={this.state.details} />
+              <TemplateResponse data={this.state.details} config={this.state.config} />
             </section> : ''}
       </div>
     );

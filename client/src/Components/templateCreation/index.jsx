@@ -2,7 +2,7 @@ import React from "react";
 import Dropdown from "./dropdown.jsx";
 import TemplateBody from './templatebody.jsx';
 import "./style.css";
-import { profileConfig, responseStub as stubData } from './stubs/index'
+import { profileConfig, responseStub as stubData } from '../../Stubs/ProfileService'
 import {TemplateResponse} from '../index.js'
 
 export default class TemplateCreation extends React.Component {

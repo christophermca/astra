@@ -9,9 +9,11 @@ form#template-header {
   flex-direction: column;
 }
 
-.response-body{
+.response-data {
   display: flex;
+  flex-direction:column
 }
+
 #template-response{
   margin: 10px;
   width: auto;
@@ -28,7 +30,7 @@ form#template-header {
 
 #template-response p{
   text-align: left;
-  margin-top: 10px; 
+  margin-top: 10px;
 }
 
 #json{

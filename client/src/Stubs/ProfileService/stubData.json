@@ -1,0 +1,32 @@
+{
+  "services": [
+    "alpha",
+    "bravo",
+    "charlie",
+    "delta"
+  ],
+
+  "environment": [
+    "alpha",
+    "bravo",
+    "charlie",
+    "delta"
+  ],
+
+  "configuration": [
+    "alpha",
+    "bravo",
+    "charlie",
+    "delta"
+  ],
+
+  "api": [
+    "rest"
+  ],
+
+  "requestHeader": "test request body information, this came from stubData.json",
+
+  "requestBody": "test request body information, this came from stubData.json",
+
+  "responseBody": "test request body information, this came from stubData.json"
+}
