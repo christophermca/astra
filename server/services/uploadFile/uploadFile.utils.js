@@ -5,7 +5,7 @@ const uploadFilesURL =
   "http://172.22.8.151:8080/v2/template/uploadMultipleFiles";
 
 const downloadFilesURL =
-  "http://172.22.8.151:8080/v2/template/FileDownload";
+  "http://172.22.8.151:8080/v2/template/fileDownload/";
 
 const upload = async (req, res) => {
   try {
@@ -26,16 +26,24 @@ const upload = async (req, res) => {
 };
 
 const download = async (req, res) => {
+  let queryId = req.query.id;
   try {
-    const downloadFiles = await fetch(downloadFilesURL)
-    const files = await downloadFiles.json(req.files)
-    res.send(files)
-    } catch (err) {
-      console.error(err);
-      res.status(400);
-    }
+    fetch(`${downloadFilesURL}/${queryId}`,
+      {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/octet-stream' }
+      })
+      .then((response) => response.buffer())
+      .then((data) => {
+        console.log(data);
+        res.status(200);
+        res.send(data);
+      })
+  } catch (err) {
+    console.error(err);
+    res.status(400);
   }
-
+}
 
 module.exports = {
   upload,
