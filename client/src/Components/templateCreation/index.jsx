@@ -62,7 +62,8 @@ export default class TemplateCreation extends React.Component {
           </section>
 
           <section>
-            <Accordian  name="Request Header" content={<Accordian />}/>
+            <Accordian  name="input file" content={<Accordian name="inputfile.csv"/>}/>
+            <Accordian name="Request Header" content="request header information"/>
           </section>
 
           {this.state.showTemplateBuilder ?
