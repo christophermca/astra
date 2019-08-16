@@ -1,11 +1,10 @@
 .accordianWrapper{
-    max-width: 700px;
     max-height: 800px;
-    overflow: scroll;
+    margin: 20px;
 }
 
 .accordianCloseHeader{
-    max-width: 400px;
+    width: 450px;
     height: 28px;
     border: 1px solid black;
     background-color: rgb(169, 169, 169);
@@ -14,7 +13,7 @@
 }
 
 .accordianOpenHeader{
-    width: 400px;
+    width: 450px;
     height: 28px;
     border: 1px solid black;
     background-color: rgb(169, 169, 169, 0.5);
@@ -37,13 +36,21 @@
 
 
 .accordianContent{
-    max-width: 400px;
+    max-width: 450px;
     min-height: 250px;
     flex-basis: auto;
     border: 1px solid black;
     display: flex;
+    overflow: scroll;
+    
 }
 
 .accordianContent p{
     margin: 15px;
+    
+}
+
+.accordianContent .accordianOpenHeader, 
+.accordianContent .accordianCloseHeader{
+    width: 370px;
 }
