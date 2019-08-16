@@ -4,6 +4,7 @@ import TemplateBody from './templatebody.jsx';
 import "./style.css";
 import { profileConfig, responseStub as stubData } from './stubs/index'
 import {TemplateResponse} from '../index.js'
+import Accordian from "../shared/accordian";
 
 export default class TemplateCreation extends React.Component {
   constructor(props) {
@@ -58,6 +59,10 @@ export default class TemplateCreation extends React.Component {
             <Dropdown name="service" data={stubData.services} />
             <Dropdown name="environment" data={stubData.environment} />
             <Dropdown name="configuration" data={stubData.configuration} onChange={this.handleConfigChange}/>
+          </section>
+
+          <section>
+            <Accordian  name="Request Header" content={<Accordian />}/>
           </section>
 
           {this.state.showTemplateBuilder ?

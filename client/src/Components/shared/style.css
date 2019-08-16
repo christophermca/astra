@@ -1,0 +1,49 @@
+.accordianWrapper{
+    max-width: 700px;
+    max-height: 800px;
+    overflow: scroll;
+}
+
+.accordianCloseHeader{
+    max-width: 400px;
+    height: 28px;
+    border: 1px solid black;
+    background-color: rgb(169, 169, 169);
+    display: flex;
+    justify-content: space-between;
+}
+
+.accordianOpenHeader{
+    width: 400px;
+    height: 28px;
+    border: 1px solid black;
+    background-color: rgb(169, 169, 169, 0.5);
+    display: flex;
+    justify-content: space-between;
+}
+
+.accordianCloseHeader div, .accordianOpenHeader div{
+    margin: 7px;
+}
+
+.accordianState{
+    background-color: black;
+    width: 15px;
+    height: 15px;
+    color: white;
+    font-size: 20px;
+    position: relative;
+}
+
+
+.accordianContent{
+    max-width: 400px;
+    min-height: 250px;
+    flex-basis: auto;
+    border: 1px solid black;
+    display: flex;
+}
+
+.accordianContent p{
+    margin: 15px;
+}
