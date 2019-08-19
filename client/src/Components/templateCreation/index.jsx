@@ -4,6 +4,8 @@ import TemplateBody from './templatebody.jsx';
 import "./style.css";
 import { profileConfig, responseStub as stubData } from './stubs/index'
 import {TemplateResponse} from '../index.js'
+import StatefullAccordian from "../shared/statefullaccordian";
+
 
 export default class TemplateCreation extends React.Component {
   constructor(props) {
