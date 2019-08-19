@@ -11,7 +11,19 @@ form#template-header {
 
 .response-body{
   display: flex;
+  flex-direction: column;
 }
+
+.responseContent{
+  text-align: left;
+  font-size: 15px;
+  line-height: 25px;
+}
+
+.responseNestedContent div{
+  margin: 10px 0;
+}
+
 #template-response{
   margin: 10px;
   width: auto;
