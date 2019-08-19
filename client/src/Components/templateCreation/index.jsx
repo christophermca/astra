@@ -62,11 +62,6 @@ export default class TemplateCreation extends React.Component {
             <Dropdown name="configuration" data={stubData.configuration} onChange={this.handleConfigChange}/>
           </section>
 
-          <section>
-            <StatefullAccordian  name="input file" content={<StatefullAccordian name="inputfile.csv"/>}/>
-            <StatefullAccordian name="Request Header" content="request header information"/>
-          </section>
-
           {this.state.showTemplateBuilder ?
           (
             <React.Fragment>
