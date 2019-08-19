@@ -1,6 +1,7 @@
 import React from "react";
 import Dropdown from "./dropdown.jsx";
 import TemplateBody from './templatebody.jsx';
+import Builder from './builder.jsx'
 import "./style.css";
 import { profileConfig, responseStub as stubData } from '../../Stubs/ProfileService'
 import {TemplateResponse} from '../index.js'
@@ -20,11 +21,13 @@ export default class TemplateCreation extends React.Component {
         this.setState({ 'config': profileConfig['alpha']})
         break;
       case 'bravo':
-        this.setState({ 'config': profileConfig['bravo']})
+        this.setState({ 'config': profileConfig['bravo'] })
         break;
+      default:
+        // Does nothing
     }
 
-    this.setState({'api': ['rest'], 'showTemplateBuilder': true})
+    this.setState({'showTemplateBuilder': true})
 
   }
 
@@ -63,19 +66,7 @@ export default class TemplateCreation extends React.Component {
           {this.state.showTemplateBuilder ?
           (
             <React.Fragment>
-              <section id="template-builderHeader">
-                <input disabled placeholder={this.state.config.method} />
-                <input placeholder={this.state.config.url} className="template-url" />
-              </section>
-              <section>
-                <aside className="meta-info">
-                  <div>{stubData.api}</div>
-                </aside>
-                <TemplateBody header={this.state.config.headers}/>
-                <section id="template-button">
-                  <button onClick={this.handleSubmit} type="submit">Send</button>
-                </section>
-              </section>
+              <Builder config={this.state.config} handleSubmit={this.handleSubmit}/>
             </React.Fragment>
           ) : ''
           }

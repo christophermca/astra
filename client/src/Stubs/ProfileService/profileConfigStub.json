@@ -1,5 +1,6 @@
 {
   "alpha": {
+    "api": "Rest",
     "method": "GET",
     "url": "https://www.walmart.com/globalnav/vanilla-fragments/mobile/get-all",
     "headers": {
@@ -17,6 +18,7 @@
     }
   },
   "bravo": {
+    "api": "Rest",
     "method": "POST",
     "url": "https://www.walmart.com/cp/api/logger",
     "headers": {
