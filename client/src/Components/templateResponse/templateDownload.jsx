@@ -18,7 +18,7 @@ export default class TemplateDownload extends React.Component {
 
     var reader = new FileReader();
     let binaryFile;
-    reader.onload = async function(e) {
+    reader.onload = async function (e) {
       var contents = e.target.result;
       binaryFile = window.btoa(unescape(encodeURIComponent(contents)));
 
@@ -30,20 +30,20 @@ export default class TemplateDownload extends React.Component {
       console.log(fileObj);
 
       const fileUpload = await fetch("http://localhost:3002/api/files/upload", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(fileObj),
-    });
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(fileObj),
+      });
     };
 
     reader.readAsText(file[0]);
   };
 
-  saveModal = async e =>{
+  saveModal = async e => {
 
-  }
+  };
 
   openModal = e => {
     e.preventDefault();
