@@ -5,7 +5,7 @@ const uploadFilesURL =
   "http://172.22.8.151:8080/v2/template/uploadMultipleFiles";
 
 const downloadFilesURL =
-  "http://172.22.8.151:8080/v2/template/fileDownload/";
+  "http://172.22.8.106:8080/v2/template/fileDownload/";
 
 const upload = async (req, res) => {
   try {
