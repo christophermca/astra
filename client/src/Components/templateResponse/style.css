@@ -11,6 +11,8 @@ form#template-header {
 
 .response-body{
   display: flex;
+  flex-direction: column;
+  text-align: left;
 }
 #template-response{
   margin: 10px;

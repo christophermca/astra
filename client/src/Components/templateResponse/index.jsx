@@ -3,6 +3,7 @@ import TemplateHeader from './templateHeader.jsx';
 import TemplateDownload from './templateDownload.jsx';
 import "./style.css";
 import * as stubData from "./stubData.json";
+import StatefullAccordian from "../shared/statefullaccordian";
 
 export default class TemplateResponse extends React.Component {
   constructor(props) {
@@ -22,10 +23,14 @@ export default class TemplateResponse extends React.Component {
         </section>
       */}
         <section className="response-body">
-          <TemplateHeader name="Request Header" data={JSON.stringify(data.requestHeaders, null, 2)}/>
+          {/* <TemplateHeader name="Request Header" data={JSON.stringify(data.requestHeaders, null, 2)}/>
           <TemplateHeader name="Request Body" data={data.requestBody}/>
           <TemplateHeader name="Response Body" data={data.responseBody}/>
-          <TemplateDownload name="Data Files" files={data.datasets}/>
+          <TemplateDownload name="Data Files" files={data.datasets}/> */}
+
+          <StatefullAccordian name="Request Header" content={JSON.stringify(data.requestHeaders, null, 2)} />
+          <StatefullAccordian name="Request Body" content={data.requestBody} />
+          <StatefullAccordian name="Response Body" content={data.responseBody}/>
         </section>
       </form>
     );
