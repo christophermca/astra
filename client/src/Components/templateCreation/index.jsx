@@ -4,7 +4,8 @@ import TemplateBody from './templatebody.jsx';
 import "./style.css";
 import { profileConfig, responseStub as stubData } from './stubs/index'
 import {TemplateResponse} from '../index.js'
-import Accordian from "../shared/accordian";
+import StatefullAccordian from "../shared/statefullaccordian";
+
 
 export default class TemplateCreation extends React.Component {
   constructor(props) {
@@ -62,8 +63,8 @@ export default class TemplateCreation extends React.Component {
           </section>
 
           <section>
-            <Accordian  name="input file" content={<Accordian name="inputfile.csv"/>}/>
-            <Accordian name="Request Header" content="request header information"/>
+            <StatefullAccordian  name="input file" content={<StatefullAccordian name="inputfile.csv"/>}/>
+            <StatefullAccordian name="Request Header" content="request header information"/>
           </section>
 
           {this.state.showTemplateBuilder ?
