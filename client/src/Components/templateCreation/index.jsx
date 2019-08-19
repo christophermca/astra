@@ -1,6 +1,5 @@
 import React from "react";
 import Dropdown from "./dropdown.jsx";
-import TemplateBody from './templatebody.jsx';
 import Builder from './builder.jsx'
 import "./style.css";
 import { profileConfig, responseStub as stubData } from '../../Stubs/ProfileService'
