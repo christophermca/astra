@@ -5,7 +5,7 @@ const StatelessAccordian = props => {
 
   const accordianState = props => {
     if (props.toggleState) {
-      return <div>+</div>;
+      return <div className="accordianState">+</div>;
     } else {
       return (
         <>

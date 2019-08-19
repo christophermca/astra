@@ -31,8 +31,8 @@ export default class StatefullAccordian extends React.Component {
 
   render() {
     return (
-      <div>
-        <div className="accordianWrapper" onClick={this.handleAccordian}>
+      <div className="accordianWrapper">
+        <div  onClick={this.handleAccordian}>
           <StatelessAccordian
             name={this.props.name}
             classState={this.state.accordianClassname}
