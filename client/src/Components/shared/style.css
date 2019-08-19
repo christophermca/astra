@@ -12,6 +12,14 @@
     justify-content: space-between;
 }
 
+.accordianHeader, .accordianState{
+    align-self: center;
+    align-content: center;
+}
+
+.accordianToggle{
+    display: flex;
+}
 .accordianOpenHeader{
     width: 450px;
     height: 28px;

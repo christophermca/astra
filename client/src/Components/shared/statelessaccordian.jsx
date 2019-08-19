@@ -17,7 +17,7 @@ const StatelessAccordian = props => {
   return (
     <div className={props.classState}>
       <div className="accordianHeader"> {props.name}</div>
-      <div>{accordianState(props)}</div>
+      <div className="accordianToggle">{accordianState(props)}</div>
     </div>
   );
 };
