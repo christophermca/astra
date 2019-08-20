@@ -41,7 +41,7 @@ export default class StatefullAccordian extends React.Component {
         </div>
         {this.state.openAccordian && (
           <div className="accordianContent">
-            <p>{this.props.content}</p>
+            <div>{this.props.content}</div>
           </div>
         )}
       </div>

@@ -21,7 +21,7 @@ export default class QueryBuilder extends React.Component {
     //     queryToString: queryToString
     // }
 
-    queryToString(query) {
+    queryToString = (query) =>{
         if (!query) {
             return '';
         }
@@ -53,7 +53,7 @@ export default class QueryBuilder extends React.Component {
         return result;
     };
 
-    getDefaultProps() {
+    getDefaultProps =()=> {
         return {
             initialQuery: {
                 type: 'ConditionGroup',
@@ -64,7 +64,7 @@ export default class QueryBuilder extends React.Component {
         };
     }
 
-    getInitialState() {
+    getInitialState = () =>{
         var queryFreezerStore = new Freezer(this.props.initialQuery);
         var query = queryFreezerStore.get();
 
@@ -76,18 +76,29 @@ export default class QueryBuilder extends React.Component {
 
     componentDidMount() {
         // Update state every time query changes
-        this.setState({
-            query: this.getQuery()
-        });
+        // this.setState({
+        //     query: this.getQuery()
+        // });
+
+        // this.props.onQueryUpdate(this);
+
+        var queryListener = this.state.query.getListener();
+        queryListener.on('update', function(updated) {
+            this.setState({
+                query: updated
+            });
+
+            this.props.onQueryUpdate(this);
+        }.bind(this));
 
         this.props.onQueryUpdate(this);
     }
 
-    getQuery() {
-        return this.props.initialQuery;
+    getQuery =()=> {
+        return this.props.query.children;
     }
 
-    getQueryString() {
+    getQueryString=() =>{
         return this.queryToString(this.props.initialQuery);
     }
 
@@ -119,4 +130,5 @@ export default class QueryBuilder extends React.Component {
         initialQuery: PropTypes.object,
         onQueryUpdate: PropTypes.func
     }
+
 }

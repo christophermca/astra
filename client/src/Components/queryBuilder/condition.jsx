@@ -28,19 +28,28 @@ export default class Condition extends React.Component {
     //     index: React.PropTypes.number.isRequired
     // }
 
-    // onOperatorChange(e) {
-    //     this.props.query.set('operator', e.target.value);
-    // }
-
-    onLeftOperandChange(e) {
-        this.props.query.set('leftOperand', e.target.value);
+    constructor(props){
+        super(props);
+        this.state ={
+            operator: '',
+            leftOperand: '',
+            rightOperand: ''
+        }
     }
 
-    onRightOperandChange(e) {
-        this.props.query.set('rightOperand', e.target.value);
+    onOperatorChange(e) {
+        this.setState({operator: e.target.value});
     }
 
-    removeSelf(e) {
+    onLeftOperandChange =(e)=> {
+        this.setState({leftOperand: e.target.value});
+    }
+
+    onRightOperandChange=(e) =>{
+        this.setState({rightOperand: e.target.value});
+    }
+
+    removeSelf=(e)=> {
         if (this.props.parent) {
             this.props.parent.children.splice(this.props.index, 1);
         }
@@ -49,11 +58,11 @@ export default class Condition extends React.Component {
     render() {
         return (
             <div className="query condition">
-                <input type="text" className="operand leftOperand" defaultValue={this.props.query.leftOperand} onChange={this.onLeftOperandChange} />
-                <select className="operators" value={this.props.query.operator} onChange={this.onOperatorChange}>
+                <input type="text" className="operand leftOperand" defaultValue={this.state.leftOperand} onChange={this.onLeftOperandChange} />
+                <select className="operators" value={this.state.operator} onChange={this.onOperatorChange}>
                     {operatorOptions}
                 </select>
-                <input type="text" className="operand rightOperand" value={this.props.query.rightOperand} onChange={this.onRightOperandChange}/>
+                <input type="text" className="operand rightOperand" value={this.state.rightOperand} onChange={this.onRightOperandChange}/>
                 <button className="conditionButton removeCondition" onClick={this.removeSelf}>-</button>
             </div>
         );

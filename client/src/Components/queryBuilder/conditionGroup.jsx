@@ -1,5 +1,4 @@
 import React from "react";
-
 import Condition from './condition.jsx';
 
 
@@ -20,13 +19,17 @@ var operatorOptions = operators.map(function(operator, index) {
  * ConditionGroup react component
  */
 export default class ConditionGroup extends React.Component {
-
     constructor(props){
         super(props);
+        console.log(props.query.children)
+        this.state ={
+            operator: ''
+        }
     }
 
-    addCondition(e) {
+    addCondition = (e) => {
         e.preventDefault();
+        console.log(this.props.query)
         this.props.query.children.push({
             type: 'Condition',
             operator: '=',
@@ -35,7 +38,7 @@ export default class ConditionGroup extends React.Component {
         });
     }
 
-    addGroup(e) {
+    addGroup = (e) =>{
         e.preventDefault();
         this.props.query.children.push({
             type: 'ConditionGroup',
@@ -44,7 +47,7 @@ export default class ConditionGroup extends React.Component {
         });
     }
 
-    removeSelf(e) {
+    removeSelf = (e) => {
         if (this.props.parent) {
             this.props.parent.children.splice(this.props.index, 1);
         }
@@ -54,7 +57,7 @@ export default class ConditionGroup extends React.Component {
 
     render() {
         
-        let childrenViews = this.props.query.children.map(function(childQuery, index) {
+        let childrenViews = this.props.query.children.map((childQuery, index) =>{
             console.log(childQuery)
             if (childQuery.type === 'ConditionGroup') {
                 return <ConditionGroup query={childQuery} parent={this.props.query} index={index} key={index} />;
