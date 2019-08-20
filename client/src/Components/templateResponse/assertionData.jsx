@@ -9,9 +9,15 @@ export default class AssertionData extends React.Component {
             query1: null,
             query2: {
                 type: 'ConditionGroup',
-                operator: '=',
-                leftOperand: 'color',
-                rightOperand: 'blue'
+                operator: 'AND',
+                children: [
+                    {
+                        type: 'Condition',
+                        operator: '=',
+                        leftOperand: 'color',
+                        rightOperand: 'blue'
+                    }
+                ]
             }
         };
 
@@ -32,7 +38,6 @@ export default class AssertionData extends React.Component {
     }
 
     render() {
-        console.log(this.state.query2.length);
         var query1String = queryBuilder.queryToString(this.state.query1);
         var query2String = queryBuilder.queryToString(this.state.query2);
 

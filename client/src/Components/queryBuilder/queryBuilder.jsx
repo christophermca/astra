@@ -4,39 +4,6 @@ import Freezer from 'freezer-js';
 import ConditionGroup from './conditionGroup.jsx';
 import Condition from './condition.jsx';
 
-// Helper function for converting query to a string
-// var queryToString = function queryToString(query) {
-//     if (!query) {
-//         return '';
-//     }
-
-//     var i, length;
-//     var result;
-
-//     if (query.type === 'ConditionGroup') {
-//         result = '(';
-
-//         for (i = 0, length = query.children.length; i < length; ++i) {
-//             result += queryToString(query.children[i]);
-
-//             if (i + 1 < length) {
-//                 result += ' ' + query.operator + ' ';
-//             }
-//         }
-
-//         result += ')';
-//     }
-//     else if (query.type === 'Condition') {
-//         result = query.leftOperand + ' ' + query.operator + ' ' + query.rightOperand;
-//     }
-//     else {
-//         console.error('invalid type: type must be ConditionGroup or Condition');
-//         return '';
-//     }
-
-//     return result;
-// };
-
 
 /**
  * QueryBuilder react component
@@ -65,21 +32,14 @@ export default class QueryBuilder extends React.Component {
         if (query.type === 'ConditionGroup') {
             result = '(';
 
-            var size = Object.keys(query).length;
-
-            console.log(query.operator);
-
-
-            for (i = 1; i < size+1; ++i) {
-                console.log(Object.keys(query)[i])
-                result += this.queryToString(Object.keys(query)[i]);
-                
-                if (i + 1 < size) {
+            for (i = 0, length = query.children.length; i < length; ++i) {
+                result += this.queryToString(query.children[i]);
+    
+                if (i + 1 < length) {
                     result += ' ' + query.operator + ' ';
-                    console.log(result)
                 }
             }
-
+    
             result += ')';
         }
         else if (query.type === 'Condition') {

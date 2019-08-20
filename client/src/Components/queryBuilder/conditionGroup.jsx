@@ -20,22 +20,13 @@ var operatorOptions = operators.map(function(operator, index) {
  * ConditionGroup react component
  */
 export default class ConditionGroup extends React.Component {
-    // propTypes: {
-    //     query: React.PropTypes.object.isRequired,
-    //     parent: React.PropTypes.object,
-    //     index: React.PropTypes.number.isRequired
-    // }
-
-    // onOperatorChange(e) {
-    //     console.log('onOperatorChange');
-    //     this.props.query.set('operator', e.target.value);
-    // }
 
     constructor(props){
         super(props);
     }
 
     addCondition(e) {
+        e.preventDefault();
         this.props.query.children.push({
             type: 'Condition',
             operator: '=',
@@ -45,6 +36,7 @@ export default class ConditionGroup extends React.Component {
     }
 
     addGroup(e) {
+        e.preventDefault();
         this.props.query.children.push({
             type: 'ConditionGroup',
             operator: 'AND',
@@ -61,8 +53,9 @@ export default class ConditionGroup extends React.Component {
     
 
     render() {
-        console.log(this.props.query)
-        let childrenViews = Object.keys(this.props.query).map(function(childQuery, index) {
+        
+        let childrenViews = this.props.query.children.map(function(childQuery, index) {
+            console.log(childQuery)
             if (childQuery.type === 'ConditionGroup') {
                 return <ConditionGroup query={childQuery} parent={this.props.query} index={index} key={index} />;
             }

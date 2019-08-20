@@ -66,9 +66,12 @@ export default class TemplateResponse extends React.Component {
           />
         </section>
 
-        <div className="assertion-data">
-          <AssertionData />
-        </div>
+        <section className="assertion-data">
+          <StatefullAccordian
+            name="Assertions"
+            content={<AssertionData />}
+          />
+        </section>
 
       </form>
     );
