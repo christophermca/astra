@@ -1,6 +1,7 @@
 import React from "react";
 import TemplateHeader from './templateHeader.jsx';
 import TemplateDownload from './templateDownload.jsx';
+import AssertionData from './assertionData.jsx';
 import "./style.css";
 import * as stubData from "./stubData.json";
 
@@ -27,6 +28,11 @@ export default class TemplateResponse extends React.Component {
           <TemplateHeader name="Response Body" data={data.responseBody}/>
           <TemplateDownload name="Data Files" files={data.datasets}/>
         </section>
+
+        <div className="assertion-data">
+          <AssertionData />
+        </div>
+
       </form>
     );
   }
