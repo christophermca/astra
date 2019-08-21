@@ -1,24 +1,29 @@
 const fetch = require("node-fetch");
-// const FormData = require("form-data");
+const FormData = require("form-data");
+const path = require('path');
+const fs = require('fs');
+const form = new FormData();
 
 const uploadFilesURL =
-  "http://172.22.8.151:8080/v2/template/uploadMultipleFiles";
+  "http://172.22.8.142:8080/v2/template/uploadMultipleFiles";
 
 const downloadFilesURL =
-  "http://172.22.8.151:8080/v2/template/FileDownload";
+  "http://172.22.8.142:8080/v2/template/FileDownload";
 
 const upload = async (req, res) => {
   try {
-    const filesToUpload = req.body
+
+    const readMeFile = fs.createReadStream(path.resolve(__dirname, '../../README.md'));
+    form.append('files', readMeFile )
+    form.append('templateId', 1 )
     let uploadFile = await fetch(uploadFilesURL, {
       "method": "POST",
-      "headers": {
-        "Content-Type": "multipart/form-data"
-      },
-      "body": filesToUpload
+      "headers": form.getHeaders(),
+      "body": form
     });
-    console.log(uploadFile);
-    res.status(201).send(uploadFile);
+    const jd = await uploadFile.json()
+    res.send(jd);
+
   } catch (err) {
     console.error(err);
     res.status(400);
