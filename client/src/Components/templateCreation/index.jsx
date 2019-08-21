@@ -12,7 +12,11 @@ export default class TemplateCreation extends React.Component {
     super(props);
     this.state = Object.assign({}, props);
     this.handleConfigChange = this.handleConfigChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    //this.handleSubmit = this.handleSubmit.bind(this);
+    window.addEventListener('fileUpload', (data) => {
+      debugger
+      return;
+    });
   }
 
   // TODO logic should be handled by the profile service
@@ -34,14 +38,16 @@ export default class TemplateCreation extends React.Component {
     evt.preventDefault();
     if(!this.state.showTemplateDetails) {
       console.log('[CREATE template]');
-      fetch(`/api/templates/templatedetails?id=1`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      })
-      .then(resp => resp.json())
-      .then(json => this.setState({'details': json, "showTemplateDetails": true}))
+      //const options = {method: 'POST', "headers": {"Content-Type": "multipart/form-data"}}
+      //fetch('/api/files/upload', options)
+      // fetch(`/api/templates/templatedetails?id=1`, {
+      //   method: 'GET',
+      //   headers: {
+      //     'Content-Type': 'application/json'
+      //   }
+      // })
+      // .then(resp => resp.json())
+      // .then(json => this.setState({'details': json, "showTemplateDetails": true}))
     } else {
       console.log('[SAVE template]');
     }
@@ -50,10 +56,10 @@ export default class TemplateCreation extends React.Component {
   render() {
     console.log(this.state.details)
     return (
-      <form>
+      <form action="/api/files/upload" method="POST" enctype="multipart/form-data" >
         <section id="template-header">
-          <input placeholder="Template Name *Required" required />
-          <input placeholder="Template Description *Required" required />
+          <input name="templateName" placeholder="Template Name *Required" required />
+          <input name="description" placeholder="Template Description *Required" required />
         </section>
         <main>
           <section id="template-config" >
@@ -67,15 +73,21 @@ export default class TemplateCreation extends React.Component {
             <React.Fragment>
               <section id="template-builderHeader">
                 <input disabled placeholder={this.state.config.method} />
-                <input placeholder={this.state.config.url} className="template-url" />
+                <input name="url" defaultValue={this.state.config.url} className="template-url" />
               </section>
               <section>
                 <aside className="meta-info">
                   <div>{stubData.api}</div>
                 </aside>
-                <TemplateBody header={this.state.config.headers}/>
+                <input
+                  name="files"
+                  id="input-file"
+                  type="file"
+                  accept=".csv,.xls "
+                  multiple
+                />
                 <section id="template-button">
-                  <button onClick={this.handleSubmit} type="submit">Send</button>
+                  <button type="submit">Send</button>
                 </section>
               </section>
             </React.Fragment>

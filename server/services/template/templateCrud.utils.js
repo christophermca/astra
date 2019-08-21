@@ -2,9 +2,14 @@ const fetch = require('node-fetch');
 const fs = require('fs');
 const path = require('path');
 
-const templateListURL = 'http://172.22.8.142:8080/v2/template/getTemplateListV2';
-const templateDetailsURL = 'http://172.22.8.142:8080/v2/template/getTemplateDetails';
-const createTemplateURL = 'http://172.22.8.142:8080/v2/template/createTemplate';
+// because of how are network is setup in office the final number in the ip
+// address is subject to change
+const dynamicAddress = '142';
+const JavaEngineIP = `http://172.22.8.${dynamicAddress}:8080`
+
+const templateListURL = `${JavaEngineIP}/v2/template/getTemplateList/1`;
+const templateDetailsURL = `${JavaEngineIP}/v2/template/getTemplateDetails`;
+const createTemplateURL = `${JavaEngineIP}/v2/template/createTemplate`;
 
 const useStubData = process.env.OFFLINE === 'true';
 

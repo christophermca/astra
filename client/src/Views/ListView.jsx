@@ -1,6 +1,7 @@
 import React from 'react';
 import { CardComponent, TemplateResponse } from '../Components';
 import { Link } from "react-router-dom";
+import View from './View.jsx'
 
 export default class ListView extends React.Component {
   constructor(props) {
@@ -87,9 +88,9 @@ export default class ListView extends React.Component {
       .then(response => {
         return response.json()
       }
-       
+
       )
-      .then(json => 
+      .then(json =>
         this.setState({ list: json.templateList })
       )
 
