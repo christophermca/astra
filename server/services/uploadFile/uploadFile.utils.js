@@ -10,17 +10,20 @@ const uploadFilesURL =
 const downloadFilesURL =
   "http://172.22.8.142:8080/v2/template/FileDownload";
 
+const debugEndpoint = 'https://postman-echo.com/post'
+
 const upload = async (req, res) => {
   try {
+    //const readMeFile = fs.createReadStream(path.resolve(__dirname, '../../README.md'));
 
-    const readMeFile = fs.createReadStream(path.resolve(__dirname, '../../README.md'));
-    form.append('files', readMeFile )
+    debugger
     form.append('templateId', 1 )
-    let uploadFile = await fetch(uploadFilesURL, {
+    let uploadFile = await fetch(debugEndpoint, {
       "method": "POST",
       "headers": form.getHeaders(),
       "body": form
     });
+
     const jd = await uploadFile.json()
     res.send(jd);
 
