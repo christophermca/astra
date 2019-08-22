@@ -12,11 +12,7 @@ export default class TemplateCreation extends React.Component {
     super(props);
     this.state = Object.assign({}, props);
     this.handleConfigChange = this.handleConfigChange.bind(this);
-    //this.handleSubmit = this.handleSubmit.bind(this);
-    window.addEventListener('fileUpload', (data) => {
-      debugger
-      return;
-    });
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   // TODO logic should be handled by the profile service
@@ -28,6 +24,8 @@ export default class TemplateCreation extends React.Component {
       case 'bravo':
         this.setState({ 'config': profileConfig['bravo']})
         break;
+      default:
+        console.log(`${evt.target.value} does not have a use case` )
     }
 
     this.setState({'api': ['rest'], 'showTemplateBuilder': true})
@@ -36,27 +34,30 @@ export default class TemplateCreation extends React.Component {
 
   handleSubmit(evt) {
     evt.preventDefault();
-    if(!this.state.showTemplateDetails) {
-      console.log('[CREATE template]');
-      //const options = {method: 'POST', "headers": {"Content-Type": "multipart/form-data"}}
-      //fetch('/api/files/upload', options)
-      // fetch(`/api/templates/templatedetails?id=1`, {
-      //   method: 'GET',
-      //   headers: {
-      //     'Content-Type': 'application/json'
-      //   }
-      // })
-      // .then(resp => resp.json())
-      // .then(json => this.setState({'details': json, "showTemplateDetails": true}))
-    } else {
-      console.log('[SAVE template]');
+    console.log('creating template')
+    const form = evt.target;
+    const formData = new FormData(form)
+
+    formData.append('active', true);
+    formData.append('template', JSON.stringify({
+      "templateName":formData.get('templateName'),
+      "httpUrlPathParams": formData.get('httpUrlPathParms'),
+      "requestType":formData.get('requestType')})
+    );
+
+    const options = {
+      method: "POST",
+      body: formData
     }
+
+    fetch('/api/templates/create', options).then(response => {response.json()})
+      .then(json => this.setState({"details": true}))
+      .catch(err => console.error({ err }));
   }
 
   render() {
-    console.log(this.state.details)
     return (
-      <form action="/api/files/upload" method="POST" enctype="multipart/form-data" >
+      <form name="template" onSubmit={this.handleSubmit}>
         <section id="template-header">
           <input name="templateName" placeholder="Template Name *Required" required />
           <input name="description" placeholder="Template Description *Required" required />
@@ -72,20 +73,23 @@ export default class TemplateCreation extends React.Component {
           (
             <React.Fragment>
               <section id="template-builderHeader">
-                <input disabled placeholder={this.state.config.method} />
-                <input name="url" defaultValue={this.state.config.url} className="template-url" />
+                <input name="requestType" disabled placeholder={this.state.config.method} />
+                <input name="httpUrlPathParams" defaultValue={this.state.config.url} className="template-url" />
               </section>
               <section>
                 <aside className="meta-info">
                   <div>{stubData.api}</div>
                 </aside>
+                {/* TODO add back TemplateBody component */}
                 <input
                   name="files"
                   id="input-file"
                   type="file"
                   accept=".csv,.xls "
                   multiple
+                  onChange={this.uploadFile}
                 />
+            {/*<TemplateBody header={this.state.config.headers}/>*/}
                 <section id="template-button">
                   <button type="submit">Send</button>
                 </section>
@@ -93,7 +97,7 @@ export default class TemplateCreation extends React.Component {
             </React.Fragment>
           ) : ''
           }
-          {this.state.showTemplateDetails ?
+          {this.state.details ?
               (
                 <TemplateResponse data={this.state.details}/>
               ) : ''

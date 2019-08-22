@@ -9,9 +9,6 @@ const uploadRouter = require('./services/uploadFile/uploadFile.router')
 const app = express();
 const PORT = 3002;
 
-app.use(cors());
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
 app.use(morgan('dev'))
 
 app.use("/api/templates", templateRouter);
