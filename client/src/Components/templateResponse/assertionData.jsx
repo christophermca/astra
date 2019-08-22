@@ -20,33 +20,26 @@ export default class AssertionData extends React.Component {
                 ]
             }
         };
-
-        this.onQuery1Update = this.onQuery1Update.bind(this);
-        this.onQuery2Update = this.onQuery2Update.bind(this)
     }
 
-    onQuery1Update(queryBuilder) {
+    onQuery1Update = (queryBuilder) =>{
         this.setState({
             query1: queryBuilder.getQuery()
         });
     }
 
-    onQuery2Update(queryBuilder) {
+    onQuery2Update = (queryBuilder) =>{
         this.setState({
             query2: queryBuilder.getQuery()
         });
     }
 
     render() {
-        var query1String = queryBuilder.queryToString(this.state.query1);
         var query2String = queryBuilder.queryToString(this.state.query2);
 
+        console.log(query2String);
         return (
             <div className="queryBuilder">
-                <h2 id="default">default</h2>
-                <QueryBuilder onQueryUpdate={this.onQuery1Update}/>
-                <pre>{query1String}</pre>
-                <h2 id="with-initial-query">with initial query</h2>
                 <QueryBuilder initialQuery={this.state.query2} onQueryUpdate={this.onQuery2Update} />
                 <pre>{query2String}</pre>
             </div>

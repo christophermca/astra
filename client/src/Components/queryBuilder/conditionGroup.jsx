@@ -29,13 +29,13 @@ export default class ConditionGroup extends React.Component {
 
     addCondition = (e) => {
         e.preventDefault();
-        console.log(this.props.query)
         this.props.query.children.push({
             type: 'Condition',
             operator: '=',
             leftOperand: '',
             rightOperand: ''
         });
+
     }
 
     addGroup = (e) =>{
@@ -48,12 +48,11 @@ export default class ConditionGroup extends React.Component {
     }
 
     removeSelf = (e) => {
+        e.preventDefault();
         if (this.props.parent) {
             this.props.parent.children.splice(this.props.index, 1);
         }
     }
-    
-    
 
     render() {
         
@@ -70,7 +69,6 @@ export default class ConditionGroup extends React.Component {
                 return null;
             }
         })
-
         return (
             <div className="query conditionGroup">
                 <select className="operators" value={this.props.query.operator} onChange={this.onOperatorChange}>
