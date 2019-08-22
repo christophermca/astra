@@ -16,6 +16,12 @@ export default class AssertionData extends React.Component {
                         operator: '=',
                         leftOperand: 'color',
                         rightOperand: 'blue'
+                    },
+                    {
+                        type: 'Condition',
+                        operator: '=',
+                        leftOperand: 'color',
+                        rightOperand: 'blue'
                     }
                 ]
             }
