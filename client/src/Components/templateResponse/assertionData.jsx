@@ -6,7 +6,9 @@ export default class AssertionData extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            query1: null,
+            query1: {
+                type: 'Condition'
+            },
             query2: {
                 type: 'ConditionGroup',
                 operator: 'AND',
