@@ -37,18 +37,6 @@ export default class Condition extends React.Component {
         }
     }
 
-    onOperatorChange(e) {
-        this.setState({operator: e.target.value});
-    }
-
-    onLeftOperandChange =(e)=> {
-        this.setState({leftOperand: e.target.value});
-    }
-
-    onRightOperandChange=(e) =>{
-        this.setState({rightOperand: e.target.value});
-    }
-
     removeSelf=(e)=> {
         if (this.props.parent) {
             this.props.parent.children.splice(this.props.index, 1);
@@ -56,13 +44,15 @@ export default class Condition extends React.Component {
     }
 
     render() {
+        console.log({condition: this.props})
         return (
             <div className="query condition">
-                <input type="text" className="operand leftOperand" defaultValue={this.state.leftOperand} onChange={this.onLeftOperandChange} />
-                <select className="operators" value={this.state.operator} onChange={this.onOperatorChange}>
+                {/* <input type="text" className="operand leftOperand" defaultValue={this.state.leftOperand} onChange={this.onLeftOperandChange} /> */}
+                <input name='leftOperand' type="text" className="operand leftOperand" defaultValue={this.state.leftOperand} onChange={this.props.updateString} />
+                <select name='operator' className="operators" defaultValue={this.state.operator} onChange={this.props.updateString}>
                     {operatorOptions}
                 </select>
-                <input type="text" className="operand rightOperand" value={this.state.rightOperand} onChange={this.onRightOperandChange}/>
+                <input name='rightOperand' type="text" className="operand rightOperand" defaultValue={this.state.rightOperand} onChange={this.props.updateString}/>
                 <button className="conditionButton removeCondition" onClick={this.removeSelf}>-</button>
             </div>
         );

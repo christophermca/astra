@@ -54,20 +54,14 @@ export default class ConditionGroup extends React.Component {
         }
     }
 
-    onOperatorChange = (e) => {
-        console.log('onOperatorChange');
-        this.props.query.set('operator', e.target.value);
-    }
-
     render() {
-        
         let childrenViews = this.props.query.children.map((childQuery, index) =>{
             console.log(childQuery)
             if (childQuery.type === 'ConditionGroup') {
                 return <ConditionGroup query={childQuery} parent={this.props.query} index={index} key={index} />;
             }
             else if (childQuery.type === 'Condition') {
-                return <Condition query={childQuery} parent={this.props.query} index={index} key={index} />;
+                return <Condition query={childQuery} parent={this.props.query} index={index} key={index} updateString={this.props.updateString}/>;
             }
             else {
                 console.error('invalid type: type must be ConditionGroup or Condition');
@@ -79,7 +73,16 @@ export default class ConditionGroup extends React.Component {
                 <select className="operators" value={this.props.query.operator} onChange={this.onOperatorChange}>
                     {operatorOptions}
                 </select>
-                <button className="conditionGroupButton addCondition" onClick={this.addCondition}>+ Add Condition</button>
+
+
+                <button
+                    className="conditionGroupButton addCondition"
+                    onClick={this.props.addCondition}
+                >
+                        + Add Condition
+                </button>
+
+
                 <button className="conditionGroupButton addGroup" onClick={this.addGroup}>+ Add Group</button>
                 <button className="conditionGroupButton removeGroup" onClick={this.removeSelf}>-</button>
                 <div className="childrenConditions">

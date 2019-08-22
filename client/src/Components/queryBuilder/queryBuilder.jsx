@@ -11,22 +11,6 @@ export default class QueryBuilder extends React.Component {
     constructor(props) {
         super(props);
         this.queryToString = this.queryToString.bind(this);
-
-        // var queryFreezerStore = new Freezer({
-        //     type: 'ConditionGroup',
-        //     operator: 'AND',
-        //     children: []
-        // });
-        // var query = queryFreezerStore.get();
-
-        this.state = {
-            // queryFreezerStore: queryFreezerStore,
-            query: {
-                type: "ConditionGroup",
-                operator: "AND",
-                children: []
-            }
-        };
     }
 
     // static PropTypes = {
@@ -39,9 +23,9 @@ export default class QueryBuilder extends React.Component {
         }
 
         var i, length;
-        var result;
-
+        var result = '';
         if (query.type === "ConditionGroup") {
+            console.log(result)
             result = "(";
 
             for (i = 0, length = query.children.length; i < length; ++i) {
@@ -86,39 +70,45 @@ export default class QueryBuilder extends React.Component {
     //     };
     //   };
 
-    componentDidMount() {
-        this.getQuery();
+    // componentDidMount() {
+        // this.getQuery();
         
-        // Update state every time query changes
+        // // Update state every time query changes
         // this.setState({
         //     query: this.getQuery()
         // });
 
         // this.props.onQueryUpdate(this);
-    }
+    // }
+
+
 
     getQuery = () => {
-        return this.state.query;
+        return this.props.initialQuery;
     };
 
     getQueryString = () => {
-        return this.queryToString(this.state.query);
+        return this.queryToString(this.props.initialQuery);
     };
 
     render() {
-        if (this.state.query) {
+        console.log(this.props.initialQuery)
+        if (this.props.initialQuery) {
             var childView = null;
-            if (this.state.query.type === "ConditionGroup") {
+            if (this.props.initialQuery.type === "ConditionGroup") {
+                console.log({queryBuilder: this.props})
                 childView = (
                     <ConditionGroup
-                        query={this.state.query}
+                        query={this.props.initialQuery}
                         parent={null}
                         index={0}
+                        updateString={this.props.updateString}
+                        addCondition={this.props.addCondition}
                     />
                 );
-            } else if (this.state.query.type === "Condition") {
+            } else if (this.props.initialQuery.type === "Condition") {
                 childView = (
-                    <Condition query={this.state.query} parent={null} index={0} />
+                    <Condition query={this.props.initialQuery} parent={null} index={0} updateString={this.props.updateString} />
                 );
             } else {
                 console.error("invalid type: type must be ConditionGroup or Condition");
