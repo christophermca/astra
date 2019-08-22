@@ -54,6 +54,11 @@ export default class ConditionGroup extends React.Component {
         }
     }
 
+    onOperatorChange = (e) => {
+        console.log('onOperatorChange');
+        this.props.query.set('operator', e.target.value);
+    }
+
     render() {
         
         let childrenViews = this.props.query.children.map((childQuery, index) =>{

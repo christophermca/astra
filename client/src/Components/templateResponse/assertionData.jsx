@@ -22,13 +22,13 @@ export default class AssertionData extends React.Component {
         };
     }
 
-    onQuery1Update = (queryBuilder) =>{
+    onQuery1Update = (queryBuilder) => {
         this.setState({
             query1: queryBuilder.getQuery()
         });
     }
 
-    onQuery2Update = (queryBuilder) =>{
+    onQuery2Update = (queryBuilder) => {
         this.setState({
             query2: queryBuilder.getQuery()
         });
