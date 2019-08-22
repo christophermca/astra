@@ -32,7 +32,8 @@ export default class AssertionData extends React.Component {
     updateString = (e) => {
         const { name, value } = e.target
         const query = { ...this.state.query2 }
-        query.children[0][name] = value
+        
+        query.children.map(i => i[name] = value)
 
         this.setState({
            query2: {...query}

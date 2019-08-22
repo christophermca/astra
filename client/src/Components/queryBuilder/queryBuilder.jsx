@@ -1,6 +1,4 @@
 import React from "react";
-// import PropTypes from "prop-types";
-import Freezer from "freezer-js";
 import ConditionGroup from "./conditionGroup.jsx";
 import Condition from "./condition.jsx";
 
@@ -12,10 +10,6 @@ export default class QueryBuilder extends React.Component {
         super(props);
         this.queryToString = this.queryToString.bind(this);
     }
-
-    // static PropTypes = {
-    //     queryToString: queryToString
-    // }
 
     queryToString = query => {
         if (!query) {

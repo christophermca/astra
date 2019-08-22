@@ -21,7 +21,6 @@ var operatorOptions = operators.map(function(operator, index) {
 export default class ConditionGroup extends React.Component {
     constructor(props){
         super(props);
-        console.log(props.query.children)
         this.state ={
             operator: ''
         }
@@ -67,7 +66,8 @@ export default class ConditionGroup extends React.Component {
                 console.error('invalid type: type must be ConditionGroup or Condition');
                 return null;
             }
-        })
+        });
+
         return (
             <div className="query conditionGroup">
                 <select className="operators" value={this.props.query.operator} onChange={this.onOperatorChange}>
