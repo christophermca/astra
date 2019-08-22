@@ -12,11 +12,8 @@ export default class TemplateCreation extends React.Component {
     super(props);
     this.state = Object.assign({}, props);
     this.handleConfigChange = this.handleConfigChange.bind(this);
-    //this.handleSubmit = this.handleSubmit.bind(this);
-    window.addEventListener('fileUpload', (data) => {
-      debugger
-      return;
-    });
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.mockTemplateResponse = this.mockTemplateResponse.bind(this);
   }
 
   // TODO logic should be handled by the profile service
@@ -28,35 +25,56 @@ export default class TemplateCreation extends React.Component {
       case 'bravo':
         this.setState({ 'config': profileConfig['bravo']})
         break;
+      default:
+        console.log(`${evt.target.value} does not have a use case` )
     }
 
     this.setState({'api': ['rest'], 'showTemplateBuilder': true})
 
   }
 
-  handleSubmit(evt) {
-    evt.preventDefault();
+  mockTemplateResponse() {
     if(!this.state.showTemplateDetails) {
       console.log('[CREATE template]');
-      //const options = {method: 'POST', "headers": {"Content-Type": "multipart/form-data"}}
-      //fetch('/api/files/upload', options)
-      // fetch(`/api/templates/templatedetails?id=1`, {
-      //   method: 'GET',
-      //   headers: {
-      //     'Content-Type': 'application/json'
-      //   }
-      // })
-      // .then(resp => resp.json())
-      // .then(json => this.setState({'details': json, "showTemplateDetails": true}))
+
+      return fetch(`/api/templates/templatedetails?id=1`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }).then(resp => resp.json())
+        .then(json => this.setState({ 'details': json,
+                                      "showTemplateDetails": true}))
     } else {
       console.log('[SAVE template]');
     }
+
+  }
+
+  handleSubmit(evt) {
+    evt.preventDefault();
+    const form = evt.target;
+    const formData = new FormData(form)
+    let data = {}
+    for(let [name, value] of formData) {
+      data[name] = value;
+    }
+
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      body: new URLSearchParams(formData).toString()
+    }
+
+    return fetch('/api/files/upload', options)
+      .then(res => res)
   }
 
   render() {
-    console.log(this.state.details)
     return (
-      <form action="/api/files/upload" method="POST" enctype="multipart/form-data" >
+      <form onSubmit={this.handleSubmit}>
         <section id="template-header">
           <input name="templateName" placeholder="Template Name *Required" required />
           <input name="description" placeholder="Template Description *Required" required />
@@ -79,6 +97,7 @@ export default class TemplateCreation extends React.Component {
                 <aside className="meta-info">
                   <div>{stubData.api}</div>
                 </aside>
+                {/* TODO add back TemplateBody component */}
                 <input
                   name="files"
                   id="input-file"
@@ -86,6 +105,7 @@ export default class TemplateCreation extends React.Component {
                   accept=".csv,.xls "
                   multiple
                 />
+            {/*<TemplateBody header={this.state.config.headers}/>*/}
                 <section id="template-button">
                   <button type="submit">Send</button>
                 </section>

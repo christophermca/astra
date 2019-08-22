@@ -1,7 +1,5 @@
 const fetch = require("node-fetch");
 const FormData = require("form-data");
-const path = require('path');
-const fs = require('fs');
 const form = new FormData();
 
 const uploadFilesURL =
@@ -14,18 +12,21 @@ const debugEndpoint = 'https://postman-echo.com/post'
 
 const upload = async (req, res) => {
   try {
-    //const readMeFile = fs.createReadStream(path.resolve(__dirname, '../../README.md'));
+    req.setEncoding('utf8');
+    form.append('templateId', 1);
+    form.append('files', req.body.files)
 
-    debugger
-    form.append('templateId', 1 )
-    let uploadFile = await fetch(debugEndpoint, {
-      "method": "POST",
-      "headers": form.getHeaders(),
-      "body": form
-    });
+    const request = await fetch(debugEndpoint, {
+      method: "POST",
+      headers: form.getHeaders(),
+      body: form
+    }).then(res => res.json())
 
-    const jd = await uploadFile.json()
-    res.send(jd);
+    res.send(request)
+
+
+    // const jd = await uploadFile.json()
+    // res.status(200).send(jd);
 
   } catch (err) {
     console.error(err);
