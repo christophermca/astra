@@ -26,17 +26,6 @@ export default class ConditionGroup extends React.Component {
         }
     }
 
-    addCondition = (e) => {
-        e.preventDefault();
-        this.props.query.children.push({
-            type: 'Condition',
-            operator: '=',
-            leftOperand: '',
-            rightOperand: ''
-        });
-
-    }
-
     addGroup = (e) =>{
         e.preventDefault();
         this.props.query.children.push({
@@ -55,7 +44,6 @@ export default class ConditionGroup extends React.Component {
 
     render() {
         let childrenViews = this.props.query.children.map((childQuery, index) =>{
-            console.log(childQuery)
             if (childQuery.type === 'ConditionGroup') {
                 return <ConditionGroup query={childQuery} parent={this.props.query} index={index} key={index} />;
             }
@@ -70,7 +58,7 @@ export default class ConditionGroup extends React.Component {
 
         return (
             <div className="query conditionGroup">
-                <select className="operators" value={this.props.query.operator} onChange={this.onOperatorChange}>
+                <select name="ConditionGroup" className="operators" value={this.props.query.operator} onChange={this.onOperatorChange}>
                     {operatorOptions}
                 </select>
 
@@ -83,7 +71,7 @@ export default class ConditionGroup extends React.Component {
                 </button>
 
 
-                <button className="conditionGroupButton addGroup" onClick={this.addGroup}>+ Add Group</button>
+                <button className="conditionGroupButton addGroup" onClick={this.props.addGroup}>+ Add Group</button>
                 <button className="conditionGroupButton removeGroup" onClick={this.removeSelf}>-</button>
                 <div className="childrenConditions">
                     {childrenViews}

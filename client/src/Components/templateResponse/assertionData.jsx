@@ -1,78 +1,87 @@
 import React from "react";
-import QueryBuilder from '../queryBuilder/queryBuilder.jsx';
+import QueryBuilder from "../queryBuilder/queryBuilder.jsx";
 const queryBuilder = new QueryBuilder();
 
 export default class AssertionData extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            query2: {
-                type: 'ConditionGroup',
-                operator: 'AND',
-                children: [
-                    {
-                        type: 'Condition',
-                        operator: '',
-                        leftOperand: '',
-                        rightOperand: ''
-                    }
-                ]
-            }
-        };
-    }
+  constructor(props) {
+    super(props);
+    this.state = {
+      query2: {
+        type: "ConditionGroup",
+        operator: "AND",
+        children: [
+          {
+            type: "Condition",
+            operator: "",
+            leftOperand: "",
+            rightOperand: ""
+          }
+        ]
+      }
+    };
+  }
 
-    onQuery2Update = (evt, queryBuilder) => {
-        console.log(evt.target.value)
+  onQuery2Update = (evt, queryBuilder) => {
+    this.setState({
+      query2: queryBuilder.getQuery()
+    });
+  };
 
-        this.setState({
-            query2: queryBuilder.getQuery()
-        });
-    }
+  updateString = e => {
+    const { key, name, value } = e.target;
+    const query = { ...this.state.query2 };
+    
+    
+    query.children.map((i, index) => {
+      if(e.target)
+        i[name] = value;
+    });
+    debugger;
+    e.target.value  = 
+    console.log("query", query);
+    
 
-    updateString = (e) => {
-        const { name, value } = e.target
-        const query = { ...this.state.query2 }
-        
-        query.children.map(i => i[name] = value)
+    this.setState({
+      query2: { ...query }
+    });
 
-        this.setState({
-           query2: {...query}
-        })
-    }
+  };
 
-    addCondition = () => {
-        const children = [...this.state.query2.children]
+  addGroup = () =>{
+    console.log('clicked')
+  }
 
-        children.push(                    {
-            type: 'Condition',
-            operator: '',
-            leftOperand: '',
-            rightOperand: ''
-        })
+  addCondition = () => {
+    const children = [...this.state.query2.children];
 
-        const query = { ...this.state.query2 }
-        query.children = [...children]
+    children.push({
+      type: "Condition",
+      operator: "",
+      leftOperand: "",
+      rightOperand: ""
+    });
 
-        this.setState({
-            query2: { ...query }
-        })
-    }
+    const query = { ...this.state.query2 };
+    query.children = [...children];
 
-    render() {
-        console.log(this.state.query2);
-        var query2String = queryBuilder.queryToString(this.state.query2);
+    this.setState({
+      query2: { ...query }
+    });
+  };
 
-        console.log(query2String);
-        return (
-            <div className="queryBuilder">
-                <QueryBuilder
-                    initialQuery={this.state.query2}
-                    onQueryUpdate={this.onQuery2Update}
-                    updateString={this.updateString}
-                    addCondition={this.addCondition}
-                />
-                <pre>{query2String}</pre>
-            </div>
-        );
-    }
+  render() {
+    var query2String = queryBuilder.queryToString(this.state.query2);
+    return (
+      <div className="queryBuilder">
+        <QueryBuilder
+          initialQuery={this.state.query2}
+          onQueryUpdate={this.onQuery2Update}
+          updateString={this.updateString}
+          addCondition={this.addCondition}
+          addGroup={this.addGroup}
+        />
+        <pre>{query2String}</pre>
+      </div>
+    );
+  }
 }

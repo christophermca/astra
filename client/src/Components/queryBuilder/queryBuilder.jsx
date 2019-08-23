@@ -19,18 +19,20 @@ export default class QueryBuilder extends React.Component {
         var i, length;
         var result = '';
         if (query.type === "ConditionGroup") {
-            console.log(result)
+            
             result = "(";
 
             for (i = 0, length = query.children.length; i < length; ++i) {
+                console.log(query.children)
                 result += this.queryToString(query.children[i]);
 
-                if (i + 1 < length) {
+                if ((i + 1 < length)) {
                     result += " " + query.operator + " ";
                 }
             }
 
             result += ")";
+
         } else if (query.type === "Condition") {
             result =
                 query.leftOperand + " " + query.operator + " " + query.rightOperand;
@@ -39,7 +41,6 @@ export default class QueryBuilder extends React.Component {
             return "";
         }
 
-        console.log(result)
         return result;
     };
 
@@ -86,11 +87,9 @@ export default class QueryBuilder extends React.Component {
     };
 
     render() {
-        console.log(this.props.initialQuery)
         if (this.props.initialQuery) {
             var childView = null;
             if (this.props.initialQuery.type === "ConditionGroup") {
-                console.log({queryBuilder: this.props})
                 childView = (
                     <ConditionGroup
                         query={this.props.initialQuery}
@@ -98,6 +97,7 @@ export default class QueryBuilder extends React.Component {
                         index={0}
                         updateString={this.props.updateString}
                         addCondition={this.props.addCondition}
+                        addGroup={this.props.addGroup}
                     />
                 );
             } else if (this.props.initialQuery.type === "Condition") {

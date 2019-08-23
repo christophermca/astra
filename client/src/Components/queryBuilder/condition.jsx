@@ -44,15 +44,14 @@ export default class Condition extends React.Component {
     }
 
     render() {
-        console.log({condition: this.props})
         return (
             <div className="query condition">
                 {/* <input type="text" className="operand leftOperand" defaultValue={this.state.leftOperand} onChange={this.onLeftOperandChange} /> */}
-                <input name='leftOperand' type="text" className="operand leftOperand" defaultValue={this.state.leftOperand} onChange={this.props.updateString} />
-                <select name='operator' className="operators" defaultValue={this.state.operator} onChange={this.props.updateString}>
+                <input key={1} name='leftOperand' type="text" className="operand leftOperand" defaultValue={this.state.leftOperand} onChange={this.props.updateString} />
+                <select key={1} name='operator' className="operators" defaultValue={this.state.operator} onChange={this.props.updateString}>
                     {operatorOptions}
                 </select>
-                <input name='rightOperand' type="text" className="operand rightOperand" defaultValue={this.state.rightOperand} onChange={this.props.updateString}/>
+                <input key={1} name='rightOperand' type="text" className="operand rightOperand" defaultValue={this.state.rightOperand} onChange={this.props.updateString}/>
                 <button className="conditionButton removeCondition" onClick={this.removeSelf}>-</button>
             </div>
         );
