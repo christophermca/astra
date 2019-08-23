@@ -14,7 +14,6 @@ section.component {
   margin: 50px;
   background:#fff;
   padding: 10px;
-
 }
 
 section[name="card-component"] {
@@ -26,10 +25,17 @@ section.component select {
   border-top: none;
   border-left: none;
   border-right: none;
+  background: rgb(224, 228, 230);
+  height: 12px;
+  width: 12px;
 }
 
 section.component section {
   padding: 0 20px;
+  border: none;
+  border-radius: 2px;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.05);
+  height: 146px;
 }
 
 .App {

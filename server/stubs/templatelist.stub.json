@@ -1,1 +1,152 @@
-[{"templateId":"14fb5424-b3dd-11e9-a2a3-2a2ae2dbcce4","templateName":"Qarth Template","description":"Qarth Template description","userId":"1","teamName":"QARTH","createAt":"Aug 14, 2019 3:45:17 PM","createBy":"Sanjay","serviceId":"85144022-b3dd-11e9-a2a3-2a2ae2dbcce4","serviceConfigurationId":"789f4567-e89b-12d3-a456-426655441234","httpUrlPathParams":"product/canonical?wpid=|$|product_id|$|","dataFileId":"","requestHeaders":{"Accept":"application/json","WM_IFX.CLIENT_TYPE":"INTERNAL","WM_SVC.NAME":"item-read-service","WM_CONSUMER.INTIMESTAMP":"1335916114312","Content-Type":"application/json"},"requestBody":"{\n    \"offerContexts\": [{ \n\t\t\"offerId\": {\n\t\t   \"offerId\": \"$OFFER_ID$\" \n\t\t} \n\t}] ,\n    \"postalAddress\": {\n   \"addressLineOne\": \"850 CHERRY AVE\",\n   \"district\": \"Alameda\",\n   \"addressType\": \"OFFICE\",\n   \"city\": \"San Bruno\",\n   \"countryCode\": \"US\",\n   \"stateOrProvinceName\": \"California\",\n   \"stateOrProvinceCode\": \"CA\",\n   \"isApoFpo\": false,\n   \"isPoBox\": false,\n   \"postalCode\": \"94588\"\n },\n \"storeFrontIds\": [{\n   \"USStoreId\": $STORE_ID$\n }]\n    \n}","responseBody":"","disabled":false,"assertions":[{"path":"['[{\\\"path\\\": \\\"$.abstract_product_id\\\",\\\"expression\\\": \\\"eq\\\",\\\"expectedValue\\\": \\\"4279EE68PS1H\\\",\\\"condition\\\": \\\"$.product_id==2T83PKQBZIYO\\\",\\\"disableValue\\\": false }]']"}],"inlineDatasets":[{}],"datasets":[{"id":"1","filePath":"/user/temp/test.csv","primary":true},{"id":"2","filePath":"/user/temp/1.json"}],"contextVariables":[{"name":"productId","value":"123"},{"name":"status","value":"ACTIVE"}],"modifiedBy":"Amruth","modifiedAt":"Aug 14, 2019 3:45:17 PM"},{"templateId":"2","templateName":"Product template","description":"product template 2 description","userId":"1","teamName":"astra","createAt":"Aug 14, 2019 3:45:17 PM","serviceId":"1","serviceConfigurationId":"1","httpUrlPathParams":"","dataFileId":"","requestHeaders":{"Accept":"application/json","WM_IFX.CLIENT_TYPE":"INTERNAL","WM_SVC.NAME":"item-read-service","WM_CONSUMER.INTIMESTAMP":"1335916114312","Content-Type":"application/json"},"requestBody":"{\n    \"offerContexts\": [{ \n\t\t\"offerId\": {\n\t\t   \"offerId\": \"$OFFER_ID$\" \n\t\t} \n\t}] ,\n    \"postalAddress\": {\n   \"addressLineOne\": \"850 CHERRY AVE\",\n   \"district\": \"Alameda\",\n   \"addressType\": \"OFFICE\",\n   \"city\": \"San Bruno\",\n   \"countryCode\": \"US\",\n   \"stateOrProvinceName\": \"California\",\n   \"stateOrProvinceCode\": \"CA\",\n   \"isApoFpo\": false,\n   \"isPoBox\": false,\n   \"postalCode\": \"94588\"\n },\n \"storeFrontIds\": [{\n   \"USStoreId\": $STORE_ID$\n }]\n    \n}","responseBody":"","disabled":false,"assertions":[{"path":"['[{\\\"path\\\": \\\"$.abstract_product_id\\\",\\\"expression\\\": \\\"eq\\\",\\\"expectedValue\\\": \\\"4279EE68PS1H\\\",\\\"condition\\\": \\\"$.product_id==2T83PKQBZIYO\\\",\\\"disableValue\\\": false }]']"}],"inlineDatasets":[{}],"datasets":[{"id":"1","filePath":"/user/temp/test.csv","primary":true},{"id":"2","filePath":"/user/temp/1.json"}],"contextVariables":[{"name":"productId","value":"123"},{"name":"status","value":"ACTIVE"}],"modifiedBy":"Amruth","modifiedAt":"Aug 14, 2019 3:45:17 PM"},{"templateId":"3","templateName":"Qarth Template 2","description":"Qarth Template2 description","userId":"1","teamName":"astra","serviceId":"1","serviceConfigurationId":"1","httpUrlPathParams":"","dataFileId":"","requestBody":"","responseBody":"","disabled":false,"assertions":[{"path":"['[{\\\"path\\\": \\\"$.abstract_product_id\\\",\\\"expression\\\": \\\"eq\\\",\\\"expectedValue\\\": \\\"4279EE68PS1H\\\",\\\"condition\\\": \\\"$.product_id==2T83PKQBZIYO\\\",\\\"disableValue\\\": false }]']"}],"inlineDatasets":[{}],"datasets":[{"id":"1","filePath":"/user/temp/test.csv","primary":true},{"id":"2","filePath":"/user/temp/1.json"}],"contextVariables":[{"name":"productId","value":"123"},{"name":"status","value":"ACTIVE"}]}]
+[
+    {
+        "templateId": "14fb5424-b3dd-11e9-a2a3-2a2ae2dbcce4",
+        "templateName": "Qarth Template",
+        "description": "Qarth Template description",
+        "userId": "1",
+        "teamName": "QARTH",
+        "createAt": "Aug 14, 2019 3:45:17 PM",
+        "createBy": "Sanjay",
+        "serviceId": "85144022-b3dd-11e9-a2a3-2a2ae2dbcce4",
+        "serviceConfigurationId": "789f4567-e89b-12d3-a456-426655441234",
+        "httpUrlPathParams": "product/canonical?wpid=|$|product_id|$|",
+        "dataFileId": "",
+        "requestHeaders": {
+            "Accept": "application/json",
+            "WM_IFX.CLIENT_TYPE": "INTERNAL",
+            "WM_SVC.NAME": "item-read-service",
+            "WM_CONSUMER.INTIMESTAMP": "1335916114312",
+            "Content-Type": "application/json"
+        },
+        "requestBody": "{\n    \"offerContexts\": [{ \n\t\t\"offerId\": {\n\t\t   \"offerId\": \"$OFFER_ID$\" \n\t\t} \n\t}] ,\n    \"postalAddress\": {\n   \"addressLineOne\": \"850 CHERRY AVE\",\n   \"district\": \"Alameda\",\n   \"addressType\": \"OFFICE\",\n   \"city\": \"San Bruno\",\n   \"countryCode\": \"US\",\n   \"stateOrProvinceName\": \"California\",\n   \"stateOrProvinceCode\": \"CA\",\n   \"isApoFpo\": false,\n   \"isPoBox\": false,\n   \"postalCode\": \"94588\"\n },\n \"storeFrontIds\": [{\n   \"USStoreId\": $STORE_ID$\n }]\n    \n}",
+        "responseBody": "",
+        "disabled": false,
+        "assertions": [
+            {
+                "path": "['[{\\\"path\\\": \\\"$.abstract_product_id\\\",\\\"expression\\\": \\\"eq\\\",\\\"expectedValue\\\": \\\"4279EE68PS1H\\\",\\\"condition\\\": \\\"$.product_id==2T83PKQBZIYO\\\",\\\"disableValue\\\": false }]']"
+            }
+        ],
+        "inlineDatasets": [
+            {}
+        ],
+        "datasets": [
+            {
+                "id": "1",
+                "filePath": "/user/temp/test.csv",
+                "primary": true
+            },
+            {
+                "id": "2",
+                "filePath": "/user/temp/1.json"
+            }
+        ],
+        "contextVariables": [
+            {
+                "name": "productId",
+                "value": "123"
+            },
+            {
+                "name": "status",
+                "value": "ACTIVE"
+            }
+        ],
+        "modifiedBy": "Amruth",
+        "modifiedAt": "Aug 14, 2019 3:45:17 PM"
+    },
+    {
+        "templateId": "2",
+        "templateName": "Product template",
+        "description": "product template 2 description",
+        "userId": "1",
+        "teamName": "astra",
+        "createAt": "Aug 14, 2019 3:45:17 PM",
+        "serviceId": "1",
+        "serviceConfigurationId": "1",
+        "httpUrlPathParams": "",
+        "dataFileId": "",
+        "requestHeaders": {
+            "Accept": "application/json",
+            "WM_IFX.CLIENT_TYPE": "INTERNAL",
+            "WM_SVC.NAME": "item-read-service",
+            "WM_CONSUMER.INTIMESTAMP": "1335916114312",
+            "Content-Type": "application/json"
+        },
+        "requestBody": "{\n    \"offerContexts\": [{ \n\t\t\"offerId\": {\n\t\t   \"offerId\": \"$OFFER_ID$\" \n\t\t} \n\t}] ,\n    \"postalAddress\": {\n   \"addressLineOne\": \"850 CHERRY AVE\",\n   \"district\": \"Alameda\",\n   \"addressType\": \"OFFICE\",\n   \"city\": \"San Bruno\",\n   \"countryCode\": \"US\",\n   \"stateOrProvinceName\": \"California\",\n   \"stateOrProvinceCode\": \"CA\",\n   \"isApoFpo\": false,\n   \"isPoBox\": false,\n   \"postalCode\": \"94588\"\n },\n \"storeFrontIds\": [{\n   \"USStoreId\": $STORE_ID$\n }]\n    \n}",
+        "responseBody": "",
+        "disabled": false,
+        "assertions": [
+            {
+                "path": "['[{\\\"path\\\": \\\"$.abstract_product_id\\\",\\\"expression\\\": \\\"eq\\\",\\\"expectedValue\\\": \\\"4279EE68PS1H\\\",\\\"condition\\\": \\\"$.product_id==2T83PKQBZIYO\\\",\\\"disableValue\\\": false }]']"
+            }
+        ],
+        "inlineDatasets": [
+            {}
+        ],
+        "datasets": [
+            {
+                "id": "1",
+                "filePath": "/user/temp/test.csv",
+                "primary": true
+            },
+            {
+                "id": "2",
+                "filePath": "/user/temp/1.json"
+            }
+        ],
+        "contextVariables": [
+            {
+                "name": "productId",
+                "value": "123"
+            },
+            {
+                "name": "status",
+                "value": "ACTIVE"
+            }
+        ],
+        "modifiedBy": "Amruth",
+        "modifiedAt": "Aug 14, 2019 3:45:17 PM"
+    },
+    {
+        "templateId": "3",
+        "templateName": "Qarth Template 2",
+        "description": "Qarth Template2 description",
+        "userId": "1",
+        "teamName": "astra",
+        "serviceId": "1",
+        "serviceConfigurationId": "1",
+        "httpUrlPathParams": "",
+        "dataFileId": "",
+        "requestBody": "",
+        "responseBody": "",
+        "disabled": false,
+        "assertions": [
+            {
+                "path": "['[{\\\"path\\\": \\\"$.abstract_product_id\\\",\\\"expression\\\": \\\"eq\\\",\\\"expectedValue\\\": \\\"4279EE68PS1H\\\",\\\"condition\\\": \\\"$.product_id==2T83PKQBZIYO\\\",\\\"disableValue\\\": false }]']"
+            }
+        ],
+        "inlineDatasets": [
+            {}
+        ],
+        "datasets": [
+            {
+                "id": "1",
+                "filePath": "/user/temp/test.csv",
+                "primary": true
+            },
+            {
+                "id": "2",
+                "filePath": "/user/temp/1.json"
+            }
+        ],
+        "contextVariables": [
+            {
+                "name": "productId",
+                "value": "123"
+            },
+            {
+                "name": "status",
+                "value": "ACTIVE"
+            }
+        ]
+    }
+]
