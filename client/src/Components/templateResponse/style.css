@@ -1,3 +1,11 @@
+.search-bar-div {
+  height: 25px;
+}
+
+input#template-name-search-bar {
+  width: 100px;
+}
+
 form#template-header {
   border: 1px solid black;
   display: flex;
@@ -123,8 +131,24 @@ form#template-header {
   left: 620px;
 }
 
-.custom-select{
+/* select {
+  -webkit-appearance: none; 
+  -moz-appearance: none;
+  appearance: none;       
+  padding: 10px;
+  margin: 0;
+  border-radius: none;
+  box-shadow: none;
+}*/
+
+#custom-select{
   position: relative;
   left: 150px;
-}
+  width: 50px;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  background:  rgb(241, 242, 244);
+  height: 15px;
+} 
 

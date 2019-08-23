@@ -9,11 +9,16 @@ export default class ListView extends React.Component {
     this.handlePaginationDropdownChange = this.handlePaginationDropdownChange.bind(this);
     this.handleNextPage = this.handleNextPage.bind(this);
     this.handlePrevPage = this.handlePrevPage.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.onSearchSubmit = this.onSearchSubmit.bind(this);
 
     this.state = {
       templateData: '',
-      value: '',
-      currentPage: 1
+      value: 20,
+      currentPage: 1,
+      templateName: '',
+      templateId: '',
+      team: ''
     }
 
     // Handle showing template details
@@ -44,6 +49,16 @@ export default class ListView extends React.Component {
         this.getList();
       });
     }
+  }
+
+  handleChange(event) {
+    this.setState({ [event.target.name]: event.target.value });
+  }
+
+  onSearchSubmit(event) {
+    event.preventDefault();
+    console.log(this.state)
+    this.getList();
   }
 
   componentDidMount() {
@@ -84,7 +99,9 @@ export default class ListView extends React.Component {
         "recordPerPage": this.state.value,
         "orderByColunm": "1",
         "searchBy": {
-          "templateId": "1"
+          "templateName": this.state.templateName,
+          "templateId": this.state.templateId,
+          "team": this.state.team
         }
       }
     }
@@ -104,6 +121,17 @@ export default class ListView extends React.Component {
     return (
       <div>
         <React.Fragment>
+          <div className="search-bar-div">
+            <form onSubmit={this.onSearchSubmit}>
+              <label>Template Name  </label>
+              <input type="text" id="template-name-search-bar" placeholder="Search" value={this.state.templateNameValue} name="templateName" onChange={this.handleChange} />
+              <label>Template ID  </label>
+              <input type="text" id="template-id-search-bar" placeholder="Search" value={this.state.templateIdValue} name="templateId" onChange={this.handleChange} />
+              <label>Team  </label>
+              <input type="text" id="team-search-bar" placeholder="Search" value={this.state.teamValue} name="team" onChange={this.handleChange} />
+              <button type="submit">APPLY</button>
+            </form>
+          </div>
           <section className="component" name="card-component">
             <div className="create">
               <button id="create-template-btn">
@@ -121,9 +149,9 @@ export default class ListView extends React.Component {
               <label id="records-per-page">
                 Records per page:
               </label>
-              <div className="custom-select">
+              <div id="custom-select">
                 <select value={this.state.value} onChange={this.handlePaginationDropdownChange}>
-                  <option selected value="10">10</option>
+                  <option value="10">10</option>
                   <option value="20">20</option>
                   <option value="50">50</option>
                   <option value="100">100</option>
