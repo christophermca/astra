@@ -5,6 +5,7 @@ import "./style.css";
 import { profileConfig, responseStub as stubData } from './stubs/index'
 import {TemplateResponse} from '../index.js'
 import StatefullAccordian from "../shared/statefullaccordian";
+const reader = new FileReader();
 
 
 export default class TemplateCreation extends React.Component {
@@ -13,7 +14,10 @@ export default class TemplateCreation extends React.Component {
     this.state = Object.assign({}, props);
     this.handleConfigChange = this.handleConfigChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.mockTemplateResponse = this.mockTemplateResponse.bind(this);
+    reader.addEventListener('load', () => {
+      debugger
+      this.setState({'inputFile': {'binary': reader.result} })
+    });
   }
 
   // TODO logic should be handled by the profile service
@@ -33,43 +37,26 @@ export default class TemplateCreation extends React.Component {
 
   }
 
-  mockTemplateResponse() {
-    if(!this.state.showTemplateDetails) {
-      console.log('[CREATE template]');
-
-      return fetch(`/api/templates/templatedetails?id=1`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      }).then(resp => resp.json())
-        .then(json => this.setState({ 'details': json,
-                                      "showTemplateDetails": true}))
-    } else {
-      console.log('[SAVE template]');
-    }
-
+  uploadFile(e) {
+    const inputFile = e.target.files[0]
+    reader.readAsBinaryString(inputFile);
   }
+
 
   handleSubmit(evt) {
     evt.preventDefault();
     const form = evt.target;
     const formData = new FormData(form)
-    let data = {}
-    for(let [name, value] of formData) {
-      data[name] = value;
-    }
 
     const options = {
       method: "POST",
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded"
-      },
-      body: new URLSearchParams(formData).toString()
+      body: formData
     }
 
     return fetch('/api/files/upload', options)
-      .then(res => res)
+      .then(response => response.json())
+      .then(resp => console.log({resp}))
+      .catch(err => console.error({ err }));
   }
 
   render() {
@@ -104,6 +91,7 @@ export default class TemplateCreation extends React.Component {
                   type="file"
                   accept=".csv,.xls "
                   multiple
+            onChange={this.uploadFile}
                 />
             {/*<TemplateBody header={this.state.config.headers}/>*/}
                 <section id="template-button">
