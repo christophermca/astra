@@ -40,7 +40,10 @@
     top: 17px;
 }
 .card-info {
-    width: 700px;
+    width: 900px;
+    position: relative;
+    display: flex;
+    justify-content: space-around;
 }
 
 .card-main{
@@ -55,16 +58,17 @@
 .card-value {
     display: inline-block;
     width: 49%;
-    width: 170px;
+    width: 250px;
     height: 22px;
     color: rgb(68, 68, 68);
-    font-size: 14px;
-    /* font-family: MyriadPro-Regular; */
+    font-size: 12px;
     font-weight: normal;
     line-height: 22px;
+    margin-top: 15px;
 }
 
 .card-label {
-    font-size: 15px;
+    font-size: 12px;
     color: grey;
+    margin-right: 10px;
 }

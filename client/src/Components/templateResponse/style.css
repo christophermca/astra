@@ -4,6 +4,20 @@
 
 input#template-name-search-bar {
   width: 100px;
+  margin-right: 20px;
+  margin-left: 10px;
+}
+
+input#template-id-search-bar{
+  width: 100px;
+  margin-right: 20px;
+  margin-left: 10px;
+}
+
+input#team-search-bar{
+  width: 100px;
+  margin-right: 20px;
+  margin-left: 10px;
 }
 
 form#template-header {
@@ -110,18 +124,19 @@ form#template-header {
 #pagination-back{
   height: 13px;
   width: 13px;
+  line-height: 21px;
   color: rgb(0, 151, 219);
 }
 
 #pagination-forward{
   height: 13px;
   width: 13px;
+  line-height: 21px;
   color: rgb(0, 151, 219);
 }
 
 #records-per-page{
   width: 130px;
-  height: 21px;
   color: rgb(68, 68, 68);
   font-size: 14px;
   font-family: MyriadPro-Regular;
@@ -131,24 +146,32 @@ form#template-header {
   left: 620px;
 }
 
-/* select {
-  -webkit-appearance: none; 
-  -moz-appearance: none;
-  appearance: none;       
-  padding: 10px;
-  margin: 0;
-  border-radius: none;
-  box-shadow: none;
-}*/
-
 #custom-select{
   position: relative;
   left: 150px;
   width: 50px;
+  line-height: 21px;
   border-top: none;
   border-left: none;
   border-right: none;
   background:  rgb(241, 242, 244);
   height: 15px;
 } 
+ 
+#template-page-number{
+  position: relative;
+  left: 100px;
+  line-height: 21px;
+  color: rgb(68, 68, 68);
+  font-size: 14px;
+  font-family: MyriadPro-Regular;
+  top: 2px;
+}
 
+#records-per-page-select{
+  position: relative;
+  left: 180px;
+  line-height: 21px;
+  background-color: rgb(242, 242, 242);
+  border: none;
+}

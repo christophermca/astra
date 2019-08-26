@@ -26,8 +26,6 @@ section.component select {
   border-left: none;
   border-right: none;
   background: rgb(224, 228, 230);
-  height: 12px;
-  width: 12px;
 }
 
 section.component section {

@@ -32,7 +32,9 @@ export default class ListView extends React.Component {
   }
 
   handlePaginationDropdownChange(event) {
-    this.setState({ value: event.target.value });
+    this.setState({ value: event.target.value }, () => {
+      this.getList();
+    });
   }
 
   handleNextPage() {
@@ -57,7 +59,6 @@ export default class ListView extends React.Component {
 
   onSearchSubmit(event) {
     event.preventDefault();
-    console.log(this.state)
     this.getList();
   }
 
@@ -124,11 +125,11 @@ export default class ListView extends React.Component {
           <div className="search-bar-div">
             <form onSubmit={this.onSearchSubmit}>
               <label>Template Name  </label>
-              <input type="text" id="template-name-search-bar" placeholder="Search" value={this.state.templateNameValue} name="templateName" onChange={this.handleChange} />
+              <input type="text" id="template-name-search-bar" placeholder="Search" value={this.state.templateName} name="templateName" onChange={this.handleChange} />
               <label>Template ID  </label>
-              <input type="text" id="template-id-search-bar" placeholder="Search" value={this.state.templateIdValue} name="templateId" onChange={this.handleChange} />
+              <input type="text" id="template-id-search-bar" placeholder="Search" value={this.state.templateId} name="templateId" onChange={this.handleChange} />
               <label>Team  </label>
-              <input type="text" id="team-search-bar" placeholder="Search" value={this.state.teamValue} name="team" onChange={this.handleChange} />
+              <input type="text" id="team-search-bar" placeholder="Search" value={this.state.team} name="team" onChange={this.handleChange} />
               <button type="submit">APPLY</button>
             </form>
           </div>
@@ -150,13 +151,14 @@ export default class ListView extends React.Component {
                 Records per page:
               </label>
               <div id="custom-select">
-                <select value={this.state.value} onChange={this.handlePaginationDropdownChange}>
+                <select id="records-per-page-select" value={this.state.value} onChange={this.handlePaginationDropdownChange}>
                   <option value="10">10</option>
                   <option value="20">20</option>
                   <option value="50">50</option>
                   <option value="100">100</option>
                 </select>
               </div>
+              <span id="template-page-number">Page {this.state.currentPage}</span>
               <div id="pagination-btns">
                 <button onClick={this.handlePrevPage} className="pagination-btn"><i className="material-icons md-13" id="pagination-back">arrow_back_ios</i></button>
                 <button onClick={this.handleNextPage} className="pagination-btn"><i className="material-icons md-13" id="pagination-forward">arrow_forward_ios</i></button>
