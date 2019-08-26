@@ -2,7 +2,7 @@ const fetch = require('node-fetch');
 const fs = require('fs');
 const path = require('path');
 
-const templateListURL = 'http://172.22.8.142:8080/v2/template/getTemplateListV2';
+const templateListURL = 'http://172.22.9.71:8080/v2/template/getTemplateListV2';
 const templateDetailsURL = 'http://172.22.8.142:8080/v2/template/getTemplateDetails';
 const createTemplateURL = 'http://172.22.8.142:8080/v2/template/createTemplate';
 

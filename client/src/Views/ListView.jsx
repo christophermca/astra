@@ -16,9 +16,10 @@ export default class ListView extends React.Component {
       templateData: '',
       value: 20,
       currentPage: 1,
-      templateName: '',
-      templateId: '',
-      team: ''
+      templateNameValue: '',
+      templateIdValue: '',
+      teamNameValue: '',
+      userIdValue: ''
     }
 
     // Handle showing template details
@@ -64,17 +65,14 @@ export default class ListView extends React.Component {
 
   componentDidMount() {
     let data = {
-      "user": {
-        "userId": "1",
-        "teamId": "1"
-      },
       "pagination": {
         "pageNumber": 1,
-        "recordPerPage": 10,
-        "orderByColunm": "1",
-        "searchBy": {
-          "templateId": "1"
-        }
+        "recordPerPage": 20,
+        "orderByColumn": "template_id",
+        "searchBy": [{
+          "template_name": "test1",
+          "user_id": "walmart"
+        }]
       }
     }
 
@@ -86,7 +84,7 @@ export default class ListView extends React.Component {
       }
     })
       .then(response => response.json())
-      .then(json => this.setState({ "list": json }))
+      .then(json => this.setState({ "list": json.templateList }))
   }
 
   getList() {
@@ -99,13 +97,79 @@ export default class ListView extends React.Component {
         "pageNumber": this.state.currentPage,
         "recordPerPage": this.state.value,
         "orderByColunm": "1",
-        "searchBy": {
-          "templateName": this.state.templateName,
-          "templateId": this.state.templateId,
-          "team": this.state.team
+        "searchBy": [{ }]
+      }
+    };
+
+    if (this.state.templateNameValue !== '') {
+      dynamicData = {
+        "user": {
+          "userId": "1",
+          "teamId": "1"
+        },
+        "pagination": {
+          "pageNumber": this.state.currentPage,
+          "recordPerPage": this.state.value,
+          "orderByColunm": "1",
+          "searchBy": [{
+            "template_name": this.state.templateNameValue
+          }]
+        }
+      }
+    } if (this.state.templateIdValue !== '') {
+      dynamicData = {
+        "user": {
+          "userId": "1",
+          "teamId": "1"
+        },
+        "pagination": {
+          "pageNumber": this.state.currentPage,
+          "recordPerPage": this.state.value,
+          "orderByColunm": "1",
+          "searchBy": [{
+            "template_name": this.state.templateNameValue,
+            "template_id": this.state.templateIdValue
+          }]
+        }
+      }
+    } if (this.state.teamNameValue !== '') {
+      dynamicData = {
+        "user": {
+          "userId": "1",
+          "teamId": "1"
+        },
+        "pagination": {
+          "pageNumber": this.state.currentPage,
+          "recordPerPage": this.state.value,
+          "orderByColunm": "1",
+          "searchBy": [{
+            "template_name": this.state.templateNameValue,
+            "template_id": this.state.templateIdValue,
+            "team_name": this.state.teamNameValue
+          }]
+        }
+      }
+    } if (this.state.userIdValue !== '') {
+      dynamicData = {
+        "user": {
+          "userId": "1",
+          "teamId": "1"
+        },
+        "pagination": {
+          "pageNumber": this.state.currentPage,
+          "recordPerPage": this.state.value,
+          "orderByColunm": "1",
+          "searchBy": [{
+            "template_name": this.state.templateNameValue,
+            "template_id": this.state.templateIdValue,
+            "team_name": this.state.teamNameValue,
+            "user_id": this.state.userIdValue
+          }]
         }
       }
     }
+
+    console.log(dynamicData);
 
     fetch('/api/templates/templatelist', {
       method: "POST",
@@ -115,7 +179,7 @@ export default class ListView extends React.Component {
       }
     })
       .then(response => response.json())
-      .then(json => this.setState({ "list": json }))
+      .then(json => this.setState({ "list": json.templateList }))
   }
 
   render() {
@@ -125,11 +189,13 @@ export default class ListView extends React.Component {
           <div className="search-bar-div">
             <form onSubmit={this.onSearchSubmit}>
               <label>Template Name  </label>
-              <input type="text" id="template-name-search-bar" placeholder="Search" value={this.state.templateName} name="templateName" onChange={this.handleChange} />
+              <input type="text" id="template-name-search-bar" placeholder="Search" value={this.state.templateNameValue} name="templateNameValue" onChange={this.handleChange} />
               <label>Template ID  </label>
-              <input type="text" id="template-id-search-bar" placeholder="Search" value={this.state.templateId} name="templateId" onChange={this.handleChange} />
-              <label>Team  </label>
-              <input type="text" id="team-search-bar" placeholder="Search" value={this.state.team} name="team" onChange={this.handleChange} />
+              <input type="text" id="template-id-search-bar" placeholder="Search" value={this.state.templateIdValue} name="templateIdValue" onChange={this.handleChange} />
+              <label>Team Name  </label>
+              <input type="text" id="team-search-bar" placeholder="Search" value={this.state.teamNameValue} name="teamNameValue" onChange={this.handleChange} />
+              <label>User ID  </label>
+              <input type="text" id="user-id-search-bar" placeholder="Search" value={this.state.userIdValue} name="userIdValue" onChange={this.handleChange} />
               <button type="submit">APPLY</button>
             </form>
           </div>
