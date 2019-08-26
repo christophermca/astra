@@ -10,10 +10,15 @@ const downloadFilesURL =
 
 const debugEndpoint = 'https://ptsv2.com/t/pa4xv-1566760918/post'
 
+// simular to running http.serverRequest
 const upload = (req, res) => {
 
   try {
-    req.pipe(request(uploadFilesURL)).pipe(res);
+    //const uploadForm = request(debugEndpoint);
+    //req.pipe(uploadForm).pipe(res);
+    const uploadForm = fetch(debugEndpoint, {method: 'POST', body: req}).then(resp => resp)
+
+    req.pipe(uploadForm).pipe(res);
 
   } catch (err) {
     console.error(err);

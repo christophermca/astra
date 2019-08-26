@@ -14,10 +14,6 @@ export default class TemplateCreation extends React.Component {
     this.state = Object.assign({}, props);
     this.handleConfigChange = this.handleConfigChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    reader.addEventListener('load', () => {
-      debugger
-      this.setState({'inputFile': {'binary': reader.result} })
-    });
   }
 
   // TODO logic should be handled by the profile service
@@ -36,12 +32,6 @@ export default class TemplateCreation extends React.Component {
     this.setState({'api': ['rest'], 'showTemplateBuilder': true})
 
   }
-
-  uploadFile(e) {
-    const inputFile = e.target.files[0]
-    reader.readAsBinaryString(inputFile);
-  }
-
 
   handleSubmit(evt) {
     evt.preventDefault();
