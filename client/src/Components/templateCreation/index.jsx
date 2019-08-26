@@ -35,17 +35,34 @@ export default class TemplateCreation extends React.Component {
 
   handleSubmit(evt) {
     evt.preventDefault();
+    console.log('creating template')
     const form = evt.target;
     const formData = new FormData(form)
+    formData.append('active', true);
+
+    formData.appendFormData = () => {
+      const {serviceId, userId, teamName, method} = this.state.config;
+      formData.append('serviceId', serviceId);
+      formData.append('userId', userId);
+      formData.append('teamName', teamName);
+      formData.append('requestType', method);
+      //stubbed
+      formData.append('template', JSON.stringify({"templateName":"sanjay template","httpUrlPathParams":"www.xyz.com/abc","requestType":"get"}));
+
+    }
+
+    formData.appendFormData();
 
     const options = {
       method: "POST",
       body: formData
     }
 
-    return fetch('/api/files/upload', options)
+    fetch('/api/files/upload', options)
       .then(response => response.json())
-      .then(resp => console.log({resp}))
+      .then(resp => {
+        return resp
+      })
       .catch(err => console.error({ err }));
   }
 
@@ -67,8 +84,8 @@ export default class TemplateCreation extends React.Component {
           (
             <React.Fragment>
               <section id="template-builderHeader">
-                <input disabled placeholder={this.state.config.method} />
-                <input name="url" defaultValue={this.state.config.url} className="template-url" />
+                <input name="requestType" disabled placeholder={this.state.config.method} />
+                <input name="httpUrlPathParams" defaultValue={this.state.config.url} className="template-url" />
               </section>
               <section>
                 <aside className="meta-info">
@@ -81,7 +98,7 @@ export default class TemplateCreation extends React.Component {
                   type="file"
                   accept=".csv,.xls "
                   multiple
-            onChange={this.uploadFile}
+                  onChange={this.uploadFile}
                 />
             {/*<TemplateBody header={this.state.config.headers}/>*/}
                 <section id="template-button">
