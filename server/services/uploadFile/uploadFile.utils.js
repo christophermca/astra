@@ -2,7 +2,7 @@ const fetch = require("node-fetch");
 // const FormData = require("form-data");
 
 const uploadFilesURL =
-  "http://172.22.8.151:8080/v2/template/uploadMultipleFiles";
+  "http://172.22.8.142:8080/v2/template/uploadMultipleFiles";
 
 const downloadFilesURL =
   "http://172.22.8.151:8080/v2/template/FileDownload";

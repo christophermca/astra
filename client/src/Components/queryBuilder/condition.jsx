@@ -48,7 +48,7 @@ export default class Condition extends React.Component {
             <div className="query condition">
                 {/* <input type="text" className="operand leftOperand" defaultValue={this.state.leftOperand} onChange={this.onLeftOperandChange} /> */}
                 <input  name='leftOperand' type="text" className="operand leftOperand" defaultValue={this.state.leftOperand} onChange={this.props.updateString} />
-                <select name='operator' className="operators" value={this.state.operator} onChange={this.props.updateString}>
+                <select name='operator' className="operators" defaultValue={this.state.operator} onChange={this.props.updateString}>
                     {operatorOptions}
                 </select>
                 <input name='rightOperand' type="text" className="operand rightOperand" defaultValue={this.state.rightOperand} onChange={this.props.updateString}/>
