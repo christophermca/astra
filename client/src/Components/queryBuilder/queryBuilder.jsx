@@ -23,7 +23,6 @@ export default class QueryBuilder extends React.Component {
             result = "(";
 
             for (i = 0, length = query.children.length; i < length; ++i) {
-                console.log(query.children)
                 result += this.queryToString(query.children[i]);
 
                 if ((i + 1 < length)) {
@@ -110,6 +109,6 @@ export default class QueryBuilder extends React.Component {
             }
         }
 
-        return <div className="queryBuilder">{childView}</div>;
+        return <div className="queryBuilder"><Condition query={this.props.initialQuery} parent={null} index={0} updateString={this.props.updateString} /></div>;
     }
 }
