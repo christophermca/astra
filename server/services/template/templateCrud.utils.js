@@ -57,6 +57,7 @@ const createTemplate = (req, res) => {
     const create = request(debugEndpoint);
     req.pipe(create).pipe(res);
 
+
   } catch (err) {
     console.error(err);
     res.status(400);

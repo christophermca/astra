@@ -39,24 +39,25 @@ export default class TemplateCreation extends React.Component {
     const formData = new FormData(form)
 
     formData.append('active', true);
-    formData.append('template', JSON.stringify({"templateName":"sanjay template","httpUrlPathParams":"www.xyz.com/abc","requestType":"get"}));
+    formData.append('template', JSON.stringify({
+      "templateName":formData.get('templateName'),
+      "httpUrlPathParams": formData.get('httpUrlPathParms'),
+      "requestType":formData.get('requestType')})
+    );
 
     const options = {
       method: "POST",
       body: formData
     }
 
-    fetch('/api/templates/create', options)
-      .then(response => response.json())
-      .then(resp => {
-        return resp
-      })
+    fetch('/api/templates/create', options).then(response => {response.json()})
+      .then(json => this.setState({"details": true}))
       .catch(err => console.error({ err }));
   }
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
+      <form name="template" onSubmit={this.handleSubmit}>
         <section id="template-header">
           <input name="templateName" placeholder="Template Name *Required" required />
           <input name="description" placeholder="Template Description *Required" required />
@@ -96,7 +97,7 @@ export default class TemplateCreation extends React.Component {
             </React.Fragment>
           ) : ''
           }
-          {this.state.showTemplateDetails ?
+          {this.state.details ?
               (
                 <TemplateResponse data={this.state.details}/>
               ) : ''
