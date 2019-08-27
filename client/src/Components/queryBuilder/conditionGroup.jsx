@@ -30,9 +30,15 @@ export default class ConditionGroup extends React.Component {
         e.preventDefault();
         this.props.query.children.push({
             type: 'ConditionGroup',
-            operator: 'AND',
+            operator: this.state.operator,
             children: []
         });
+    }
+
+    onOperatorChange = (e) =>{
+        this.setState({
+            operator: e.target.value
+        })
     }
 
     removeSelf = (e) => {

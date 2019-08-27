@@ -43,38 +43,6 @@ export default class QueryBuilder extends React.Component {
         return result;
     };
 
-    // getDefaultProps = () => {
-    //     return {
-    //         initialQuery: {
-    //             type: "ConditionGroup",
-    //             operator: "AND",
-    //             children: []
-    //         },
-    //         onQueryUpdate: function (queryBuilder) { }
-    //     };
-    // };
-
-    //   getInitialState = () => {
-    //     var queryFreezerStore = new Freezer(this.props.initialQuery);
-    //     var query = queryFreezerStore.get();
-
-    //     return {
-    //       queryFreezerStore: queryFreezerStore,
-    //       query: query
-    //     };
-    //   };
-
-    // componentDidMount() {
-        // this.getQuery();
-        
-        // // Update state every time query changes
-        // this.setState({
-        //     query: this.getQuery()
-        // });
-
-        // this.props.onQueryUpdate(this);
-    // }
-
 
 
     getQuery = () => {
@@ -109,6 +77,6 @@ export default class QueryBuilder extends React.Component {
             }
         }
 
-        return <div className="queryBuilder"><Condition query={this.props.initialQuery} parent={null} index={0} updateString={this.props.updateString} /></div>;
+        return <div className="queryBuilder">{childView}</div>;
     }
 }

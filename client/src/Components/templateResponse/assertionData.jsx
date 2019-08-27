@@ -31,12 +31,12 @@ export default class AssertionData extends React.Component {
     const { key, name, value } = e.target;
     const query = { ...this.state.query2 };
     
-    
+    debugger
     query.children.map((i, index) => {
         i[name] = value;
     });
     
-
+    
     this.setState({
       query2: { ...query }
     });
@@ -54,29 +54,28 @@ export default class AssertionData extends React.Component {
       const assertionString = {
         "executionName": "test",
         "template": {
-        "templateId":"14fb5424-b3dd-11e9-a2a3-2a2ae2dbcce4",
-        "userId":"1",
-        "requestType":"get",
-        "teamName":"QARTH",
-        "createBy":"Sanjay",
-        "serviceId":"85144022-b3dd-11e9-a2a3-2a2ae2dbcce4",
-        "serviceConfigurationId":"789f4567-e89b-12d3-a456-426655441234",
-        "httpUrlPathParams":"http://iro-webapp.stg0.iro.services.glb.prod.walmart.com/item-read-service/productOffers?rgs=PRODUCT_CONTENT,OFFER_PRODUCT,ITEM_PAGE_ASSET,OFFER_PRICE,OFFER_INVENTORY,ESTIMATED_SHIP_PRICE,VARIANT_SUMMARY",
-        "dataFileId":"",
-        "requestHeaders":"{\"WM_SVC.VERSION\":\"2.0.0\",\"WM_CONSUMER.IP\":\"127.0.0.1\",\"WM_SVC.ENV\":\"stg0\",\"WM_QOS.CORRELATION_ID\":\"-18006880586\",\"WM_SEC.AUTH_TOKEN\":\"AHHA\",\"WM_SVC.NAME\":\"item-read-service\",\"WM_CONSUMER.INTIMESTAMP\":\"1335916114312\"}",
-        "requestBody":"{ \"productContexts\":[{\"productId\":{ \"productId\":\"4EFAXBN1F9VA\"  } }],\"postalAddress\":{\"addressLineOne\":\"850 CHERRY AVE\",\"district\":\"Alameda\",\"addressType\":\"OFFICE\",\"city\":\"San Bruno\",\"countryCode\":\"US\",\"stateOrProvinceName\":\"California\",\"stateOrProvinceCode\":\"CA\",\"isApoFpo\":false,\"isPoBox\":false,\"postalCode\":\"94588\"},\"storeFrontIds\":[{\"USStoreId\":2280}]}",
-        "responseBody":"",
-        "disabled":false,
-        "assertions":[
-           {
-               "path":"payload.[0].productId.productId",
-         "operator":"EQ" ,
-         "expectedValue":"4EFAXBN1F9VA" ,
-         "disableField":"false"
-     
+          "templateId":"14fb5424-b3dd-11e9-a2a3-2a2ae2dbcce4",
+          "userId":"1",
+          "requestType":"get",
+          "teamName":"QARTH",
+          "createBy":"Sanjay",
+          "serviceId":"85144022-b3dd-11e9-a2a3-2a2ae2dbcce4",
+          "serviceConfigurationId":"789f4567-e89b-12d3-a456-426655441234",
+          "httpUrlPathParams":"http://iro-webapp.stg0.iro.services.glb.prod.walmart.com/item-read-service/productOffers?rgs=PRODUCT_CONTENT,OFFER_PRODUCT,ITEM_PAGE_ASSET,OFFER_PRICE,OFFER_INVENTORY,ESTIMATED_SHIP_PRICE,VARIANT_SUMMARY",
+          "dataFileId":"",
+          "requestHeaders":"{\"WM_SVC.VERSION\":\"2.0.0\",\"WM_CONSUMER.IP\":\"127.0.0.1\",\"WM_SVC.ENV\":\"stg0\",\"WM_QOS.CORRELATION_ID\":\"-18006880586\",\"WM_SEC.AUTH_TOKEN\":\"AHHA\",\"WM_SVC.NAME\":\"item-read-service\",\"WM_CONSUMER.INTIMESTAMP\":\"1335916114312\"}",
+          "requestBody":"{ \"productContexts\":[{\"productId\":{ \"productId\":\"4EFAXBN1F9VA\"  } }],\"postalAddress\":{\"addressLineOne\":\"850 CHERRY AVE\",\"district\":\"Alameda\",\"addressType\":\"OFFICE\",\"city\":\"San Bruno\",\"countryCode\":\"US\",\"stateOrProvinceName\":\"California\",\"stateOrProvinceCode\":\"CA\",\"isApoFpo\":false,\"isPoBox\":false,\"postalCode\":\"94588\"},\"storeFrontIds\":[{\"USStoreId\":2280}]}",
+          "responseBody":"",
+          "disabled":false,
+          "assertions":[
+            {
+              "path":"payload.[0].productId.productId", //this will come from context variables
+              "operator":"EQ" ,
+              "expectedValue": this.state.query2.children[0].rightOperand,
+              "disableField":"false"
            }
-        ],
-        "inlineDataSets":[
+          ],
+          "inlineDataSets":[
            {
               "contextVariables":[
            {
@@ -98,53 +97,6 @@ export default class AssertionData extends React.Component {
         ],
         "modifiedBy":"Amruth"
      }}
-    //   {
-    //     "executionName":"test",
-    //     "template":{
-    //         "templateId":"14fb5424-b3dd-11e9-a2a3-2a2ae2dbcce4",
-    //         "userId":"1",
-    //         "requestType":"get",
-    //         "teamName":"QARTH",
-    //         "createBy":"Sanjay",
-    //         "serviceId":"85144022-b3dd-11e9-a2a3-2a2ae2dbcce4",
-    //         "serviceConfigurationId":"789f4567-e89b-12d3-a456-426655441234",
-    //         "httpUrlPathParams":"http://iro-webapp.stg0.iro.services.glb.prod.walmart.com/item-read-service/productOffers?rgs=PRODUCT_CONTENT,OFFER_PRODUCT,ITEM_PAGE_ASSET,OFFER_PRICE,OFFER_INVENTORY,ESTIMATED_SHIP_PRICE,VARIANT_SUMMARY",
-    //         "dataFileId":"",
-    //         "requestHeaders":"{\"WM_SVC.VERSION\":\"2.0.0\",\"WM_CONSUMER.IP\":\"127.0.0.1\",\"WM_SVC.ENV\":\"stg0\",\"WM_QOS.CORRELATION_ID\":\"-18006880586\",\"WM_SEC.AUTH_TOKEN\":\"AHHA\",\"WM_SVC.NAME\":\"item-read-service\",\"WM_CONSUMER.INTIMESTAMP\":\"1335916114312\"}",
-    //         "requestBody":"{ \"productContexts\":[{\"productId\":{ \"productId\":\"4EFAXBN1F9VA\"  } }],\"postalAddress\":{\"addressLineOne\":\"850 CHERRY AVE\",\"district\":\"Alameda\",\"addressType\":\"OFFICE\",\"city\":\"San Bruno\",\"countryCode\":\"US\",\"stateOrProvinceName\":\"California\",\"stateOrProvinceCode\":\"CA\",\"isApoFpo\":false,\"isPoBox\":false,\"postalCode\":\"94588\"},\"storeFrontIds\":[{\"USStoreId\":2280}]}",
-    //         "responseBody":"",
-    //         "disabled":false,
-    //         "assertions":[
-    //         {
-    //             "path": this.state.query2.children[0].rightOperand,
-    //             "operator":this.state.query2.children[0].operator ,
-    //             "expectedValue": this.state.query2.children[0].rightOperand ,
-    //             "disableField":"false"
-    //         }
-    //         ],
-    //         "inlineDataSets":[
-    //            {
-    //       "contextVariables":[
-    //            {
-    //            "name":"productId",
-    //             "value":"4EFAXBN1F9VA"
-    //            }
-    //         ]
-    //         }
-    //         ],
-    //         "datasets":[
-    //            {
- 
-    //            }
-    //      ],
-    //         "contextVariables":[
-    //            {
- 
-    //            }
-    //      ],
-    //         "modifiedBy":"Amruth"
-    //     }
-    // }
 
     const reqData = JSON.stringify(assertionString)
       const options = {
@@ -154,7 +106,6 @@ export default class AssertionData extends React.Component {
           },
         body: reqData
       }
-  debugger
       return fetch('/api/assertions/execute', options)
         .then(response => { console.log(response) })
         .then(resp => console.log({resp}))
@@ -174,7 +125,6 @@ export default class AssertionData extends React.Component {
 
     const query = { ...this.state.query2 };
     query.children = [...children];
-
     this.setState({
       query2: { ...query }
     });
