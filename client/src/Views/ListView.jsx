@@ -98,28 +98,13 @@ export default class ListView extends React.Component {
     };
 
     if (this.state.templateNameValue !== '') {
-      dynamicData.pagination.searchBy =
-        [{
-          "template_name": this.state.templateNameValue
-        }]
+      dynamicData.pagination.searchBy[0].template_name = this.state.templateNameValue;
     } if (this.state.templateIdValue !== '') {
-      dynamicData.pagination.searchBy = [{
-        "template_name": this.state.templateNameValue,
-        "template_id": this.state.templateIdValue
-      }]
+      dynamicData.pagination.searchBy[0].template_id = this.state.templateIdValue;
     } if (this.state.teamNameValue !== '') {
-      dynamicData.pagination.searchBy = [{
-        "template_name": this.state.templateNameValue,
-        "template_id": this.state.templateIdValue,
-        "team_name": this.state.teamNameValue
-      }]
+      dynamicData.pagination.searchBy[0].team_name = this.state.teamNameValue;
     } if (this.state.userIdValue !== '') {
-      dynamicData.pagination.searchBy = [{
-        "template_name": this.state.templateNameValue,
-        "template_id": this.state.templateIdValue,
-        "team_name": this.state.teamNameValue,
-        "user_id": this.state.userIdValue
-      }]
+      dynamicData.pagination.searchBy[0].user_id = this.state.userIdValue;
     }
 
     console.log(dynamicData);
