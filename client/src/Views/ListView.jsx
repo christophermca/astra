@@ -110,11 +110,15 @@ export default class ListView extends React.Component {
       }
     };
 
+    console.log(this.state.list)
+
     if (this.state.templateNameValue !== '') {
       dynamicData.pagination.searchBy[0].template_name = this.state.templateNameValue;
     } if (this.state.templateIdValue !== '') {
       dynamicData.pagination.searchBy[0].template_id = this.state.templateIdValue;
     } if (this.state.teamNameValue !== '') {
+      console.log(dynamicData.pagination.searchBy[0].team_name)
+      console.log(this.state.teamNameValue)
       dynamicData.pagination.searchBy[0].team_name = this.state.teamNameValue;
     } if (this.state.userIdValue !== '') {
       dynamicData.pagination.searchBy[0].user_id = this.state.userIdValue;
