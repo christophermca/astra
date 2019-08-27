@@ -2,9 +2,6 @@ const fetch = require('node-fetch');
 const request = require("request");
 
 // TODO verify create endpoint
-const createTemplateSJ =
-  "http://172.22.8.142:8080/v2/template/createTemplatev2?templateName=\'testing\'";
-
 const createTemplate =
   "http://172.22.9.24:8080/v2/template/createTemplatev2";
 
@@ -14,13 +11,12 @@ const uploadFilesURL =
 const downloadFilesURL =
   "http://172.22.9.24:8080/v2/template/FileDownload";
 
-const debugEndpoint = 'https://ptsv2.com/t/55zig-1566827920/post'
-
+const debugEndpoint = 'https://ptsv2.com/t/mwz5g-1566870939/post'
 // simular to running http.serverRequest
 const upload = (req, res) => {
 
   try {
-    const uploadForm = request(createTemplateSJ);
+    const uploadForm = request(debugEndpoint);
     req.pipe(uploadForm).pipe(res);
 
   } catch (err) {

@@ -1,3 +1,4 @@
+const request = require("request");
 const fetch = require('node-fetch');
 const fs = require('fs');
 const path = require('path');
@@ -9,7 +10,8 @@ const JavaEngineIP = `http://172.22.8.${dynamicAddress}:8080`
 
 const templateListURL = `${JavaEngineIP}/v2/template/getTemplateList/1`;
 const templateDetailsURL = `${JavaEngineIP}/v2/template/getTemplateDetails`;
-const createTemplateURL = `${JavaEngineIP}/v2/template/createTemplate`;
+const createTemplateURL = `${JavaEngineIP}/v2/template/createTemplatev2`;
+const debugEndpoint = 'https://ptsv2.com/t/mwz5g-1566870939/post'
 
 const useStubData = process.env.OFFLINE === 'true';
 
@@ -48,16 +50,13 @@ const getOneTemplate = async (req, res) => {
   }
 }
 
-const createTemplate = async (req, res) => {
+// simular to running http.serverRequest
+const createTemplate = (req, res) => {
+
   try {
-    const newTemplate = await fetch(createTemplateURL, {
-      method: "POST",
-      body: JSON.stringify(req.body),
-      headers: {
-        "Content-Type": "application/json"
-      }
-    });
-    res.status(201).send({ message: "Template created successfully" });
+    const create = request(debugEndpoint);
+    req.pipe(create).pipe(res);
+
   } catch (err) {
     console.error(err);
     res.status(400);

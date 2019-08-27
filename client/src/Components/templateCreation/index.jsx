@@ -38,27 +38,16 @@ export default class TemplateCreation extends React.Component {
     console.log('creating template')
     const form = evt.target;
     const formData = new FormData(form)
+
     formData.append('active', true);
-
-    formData.appendFormData = () => {
-      const {serviceId, userId, teamName, method} = this.state.config;
-      formData.append('serviceId', serviceId);
-      formData.append('userId', userId);
-      formData.append('teamName', teamName);
-      formData.append('requestType', method);
-      //stubbed
-      formData.append('template', JSON.stringify({"templateName":"sanjay template","httpUrlPathParams":"www.xyz.com/abc","requestType":"get"}));
-
-    }
-
-    formData.appendFormData();
+    formData.append('template', JSON.stringify({"templateName":"sanjay template","httpUrlPathParams":"www.xyz.com/abc","requestType":"get"}));
 
     const options = {
       method: "POST",
       body: formData
     }
 
-    fetch('/api/files/upload', options)
+    fetch('/api/templates/createtemplate', options)
       .then(response => response.json())
       .then(resp => {
         return resp
