@@ -89,84 +89,37 @@ export default class ListView extends React.Component {
 
   getList() {
     let dynamicData = {
-      "user": {
-        "userId": "1",
-        "teamId": "1"
-      },
       "pagination": {
         "pageNumber": this.state.currentPage,
         "recordPerPage": this.state.value,
-        "orderByColunm": "1",
-        "searchBy": [{ }]
+        "orderByColumn": "template_id",
+        "searchBy": [{}]
       }
     };
 
     if (this.state.templateNameValue !== '') {
-      dynamicData = {
-        "user": {
-          "userId": "1",
-          "teamId": "1"
-        },
-        "pagination": {
-          "pageNumber": this.state.currentPage,
-          "recordPerPage": this.state.value,
-          "orderByColunm": "1",
-          "searchBy": [{
-            "template_name": this.state.templateNameValue
-          }]
-        }
-      }
+      dynamicData.pagination.searchBy =
+        [{
+          "template_name": this.state.templateNameValue
+        }]
     } if (this.state.templateIdValue !== '') {
-      dynamicData = {
-        "user": {
-          "userId": "1",
-          "teamId": "1"
-        },
-        "pagination": {
-          "pageNumber": this.state.currentPage,
-          "recordPerPage": this.state.value,
-          "orderByColunm": "1",
-          "searchBy": [{
-            "template_name": this.state.templateNameValue,
-            "template_id": this.state.templateIdValue
-          }]
-        }
-      }
+      dynamicData.pagination.searchBy = [{
+        "template_name": this.state.templateNameValue,
+        "template_id": this.state.templateIdValue
+      }]
     } if (this.state.teamNameValue !== '') {
-      dynamicData = {
-        "user": {
-          "userId": "1",
-          "teamId": "1"
-        },
-        "pagination": {
-          "pageNumber": this.state.currentPage,
-          "recordPerPage": this.state.value,
-          "orderByColunm": "1",
-          "searchBy": [{
-            "template_name": this.state.templateNameValue,
-            "template_id": this.state.templateIdValue,
-            "team_name": this.state.teamNameValue
-          }]
-        }
-      }
+      dynamicData.pagination.searchBy = [{
+        "template_name": this.state.templateNameValue,
+        "template_id": this.state.templateIdValue,
+        "team_name": this.state.teamNameValue
+      }]
     } if (this.state.userIdValue !== '') {
-      dynamicData = {
-        "user": {
-          "userId": "1",
-          "teamId": "1"
-        },
-        "pagination": {
-          "pageNumber": this.state.currentPage,
-          "recordPerPage": this.state.value,
-          "orderByColunm": "1",
-          "searchBy": [{
-            "template_name": this.state.templateNameValue,
-            "template_id": this.state.templateIdValue,
-            "team_name": this.state.teamNameValue,
-            "user_id": this.state.userIdValue
-          }]
-        }
-      }
+      dynamicData.pagination.searchBy = [{
+        "template_name": this.state.templateNameValue,
+        "template_id": this.state.templateIdValue,
+        "team_name": this.state.teamNameValue,
+        "user_id": this.state.userIdValue
+      }]
     }
 
     console.log(dynamicData);
