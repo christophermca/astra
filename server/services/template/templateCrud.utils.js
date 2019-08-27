@@ -2,9 +2,9 @@ const fetch = require('node-fetch');
 const fs = require('fs');
 const path = require('path');
 
-const templateListURL = 'http://172.22.8.151:8080/v2/template/getTemplateList/1';
-const templateDetailsURL = 'http://172.22.8.151:8080/v2/template/getTemplateDetails';
-const createTemplateURL = 'http://172.22.8.151:8080/v2/template/createTemplate';
+const templateListURL = 'http://172.22.8.142:8080/v2/template/getTemplateListV2';
+const templateDetailsURL = 'http://172.22.8.142:8080/v2/template/getTemplateDetails';
+const createTemplateURL = 'http://172.22.8.142:8080/v2/template/createTemplate';
 
 const useStubData = process.env.OFFLINE === 'true';
 
@@ -12,15 +12,29 @@ const getAllTemplates = async (req, res) => {
 console.log('[GET] all Templates - ')
   try {
     let data;
+    let jData;
     if(useStubData) {
       console.log('using stub response');
       data = JSON.parse(fs.readFileSync(path.resolve(__dirname, '../../stubs/templatelist.stub.json')));
     } else {
       console.log('request - calling templateListURL');
-      const getTemplates = await fetch(templateListURL);
-      data = await getTemplates.json()
+      const jsonData = JSON.stringify(req.body);
+
+      const getTemplates = await fetch(templateListURL, {
+        method: "POST",
+        body: jsonData,
+        headers: {
+          "Content-Type": "application/json"
+        }
+      })
+      data = await getTemplates.text()
+      debugger
+      const stringifyData = JSON.stringify(data)
+      jData = await JSON.parse(stringifyData)
+      console.log(jData)
+
     }
-    return res.status(200).send(data);
+    return res.status(200).send(JSON.parse(jData));
   } catch (err) {
       console.error(err)
       return res.status(400)

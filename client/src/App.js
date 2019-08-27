@@ -10,7 +10,9 @@ import { HomeView, ListView, CreateView, DetailsView } from './Views/index';
 export default class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = Object.assign({}, props)
+    this.state = {
+      title: "Templates"
+    }
   }
 
   render () {

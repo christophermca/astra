@@ -19,7 +19,7 @@ export default class CardComponent extends React.Component {
       <section key={this.state.data.templateName} className="card-container">
         <Link to={templateDetail} className="card-header">{this.state.data.templateName}</Link>
         <div className="card-button">
-          execute<span>...</span>
+          Execute<span></span>
         </div>
 
         <div className="card-main">
