@@ -5,7 +5,6 @@ import "./style.css";
 import { profileConfig, responseStub as stubData } from './stubs/index'
 import {TemplateResponse} from '../index.js'
 import StatefullAccordian from "../shared/statefullaccordian";
-const reader = new FileReader();
 
 
 export default class TemplateCreation extends React.Component {
@@ -47,7 +46,7 @@ export default class TemplateCreation extends React.Component {
       body: formData
     }
 
-    fetch('/api/templates/createtemplate', options)
+    fetch('/api/templates/create', options)
       .then(response => response.json())
       .then(resp => {
         return resp
