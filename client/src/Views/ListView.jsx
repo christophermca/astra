@@ -19,7 +19,7 @@ export default class ListView extends React.Component {
       templateNameValue: '',
       templateIdValue: '',
       teamNameValue: '',
-      userIdValue: ''
+      userIdValue: '',
     }
 
     // Handle showing template details
@@ -65,14 +65,15 @@ export default class ListView extends React.Component {
 
   componentDidMount() {
     let data = {
+      "user": {
+        "userId": "1",
+        "teamId": "1"
+    },
       "pagination": {
         "pageNumber": 1,
         "recordPerPage": 20,
         "orderByColumn": "template_id",
-        "searchBy": [{
-          "template_name": "test1",
-          "user_id": "walmart"
-        }]
+        "searchBy": [{}]
       }
     }
 
@@ -83,12 +84,24 @@ export default class ListView extends React.Component {
         "Content-Type": "application/json"
       }
     })
-      .then(response => response.json())
-      .then(json => this.setState({ "list": json.templateList }))
+      .then(response => {
+        return response.json()
+      }
+       
+      )
+      .then(json => 
+        this.setState({ list: json.templateList })
+      )
+
+
   }
 
   getList() {
     let dynamicData = {
+      "user": {
+        "userId": "1",
+        "teamId": "1"
+    },
       "pagination": {
         "pageNumber": this.state.currentPage,
         "recordPerPage": this.state.value,
@@ -108,6 +121,7 @@ export default class ListView extends React.Component {
     }
 
     console.log(dynamicData);
+    console.log(this.state.list)
 
     fetch('/api/templates/templatelist', {
       method: "POST",
