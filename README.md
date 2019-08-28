@@ -12,5 +12,8 @@ This Project has two components the Proxy server and the client application
 - npm run client..............starts the client app
 - npm run server..............starts the proxy server
 
+[proxy server README](./server/README.md)
+[Client App README](./client/README.md)
+
 you need to run both servers to experience the app
 
