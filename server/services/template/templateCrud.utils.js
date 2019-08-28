@@ -16,32 +16,19 @@ const debugEndpoint = 'https://ptsv2.com/t/mwz5g-1566870939/post'
 const useStubData = process.env.OFFLINE === 'true';
 
 const getAllTemplates = async (req, res) => {
-console.log('[GET] all Templates - ')
+  console.log('[GET] all Templates - ')
   try {
-    let data;
-    let jData;
     if(useStubData) {
       console.log('using stub response');
-      data = JSON.parse(fs.readFileSync(path.resolve(__dirname, '../../stubs/templatelist.stub.json')));
+      const data = JSON.parse(fs.readFileSync(path.resolve(__dirname, '../../stubs/templatelist.stub.json')));
+      res.status(200).send(data);
     } else {
       console.log('request - calling templateListURL');
-      const jsonData = JSON.stringify(req.body);
 
-      const getTemplates = await fetch(templateListURL, {
-        method: "POST",
-        body: jsonData,
-        headers: {
-          "Content-Type": "application/json"
-        }
-      })
-      data = await getTemplates.text()
-      debugger
-      const stringifyData = JSON.stringify(data)
-      jData = await JSON.parse(stringifyData)
-      console.log(jData)
+      const templateList = request(templateListUrl);
+      req.pipe(templateList).pipe(res);
 
     }
-    return res.status(200).send(JSON.parse(jData));
   } catch (err) {
       console.error(err)
       return res.status(400)
@@ -68,9 +55,14 @@ const getOneTemplate = async (req, res) => {
 const createTemplate = async (req, res) => {
 
   try {
-    const create = request(createTemplateURL);
-    req.pipe(create).pipe(res);
-
+    if(useStubData) {
+      console.log('using stub response');
+      template = JSON.parse(fs.readFileSync(path.resolve(__dirname, '../../stubs/templatedetails.stub.json')));
+      res.status(200).send(template);
+    } else {
+      const create = request(createTemplateURL);
+      req.pipe(create).pipe(res);
+    }
 
 
   } catch (err) {

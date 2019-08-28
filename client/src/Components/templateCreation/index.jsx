@@ -51,7 +51,7 @@ export default class TemplateCreation extends React.Component {
     }
 
     fetch('/api/templates/create', options).then(response => response.json())
-      .then(json => this.setState({"details": json.template}))
+      .then(({template}) => this.setState({"details": template}))
       .catch(err => console.error({ err }));
   }
 
