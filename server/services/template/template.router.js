@@ -5,7 +5,7 @@ const router = express.Router();
 
 // /api/templates/templatelist
 router.route("/templatelist/")
-  .get(templateCrud.getAllTemplates);
+  .post(templateCrud.getAllTemplates);
 
 // /api/templates/templatedetails
 router.route("/templatedetails*")

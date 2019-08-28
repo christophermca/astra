@@ -14,13 +14,36 @@
 
 .card-header{
     float: left;
+    width: 206px;
+    height: 16px;
+    color: rgb(68, 68, 68);
+    font-size: 16px;
+    /* font-family: 'MyriadPro-Semibold'; */
+    font-weight: 600;
+    line-height: 16px;
+    text-decoration: none;
+    position: relative;
+    top: 17px;
+    left: 0px;
 }
 
 .card-button{
     float: right;
+    color: rgb(0, 151, 219);
+    /* font-family: MyriadPro-Regular; */
+    font-size: 16px;
+    font-weight: normal;
+    height: 16px;
+    text-align: right;
+    width: 87px;
+    position: relative;
+    top: 17px;
 }
 .card-info {
-    width: 700px;
+    width: 900px;
+    position: relative;
+    display: flex;
+    justify-content: space-around;
 }
 
 .card-main{
@@ -34,11 +57,18 @@
 }
 .card-value {
     display: inline-block;
-  width: 49%;
-    font-size: 20px;
+    width: 49%;
+    width: 250px;
+    height: 22px;
+    color: rgb(68, 68, 68);
+    font-size: 12px;
+    font-weight: normal;
+    line-height: 22px;
+    margin-top: 15px;
 }
 
 .card-label {
-    font-size: 15px;
+    font-size: 12px;
     color: grey;
+    margin-right: 10px;
 }

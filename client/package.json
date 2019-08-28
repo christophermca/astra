@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "dependencies": {
     "freezer-js": "^0.14.1",
+    "material-design-icons": "^3.0.1",
     "react": "^16.8.6",
     "react-awesome-query-builder": "^0.2.51",
     "react-dom": "^16.8.6",
