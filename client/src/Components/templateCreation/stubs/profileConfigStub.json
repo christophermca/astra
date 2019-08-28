@@ -1,7 +1,11 @@
 {
   "alpha": {
+    "serviceId": "85144022-b3dd-11e9-a2a3-2a2ae2dbcce4",
+    "teamName": "Walmart",
+    "userId": "walmart",
     "method": "GET",
     "url": "https://www.walmart.com/globalnav/vanilla-fragments/mobile/get-all",
+    "serviceConfigurationId": "789f4567-e89b-12d3-a456-426655441234",
     "headers": {
       "Host": "www.walmart.com",
       "User-Agent": "Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101 Firefox/68.0",
@@ -17,6 +21,9 @@
     }
   },
   "bravo": {
+    "serviceId": "85144022-b3dd-11e9-a2a3-2a2ae2dbcce4",
+    "teamName": "Walmart",
+    "userId": "walmart",
     "method": "POST",
     "url": "https://www.walmart.com/cp/api/logger",
     "headers": {

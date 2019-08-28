@@ -1,13 +1,9 @@
 import React from 'react';
 import { TemplateResponse, TemplateCreation } from '../Components';
-import './styles/createView.css'
+import './styles/createView.css';
+import View from './View.jsx';
 
-export default class ListView extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = Object.assign({}, props)
-  }
-
+export default class CreateView extends View {
   render() {
     return (
         <section className="component" name="cardComponent">

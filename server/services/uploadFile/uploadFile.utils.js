@@ -1,24 +1,24 @@
-const fetch = require("node-fetch");
-// const FormData = require("form-data");
+const fetch = require('node-fetch');
+const request = require("request");
+
+// TODO verify create endpoint
+const createTemplate =
+  "http://172.22.9.24:8080/v2/template/createTemplatev2";
 
 const uploadFilesURL =
-  "http://172.22.8.151:8080/v2/template/uploadMultipleFiles";
+  "http://172.22.9.24:8080/v2/template/uploadMultipleFiles";
 
 const downloadFilesURL =
-  "http://172.22.8.151:8080/v2/template/FileDownload";
+  "http://172.22.9.24:8080/v2/template/FileDownload";
 
-const upload = async (req, res) => {
+const debugEndpoint = 'https://ptsv2.com/t/mwz5g-1566870939/post'
+// simular to running http.serverRequest
+const upload = (req, res) => {
+
   try {
-    const filesToUpload = req.body
-    let uploadFile = await fetch(uploadFilesURL, {
-      "method": "POST",
-      "headers": {
-        "Content-Type": "multipart/form-data"
-      },
-      "body": filesToUpload
-    });
-    console.log(uploadFile);
-    res.status(201).send(uploadFile);
+    const uploadForm = request(debugEndpoint);
+    req.pipe(uploadForm).pipe(res);
+
   } catch (err) {
     console.error(err);
     res.status(400);
@@ -27,6 +27,7 @@ const upload = async (req, res) => {
 
 const download = async (req, res) => {
   try {
+    // TODO update fetch to request ?
     const downloadFiles = await fetch(downloadFilesURL)
     const files = await downloadFiles.json(req.files)
     res.send(files)

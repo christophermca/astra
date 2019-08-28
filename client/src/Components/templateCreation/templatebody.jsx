@@ -17,16 +17,17 @@ export default class TemplateBody extends React.Component {
 
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
+    this.handleBody = this.handleBody.bind(this);
+    this.handleData   = this.handleData.bind(this);
+    this.saveModal = this.saveModal.bind(this);
+    this.handleFiles = this.handleFiles.bind(this);
   }
 
-
   handleBody() {
-    console.log("body clicked");
     this.setState({ bodyVisibility: true });
   };
 
   handleData() {
-    console.log("data click");
     this.setState({ bodyVisibility: false });
   };
 
@@ -40,32 +41,12 @@ export default class TemplateBody extends React.Component {
   };
 
   async saveModal(e) {
-    console.log(this.fileObject)
+    window.dispatchEvent('fileUpload', this.state.fileObject);
   }
 
   async handleFiles(e) {
-    const file = e.target.files;
-
-    var reader = new FileReader();
-    let binaryFile;
-    reader.onload = async e => {
-      var contents = e.target.result;
-      binaryFile = window.btoa(unescape(encodeURIComponent(contents)));
-
-      var fileObj = {
-        fileContents: binaryFile,
-        name: file[0].name,
-        extension: file[0].type
-      };
-
-      const fileUpload = await fetch("http://localhost:3002/api/files/upload", {
-      method: "POST",
-      body: JSON.stringify(fileObj),
-    });
-      this.setState({ fileObject: fileObj})
-    };
-
-    reader.readAsText(file[0]);
+    const files = e.target.files;
+    this.setState({ fileObject: files})
   };
 
 
@@ -100,17 +81,16 @@ export default class TemplateBody extends React.Component {
                 enctype="multipart/form-data"
               >
                 <div>Upload</div>
-                <form action="/" method="post" encType="multipart/form-data">
-                  <input
-                    id="input-file"
-                    type="file"
-                    accept=".csv,.xls "
-                    multiple
-                    onChange={this.handleFiles}
-                  />
-                </form>
+                <input
+                  name="files"
+                  id="input-file"
+                  type="file"
+                  accept=".csv,.xls "
+                  multiple
+                  onChange={this.handleFiles}
+                />
                 <button onClick={this.closeModal}>close</button>
-                <button onClick={this.saveModal}>save</button>
+                <button disabled={!this.state.fileObject} onClick={this.saveModal}>save</button>
               </Modal>
               <table>
                 <tbody>

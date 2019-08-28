@@ -1,68 +1,9 @@
 import React from 'react';
-import { CardComponent, TemplateResponse } from '../Components';
+import { CardComponent, TemplateResponse } from '../../Components';
 import { Link } from "react-router-dom";
+import ListView from './ListView.jsx';
 
-export default class ListView extends React.Component {
-  constructor(props) {
-    super(props);
-    this.setTemplateData = this.setTemplateData.bind(this);
-    this.handlePaginationDropdownChange = this.handlePaginationDropdownChange.bind(this);
-    this.handleNextPage = this.handleNextPage.bind(this);
-    this.handlePrevPage = this.handlePrevPage.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-    this.onSearchSubmit = this.onSearchSubmit.bind(this);
-
-    this.state = {
-      templateData: '',
-      value: 20,
-      currentPage: 1,
-      templateNameValue: '',
-      templateIdValue: '',
-      teamNameValue: '',
-      userIdValue: '',
-    }
-
-    // Handle showing template details
-    window.addEventListener('displayTemplateDetails', (data) => {
-      this.setTemplateData(data)
-    });
-  }
-
-  setTemplateData(data) {
-    this.setState({ templateData: data })
-  }
-
-  handlePaginationDropdownChange(event) {
-    this.setState({ value: event.target.value }, () => {
-      this.getList();
-    });
-  }
-
-  handleNextPage() {
-    let newPage = this.state.currentPage + 1;
-    this.setState({ currentPage: newPage }, () => {
-      this.getList();
-    });
-  }
-
-  handlePrevPage() {
-    if (this.state.currentPage > 1) {
-      let newPage = this.state.currentPage - 1;
-      this.setState({ currentPage: newPage }, () => {
-        this.getList();
-      });
-    }
-  }
-
-  handleChange(event) {
-    this.setState({ [event.target.name]: event.target.value });
-  }
-
-  onSearchSubmit(event) {
-    event.preventDefault();
-    this.getList();
-  }
-
+export default class TemplateList extends ListView {
   componentDidMount() {
     let data = {
       "user": {
@@ -80,62 +21,12 @@ export default class ListView extends React.Component {
     fetch('/api/templates/templatelist', {
       method: "POST",
       body: JSON.stringify(data),
-      headers: {
-        "Content-Type": "application/json"
-      }
-    })
-      .then(response => {
-        return response.json()
-      }
-       
-      )
-      .then(json => 
-        this.setState({ list: json.templateList })
-      )
-
-
-  }
-
-  getList() {
-    let dynamicData = {
-      "user": {
-        "userId": "1",
-        "teamId": "1"
-    },
-      "pagination": {
-        "pageNumber": this.state.currentPage,
-        "recordPerPage": this.state.value,
-        "orderByColumn": "template_id",
-        "searchBy": [{}]
-      }
-    };
-
-    console.log(this.state.list)
-
-    if (this.state.templateNameValue !== '') {
-      dynamicData.pagination.searchBy[0].template_name = this.state.templateNameValue;
-    } if (this.state.templateIdValue !== '') {
-      dynamicData.pagination.searchBy[0].template_id = this.state.templateIdValue;
-    } if (this.state.teamNameValue !== '') {
-      console.log(dynamicData.pagination.searchBy[0].team_name)
-      console.log(this.state.teamNameValue)
-      dynamicData.pagination.searchBy[0].team_name = this.state.teamNameValue;
-    } if (this.state.userIdValue !== '') {
-      dynamicData.pagination.searchBy[0].user_id = this.state.userIdValue;
-    }
-
-    console.log(dynamicData);
-    console.log(this.state.list)
-
-    fetch('/api/templates/templatelist', {
-      method: "POST",
-      body: JSON.stringify(dynamicData),
-      headers: {
-        "Content-Type": "application/json"
-      }
+      headers: { "Content-Type": "application/json" }
     })
       .then(response => response.json())
-      .then(json => this.setState({ "list": json.templateList }))
+      .then(json => {
+        this.setState({ list: json.templateList })
+      })
   }
 
   render() {
