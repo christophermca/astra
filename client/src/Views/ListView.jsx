@@ -2,6 +2,7 @@ import React from 'react';
 import { CardComponent, TemplateResponse } from '../Components';
 import { Link } from "react-router-dom";
 import View from './View.jsx'
+import './styles/listView.css'
 
 export default class ListView extends React.Component {
   constructor(props) {

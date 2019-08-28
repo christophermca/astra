@@ -14,55 +14,55 @@ export default class TemplateResponse extends React.Component {
   render() {
     const data = this.props.data;
     return (
-      <form id="template-header">
-        {/*
-        <section>
-          <Dropdown name="method" data={stubData.method}/>
-          <input placeholder="url" className="template-url" />
+      <form id="template-response">
+        <section id="template-header">
+          <input name="method" value={data.requestType}/>
+          <input value={data.httpUrlPathParams} className="template-url" />
         </section>
-      */}
-        <section className="response-body">
-          {/* <TemplateHeader name="Request Header" data={JSON.stringify(data.requestHeaders, null, 2)}/>
-          <TemplateHeader name="Request Body" data={data.requestBody}/>
-          <TemplateHeader name="Response Body" data={data.responseBody}/>
-          <TemplateDownload name="Data Files" files={data.datasets}/> */}
+        <main>
+          <section className="response-body">
 
-          <StatefullAccordian
-            name="Request Header"
-            content={
-              <div className="responseContent">
-                {JSON.stringify(data.requestHeaders, null, 1)}
-              </div>
-            }
-          />
-          <StatefullAccordian
-            name="Request Body"
-            content={<div className="responseContent">{data.requestBody}</div>}
-          />
-          <StatefullAccordian
-            name="Response Body"
-            content={<div className="responseContent">{data.responseBody}</div>}
-          />
-          <StatefullAccordian
-            name="Input File"
-            content={
-              <div className="responseNestedContent">
-                <StatefullAccordian
-                  name="input File"
-                  content="input file here"
-                />{" "}
-                <StatefullAccordian
-                  name="input File"
-                  content="input file here"
-                />{" "}
-                <StatefullAccordian
-                  name="input File"
-                  content="input file here"
-                />
-              </div>
-            }
-          />
-        </section>
+            <StatefullAccordian
+              name="Request Header"
+              content={
+                <div className="responseContent">
+                  {JSON.stringify(data.requestHeaders, null, 1)}
+                </div>
+              }
+            />
+            <StatefullAccordian
+              name="Request Body"
+              content={<div className="responseContent">{data.requestBody}</div>}
+            />
+            <StatefullAccordian
+              name="Response Body"
+              content={<div className="responseContent">{JSON.stringify(data.responseBody, null, 2)}</div>}
+            />
+            <StatefullAccordian
+              name="Input File"
+              content={
+                <div className="responseNestedContent">
+                {data.files}
+                  <StatefullAccordian
+                    name="input File"
+                    content="input file here"
+                  />{" "}
+                  <StatefullAccordian
+                    name="input File"
+                    content="input file here"
+                  />{" "}
+                  <StatefullAccordian
+                    name="input File"
+                    content="input file here"
+                  />
+                </div>
+              }
+            />
+          </section>
+          <section className="assertions">
+
+          </section>
+        </main>
       </form>
     );
   }

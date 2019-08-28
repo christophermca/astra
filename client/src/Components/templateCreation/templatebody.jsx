@@ -45,7 +45,6 @@ export default class TemplateBody extends React.Component {
   }
 
   async handleFiles(e) {
-    debugger
     const files = e.target.files;
     this.setState({ fileObject: files})
   };

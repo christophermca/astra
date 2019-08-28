@@ -1,12 +1,4 @@
-section#template-header {
-  display: flex;
-  flex-basis: 100%;
-  height: 52px;
-  justify-content:flex-start;
-  margin-bottom: 10px;
-}
-
-main {
+form#create-template main {
   border: 1px solid black;
   display: flex;
   flex-direction: column;
@@ -15,6 +7,15 @@ main {
   padding: 50px;
   box-sizing: border-box;
 }
+
+#create-template section#template-header {
+  display: flex;
+  flex-basis: 100%;
+  height: 52px;
+  justify-content:flex-start;
+  margin-bottom: 10px;
+}
+
 
 aside.meta-info {
   display:flex;

@@ -1,26 +1,4 @@
-.search-bar-div {
-  height: 25px;
-}
-
-input#template-name-search-bar {
-  width: 100px;
-  margin-right: 20px;
-  margin-left: 10px;
-}
-
-input#template-id-search-bar{
-  width: 100px;
-  margin-right: 20px;
-  margin-left: 10px;
-}
-
-input#team-search-bar{
-  width: 100px;
-  margin-right: 20px;
-  margin-left: 10px;
-}
-
-form#template-header {
+form#template-response {
   border: 1px solid black;
   display: flex;
   flex-basis: 100%;
@@ -33,6 +11,7 @@ form#template-header {
 
 .response-body{
   display: flex;
+  flex-basis: 50%;
   flex-direction: column;
 }
 
@@ -47,10 +26,8 @@ form#template-header {
 }
 
 #template-response{
-  margin: 10px;
-  width: auto;
-  max-width: 500px;
-  height: 400px;
+  margin-top: 10px;
+  min-height: 400px;
   border: 1px solid black;
 }
 
@@ -62,7 +39,7 @@ form#template-header {
 
 #template-response p{
   text-align: left;
-  margin-top: 10px; 
+  margin-top: 10px;
 }
 
 #json{
@@ -156,8 +133,8 @@ form#template-header {
   border-right: none;
   background:  rgb(241, 242, 244);
   height: 15px;
-} 
- 
+}
+
 #template-page-number{
   position: relative;
   left: 100px;

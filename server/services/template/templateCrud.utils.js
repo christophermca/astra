@@ -5,8 +5,8 @@ const path = require('path');
 
 // because of how are network is setup in office the final number in the ip
 // address is subject to change
-const dynamicAddress = '142';
-const JavaEngineIP = `http://172.22.8.${dynamicAddress}:8080`
+const dynamicAddress = '8.142';
+const JavaEngineIP = `http://172.22.${dynamicAddress}:8080`
 
 const templateListURL = `${JavaEngineIP}/v2/template/getTemplateList/1`;
 const templateDetailsURL = `${JavaEngineIP}/v2/template/getTemplateDetails`;
@@ -65,11 +65,12 @@ const getOneTemplate = async (req, res) => {
 }
 
 // simular to running http.serverRequest
-const createTemplate = (req, res) => {
+const createTemplate = async (req, res) => {
 
   try {
-    const create = request(debugEndpoint);
+    const create = request(createTemplateURL);
     req.pipe(create).pipe(res);
+
 
 
   } catch (err) {

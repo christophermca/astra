@@ -1,0 +1,21 @@
+.search-bar-div {
+  height: 25px;
+}
+
+input#template-name-search-bar {
+  width: 100px;
+  margin-right: 20px;
+  margin-left: 10px;
+}
+
+input#template-id-search-bar{
+  width: 100px;
+  margin-right: 20px;
+  margin-left: 10px;
+}
+
+input#team-search-bar{
+  width: 100px;
+  margin-right: 20px;
+  margin-left: 10px;
+}
