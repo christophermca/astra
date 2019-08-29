@@ -6,8 +6,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "client": "cd client && npm start",
     "server": "cd server && npm start",
-    "server:debug": "node --inspect server.js",
-    "start": " npm run server"
+    "server:debug": "node --inspect server/index.js",
+    "start": " npm run server",
+    "start:dev": " cd server && npm start:dev"
   },
   "author": "",
   "license": "ISC",
