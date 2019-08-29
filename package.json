@@ -8,7 +8,7 @@
     "server": "cd server && npm start",
     "server:debug": "node --inspect server/index.js",
     "start": " npm run server",
-    "start:dev": " cd server && npm start:dev"
+    "start:dev": " cd server && npm run start:dev"
   },
   "author": "",
   "license": "ISC",
