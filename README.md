@@ -10,8 +10,12 @@ This Project has two components the Proxy server and the client application
 ## running the application
 
 - npm run client..............starts the client app
-- npm run server..............starts the proxy server
 
+- npm run server..............starts the proxy server
+- npm run server:dev..............starts the proxy server and uses stub data for the server responses
+- npm run server:debug..............starts the proxy server in debug mode
+
+### Additional Documentation
 - [Proxy Server README](./server/README.md)
 - [Client App README](./client/README.md)
 
