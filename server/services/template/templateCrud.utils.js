@@ -2,16 +2,16 @@ const request = require("request");
 const fetch = require('node-fetch');
 const fs = require('fs');
 const path = require('path');
+const {IP: dynamicAddress} = require('../../config.js')
 
 // because of how are network is setup in office the final number in the ip
 // address is subject to change
-const dynamicAddress = '8.142';
-const JavaEngineIP = `http://172.22.${dynamicAddress}:8080`
+const JavaEngineIP = `http://172.22.${dynamicAddress}:8080/v2`
 
-const templateListURL = `${JavaEngineIP}/v2/template/getTemplateList/1`;
-const templateDetailsURL = `${JavaEngineIP}/v2/template/getTemplateDetails`;
-const createTemplateURL = `${JavaEngineIP}/v2/template/createTemplatev2`;
-const debugEndpoint = 'https://ptsv2.com/t/mwz5g-1566870939/post'
+const templateListURL = `${JavaEngineIP}/template/getTemplateList/1`;
+const templateDetailsURL = `${JavaEngineIP}/template/getTemplateDetails`;
+const createTemplateURL = `${JavaEngineIP}/template/createTemplatev2`;
+const debugEndpoint = 'https://ptsv3.com/t/mwz5g-1566870939/post'
 
 const useStubData = process.env.OFFLINE === 'true';
 
@@ -25,7 +25,7 @@ const getAllTemplates = async (req, res) => {
     } else {
       console.log('request - calling templateListURL');
 
-      const templateList = request(templateListUrl);
+      const templateList = request(templateListURL);
       req.pipe(templateList).pipe(res);
 
     }

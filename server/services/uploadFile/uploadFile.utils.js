@@ -1,15 +1,14 @@
 const fetch = require('node-fetch');
 const request = require("request");
+const {IP: dynamicAddress} = require('../../config.js')
+const JavaEngineIP = `http://172.22.${dynamicAddress}:8080/v2`
 
 // TODO verify create endpoint
-const createTemplate =
-  "http://172.22.9.24:8080/v2/template/createTemplatev2";
+const createTemplate = `${JavaEngineIP}template/createTemplatev2`;
 
-const uploadFilesURL =
-  "http://172.22.9.24:8080/v2/template/uploadMultipleFiles";
+const uploadFilesURL = `${JavaEngineIP}/template/uploadMultipleFiles`;
 
-const downloadFilesURL =
-  "http://172.22.9.24:8080/v2/template/FileDownload";
+const downloadFilesURL = `${JavaEngineIP}/template/FileDownload`;
 
 const debugEndpoint = 'https://ptsv2.com/t/mwz5g-1566870939/post'
 // simular to running http.serverRequest
