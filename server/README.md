@@ -10,3 +10,4 @@
 `npm start`
 
 
+While we are building this project in-house use *./config.js* to point the endpoint request the various server boxes.
