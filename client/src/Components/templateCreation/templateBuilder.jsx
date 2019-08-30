@@ -1,12 +1,16 @@
 import React from "react";
 
 function TemplateBuilder(props) {
-  const {config} = props
+  const { config } = props;
   return (
     <React.Fragment>
       <section id="template-builderHeader">
         <input name="requestType" value={config.method} />
-        <input name="httpUrlPathParams" defaultValue={config.url} className="template-url" />
+        <input
+          name="httpUrlPathParams"
+          defaultValue={config.url}
+          className="template-url"
+        />
       </section>
       <section>
         <aside className="meta-info">
@@ -19,12 +23,12 @@ function TemplateBuilder(props) {
           accept=".csv,.xls "
           multiple
         />
-        <section id="template-button">
-          <button type="submit">Send</button>
-        </section>
+      </section>{" "}
+      <section id="template-button">
+        <button type="submit">Send</button>
       </section>
     </React.Fragment>
   );
 }
 
-export default TemplateBuilder
+export default TemplateBuilder;

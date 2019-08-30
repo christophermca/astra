@@ -12,13 +12,12 @@ form#create-template main {
   display: flex;
   flex-basis: 100%;
   height: 52px;
-  justify-content:flex-start;
+  justify-content: flex-start;
   margin-bottom: 10px;
 }
 
-
 aside.meta-info {
-  display:flex;
+  display: flex;
 }
 aside.meta-info div {
   border: 1px solid black;
@@ -49,35 +48,35 @@ section#template-header input,
 }
 
 #template-config select[name="method"] {
-  flex-grow: .175;
+  flex-grow: 0.175;
 }
 
-#template-builderHeader{
+#template-builderHeader {
   display: flex;
   margin: 20px 0;
 }
 
-.template-url{
+.template-url {
   width: 700px;
   margin-left: 30px;
 }
 
-#template-builderBody{
+#template-builderBody {
   padding: 0;
 }
 
-.template-builderBody{
+.template-builderBody {
   display: flex;
   justify-content: space-between;
   padding: 0;
   margin: 20px 0;
 }
 
-label{
+label {
   padding-bottom: 5px;
 }
 
-.template-header textarea{
+.template-header textarea {
   overflow: scroll;
   width: 450px;
   height: 200px;
@@ -85,46 +84,46 @@ label{
   flex-direction: column;
 }
 
-.template-body textarea{
+.template-body textarea {
   width: 450px;
   height: 200px;
   display: flex;
   flex-direction: column;
 }
 
-.template-body label{
+.template-body label {
   margin: 5px;
 }
-.table{
+.table {
   display: flex;
   width: 100%;
 }
 
-.checkbox{
-  width: 40px
+.checkbox {
+  width: 40px;
 }
-td{
+td {
   padding: 5px;
   width: auto;
   border: 1px solid black;
 }
 
-.uploadButton{
-  float: right
+.uploadButton {
+  float: right;
 }
 
-.uploadDropzone{
+.uploadDropzone {
   width: 500px;
   height: 500px;
   border: 1px dotted grey;
 }
 
-.inline{
+.inline {
   float: left;
 }
 
-.fileList{
- margin: 7px;
- display: flex;
- justify-content: space-evenly;
+.fileList {
+  margin: 7px;
+  display: flex;
+  justify-content: space-evenly;
 }

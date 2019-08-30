@@ -84,7 +84,7 @@ export default class TemplateList extends ListView {
             </div>
           </section>
         </React.Fragment>
-      </div >
+      </div>
     );
   }
 }

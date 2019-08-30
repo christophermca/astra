@@ -52,8 +52,9 @@ export default class TemplateResponse extends React.Component {
             />
           </section>
           <section className="assertions">
-
           </section>
+          <button type="submit">Save</button>
+          <button type="submit">Execute</button>
         </main>
       </form>
     );
