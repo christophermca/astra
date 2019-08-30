@@ -1,9 +1,14 @@
 import React from 'react';
-import { CardComponent, TemplateResponse } from '../../Components';
+import { CardComponent } from '../../Components';
 import { Link } from "react-router-dom";
 import ListView from './ListView.jsx';
 
 export default class TemplateList extends ListView {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+
   componentDidMount() {
     let data = {
       "user": {
@@ -79,7 +84,6 @@ export default class TemplateList extends ListView {
             </div>
           </section>
         </React.Fragment>
-        {this.state.templateData ? (<React.Fragment><TemplateResponse data="{this.state.templateData}" /> </React.Fragment>) : ''}
       </div >
     );
   }

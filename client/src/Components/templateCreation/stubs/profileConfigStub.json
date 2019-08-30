@@ -1,5 +1,6 @@
 {
   "alpha": {
+    "protocol": "rest",
     "serviceId": "85144022-b3dd-11e9-a2a3-2a2ae2dbcce4",
     "teamName": "Walmart",
     "userId": "walmart",
@@ -21,6 +22,7 @@
     }
   },
   "bravo": {
+    "protocol": "rest",
     "serviceId": "85144022-b3dd-11e9-a2a3-2a2ae2dbcce4",
     "teamName": "Walmart",
     "userId": "walmart",

@@ -1,16 +1,8 @@
 import React from "react";
-import TemplateHeader from "./templateHeader.jsx";
-import TemplateDownload from "./templateDownload.jsx";
 import "./style.css";
-import * as stubData from "./stubData.json";
 import StatefullAccordian from "../shared/statefullaccordian";
 
 export default class TemplateResponse extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = Object.assign({}, props, stubData);
-  }
-
   render() {
     const data = this.props.data;
     return (

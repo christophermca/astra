@@ -27,10 +27,14 @@ aside.meta-info div {
   border-radius: 5px;
 }
 
-section#template-header input {
+section#template-header input,
+#template-builderHeader input {
   display: inline-flex;
   height: 40px;
   margin-right: 50px;
+}
+
+#create-template #template-header input {
   flex-basis: 100%;
 }
 

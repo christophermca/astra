@@ -1,5 +1,6 @@
 {
     "template": {
+        "requestType": "GET",
         "templateId": "14fb5424-b3dd-11e9-a2a3-2a2ae2dbcce4",
         "templateName": "Qarth Template",
         "description": "Qarth Description",

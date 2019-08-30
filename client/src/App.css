@@ -20,6 +20,8 @@ section[name="card-component"] {
   background-color: rgb(242, 242, 242);
 }
 
+
+
 section.component input,
 section.component select {
   border-top: none;
@@ -28,11 +30,13 @@ section.component select {
   background: rgb(224, 228, 230);
 }
 
+/* these styles styles should to be specific to component */
+
 section.component section {
   padding: 0 20px;
   border: none;
   border-radius: 2px;
-  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.05);
+  /* box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.05); */
   height: 146px;
 }
 
