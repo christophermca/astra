@@ -4,6 +4,7 @@ import TemplateDownload from "./templateDownload.jsx";
 import "./style.css";
 import * as stubData from "./stubData.json";
 import StatefullAccordian from "../shared/statefullaccordian";
+import AssertionData from "./assertions/assertionData";
 
 export default class TemplateResponse extends React.Component {
   constructor(props) {
@@ -54,6 +55,10 @@ export default class TemplateResponse extends React.Component {
                   <StatefullAccordian
                     name="input File"
                     content="input file here"
+                  />
+                  <StatefullAccordian
+                  name="Assertions"
+                  content={<AssertionData />}
                   />
                 </div>
               }

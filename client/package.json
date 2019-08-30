@@ -2,8 +2,11 @@
   "name": "client",
   "version": "0.1.0",
   "dependencies": {
+    "antd": "^3.22.2",
     "material-design-icons": "^3.0.1",
+    "node-sass": "^4.12.0",
     "react": "^16.8.6",
+    "react-awesome-query-builder": "^0.2.51",
     "react-dom": "^16.8.6",
     "react-dropzone": "^10.1.7",
     "react-modal": "^3.9.1",
