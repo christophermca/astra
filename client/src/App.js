@@ -7,22 +7,14 @@ import { HomeView, TemplateListView, CreateView, DetailsView } from './Views/ind
 
 // NOTE: temp homepage, should we display a log in message ?
 
-export default class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      title: "Templates"
-    }
-  }
-
-  render () {
+ const App = () => {
     return (
     <div className="App">
       <Router>
         <Leftnav />
         <div id="content-container">
           <header>
-            <h2> {this.state.title} </h2>
+            <h2>Templates</h2>
           </header>
           <Route exact path="/" component={HomeView} />
           <Route exact path="/templates" component={TemplateListView} title="Templates List"/>
@@ -32,5 +24,6 @@ export default class App extends React.Component {
       </Router>
     </div>
     );
-  }
 }
+
+export default App;

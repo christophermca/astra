@@ -4,6 +4,52 @@ import { Link } from "react-router-dom";
 import ListView from './ListView.jsx';
 
 export default class TemplateList extends ListView {
+
+  constructor(props){
+    super(props)
+
+    this.state = {
+      selectedTemplate: []
+    }
+  }
+
+  handleCheckbox = id => {
+    this.state.selectedTemplate.includes(id)?
+    this.setState(prevState=>({selectedTemplate:prevState.selectedTemplate.filter(el => el !== id)}))
+    :
+    this.setState(state => {
+      const selectedTemplate = [...state.selectedTemplate, id];
+      console.log(selectedTemplate)
+      return {
+        selectedTemplate
+      }
+    });
+  }
+
+
+  handleClick = event => {
+    console.log(event.target.id)
+    if(!this.state.selectedTemplate.length){
+      this.setState(state => {
+        const selectedTemplate = [...state.selectedTemplate,event.target.id];
+        console.log(selectedTemplate)
+        return {
+          selectedTemplate
+        }
+      })
+    }
+  
+    fetch('/api/templates/execute', {
+      method: "POST",
+      body: JSON.stringify(this.state.selectedTemplate),
+      headers: { "Content-Type": "application/json" }
+    })
+      .then(response => response.json())
+      .then(json => {
+        console.log(json)
+      })
+  }
+
   componentDidMount() {
     let data = {
       "user": {
@@ -55,7 +101,12 @@ export default class TemplateList extends ListView {
             </div>
             {this.state.list
               ? this.state.list.map(item => {
-                return (<CardComponent key={item.templateId} data={item} />)
+                return (<CardComponent 
+                  key={item.templateId}
+                  data={item}
+                  handleClick={this.handleClick}
+                  handleCheckbox={this.handleCheckbox}
+                       />)
               })
               : ''
             }

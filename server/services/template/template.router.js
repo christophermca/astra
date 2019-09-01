@@ -12,4 +12,7 @@ router.route("/templatedetails*")
 router.route("/create")
   .post(templateCrud.createTemplate);
 
+  router.route("/execute")
+  .post(templateCrud.createTemplate);
+
 module.exports = router;
