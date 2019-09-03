@@ -1,13 +1,14 @@
 import React from 'react';
-import View from '../View.jsx'
 
-export default class ListView extends View {
+export default class ListView extends React.Component {
   constructor(props) {
     super(props);
     this.handlePaginationDropdownChange = this.handlePaginationDropdownChange.bind(this);
     this.handleNextPage = this.handleNextPage.bind(this);
     this.handlePrevPage = this.handlePrevPage.bind(this);
     this.onSearchSubmit = this.onSearchSubmit.bind(this);
+
+    this.state = {}
 
   }
 
@@ -31,13 +32,13 @@ export default class ListView extends View {
     };
 
     const {templateNameValue, templateIdValue, teamNameValue, userIdValue} = this.state;
-    if (templateNameValue.length) {
+    if (templateNameValue) {
       dynamicData.pagination.searchBy[0].template_name = this.state.templateNameValue;
-    } if (templateIdValue.length) {
+    } if (templateIdValue) {
       dynamicData.pagination.searchBy[0].template_id = this.state.templateIdValue;
-    } if (teamNameValue.length) {
+    } if (teamNameValue) {
       dynamicData.pagination.searchBy[0].team_name = this.state.teamNameValue;
-    } if (userIdValue.length) {
+    } if (userIdValue) {
       dynamicData.pagination.searchBy[0].user_id = this.state.userIdValue;
     }
 
