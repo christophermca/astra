@@ -26,6 +26,21 @@ function handleSubmit(evt) {
     .then(json => this.setState({'templateData': json.template}))
     .catch(err => console.error({ err }));
 }
+function handleSave(evt) {
+  evt.preventDefault();
+  console.log('saving template')
+  this.state({})
+  const options = {
+    method: "PUT",
+    body: JSON.stringify(this.state.templateData)
+  }
+
+  return fetch('/api/templates/save', options).then(response => response.json())
+    .then(json => this.setState({'templateData': json.template}))
+    .catch(err => console.error({ err }));
+}
+
+
 
 export default class CreateView extends React.Component {
   constructor(props) {
