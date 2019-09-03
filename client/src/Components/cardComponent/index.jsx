@@ -3,8 +3,6 @@ import "./style.css";
 import { Link } from "react-router-dom";
 
 
-
-
 const CardComponent = props => {
   // console.log(props)
     let templateDetail = `/templates/details/${props.data.templateId}`

@@ -4,16 +4,14 @@ const {IP: dynamicAddress} = require('../../config.js')
 const JavaEngineIP = `http://172.22.${dynamicAddress}:8080/v2`
 
 // TODO verify create endpoint
-const createTemplate = `${JavaEngineIP}template/createTemplatev2`;
-
+const createTemplate = `${JavaEngineIP}/template/createTemplatev2`;
 const uploadFilesURL = `${JavaEngineIP}/template/uploadMultipleFiles`;
-
 const downloadFilesURL = `${JavaEngineIP}/template/FileDownload`;
+const debugEndpoint = 'https://ptsv2.com/t/mwz5g-1566870939/post';
 
-const debugEndpoint = 'https://ptsv2.com/t/mwz5g-1566870939/post'
+
 // simular to running http.serverRequest
 const upload = (req, res) => {
-
   try {
     const uploadForm = request(debugEndpoint);
     req.pipe(uploadForm).pipe(res);
@@ -23,6 +21,7 @@ const upload = (req, res) => {
     res.status(400);
   }
 };
+
 
 const download = async (req, res) => {
   try {
@@ -39,5 +38,5 @@ const download = async (req, res) => {
 
 module.exports = {
   upload,
-  download
+  download,
 }
