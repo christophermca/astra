@@ -1,16 +1,16 @@
 import React from "react";
-import "./style.css";
+import "./style.scss";
 import StatefullAccordian from "../shared/statefullaccordian";
 
 export default class TemplateResponse extends React.Component {
   render() {
-    const data = this.props.data;
+    const { data } = this.props;
     return (
       <form id="template-response">
-        <section id="template-header">
+        <header id="template-header">
           <input name="method" value={data.requestType}/>
           <input value={data.httpUrlPathParams} className="template-url" />
-        </section>
+        </header>
         <main>
           <section className="response-body">
 

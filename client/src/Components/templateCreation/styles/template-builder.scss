@@ -1,0 +1,117 @@
+section#template-builder {
+  display: flex;
+  flex-direction: column;
+
+    header {
+      display: flex;
+      margin: 20px 0;
+
+      input {
+        padding: 0 10px 0;
+
+        &[name="requestType"] {
+          margin-right: 20px;
+        }
+
+        &.template-url{
+          flex-grow: 2;
+        }
+      }
+    }
+
+    & > main {
+      margin: 20px 0;
+      display: flex;
+      justify-content: space-between;
+
+      div {
+        flex-basis: 45%;
+        border: 1px solid black;
+        border-radius: 5px;
+        justify-content: space-between;
+        &#endpoint-headers {
+        }
+      }
+
+    }
+
+
+  aside.meta-info {
+    display:flex;
+  }
+
+  aside.meta-info div {
+    border: 1px solid black;
+    padding: 5px;
+    flex-basis: 10%;
+    border-radius: 5px;
+  }
+
+  #template-builderBody{
+    padding: 0;
+  }
+
+  .template-builderBody{
+    display: flex;
+    justify-content: space-between;
+    padding: 0;
+    margin: 20px 0;
+  }
+
+  label{
+    padding-bottom: 5px;
+  }
+
+  .template-header textarea{
+    overflow: scroll;
+    width: 450px;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .template-body textarea{
+    width: 450px;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .template-body label{
+    margin: 5px;
+  }
+
+  .table{
+    display: flex;
+    width: 100%;
+  }
+
+  .checkbox{
+    width: 40px
+  }
+  td{
+    padding: 5px;
+    width: auto;
+    border: 1px solid black;
+  }
+
+  .uploadButton{
+    float: right
+  }
+
+  .uploadDropzone{
+    width: 500px;
+    height: 500px;
+    border: 1px dotted grey;
+  }
+
+  .inline{
+    float: left;
+  }
+
+  .fileList{
+   margin: 7px;
+   display: flex;
+   justify-content: space-evenly;
+  }
+}

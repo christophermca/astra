@@ -1,4 +1,4 @@
-form#template-response {
+header#template-response {
   border: 1px solid black;
   display: flex;
   flex-basis: 100%;
@@ -8,9 +8,11 @@ form#template-response {
   display: flex;
   flex-direction: column;
 }
+
 #template-response #template-header {
   display: inline-flex;
 }
+
 #template-response #template-header index:first-of-type {
   flex-basis: 25%;
 }
