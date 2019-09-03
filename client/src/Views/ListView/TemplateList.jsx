@@ -30,7 +30,6 @@ class TemplateList extends ListView {
   handleClick = event => {
     console.log(event.target.id)
     let myId = event.target.id
-    let url= `/api/templates/execute?templateId=${this.state.selectedTemplate}`
     // if(!this.state.selectedTemplate.length){
     //   this.setState(state => {
     //     const selectedTemplate = [...state.selectedTemplate,myId];
