@@ -1,18 +1,17 @@
 import React from "react";
 import Dropdown from "./dropdown.jsx";
-import TemplateBody from './templatebody.jsx';
+import TemplateBuilder from './templateBuilder.jsx';
 import "./style.css";
 import { profileConfig, responseStub as stubData } from './stubs/index'
-import {TemplateResponse} from '../index.js'
 import StatefullAccordian from "../shared/statefullaccordian";
+import { ViewContext } from '../../Views/context.js'
 
 
 export default class TemplateCreation extends React.Component {
   constructor(props) {
     super(props);
-    this.state = Object.assign({}, props);
+    this.state = {}
     this.handleConfigChange = this.handleConfigChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   // TODO logic should be handled by the profile service
@@ -28,34 +27,12 @@ export default class TemplateCreation extends React.Component {
         console.log(`${evt.target.value} does not have a use case` )
     }
 
-    this.setState({'api': ['rest'], 'showTemplateBuilder': true})
+    this.setState({'showTemplateBuilder': true})
 
   }
 
-  handleSubmit(evt) {
-    evt.preventDefault();
-    console.log('creating template')
-    const form = evt.target;
-    const formData = new FormData(form)
 
-    formData.append('active', true);
-    formData.append('template', JSON.stringify({
-      "templateName":formData.get('templateName'),
-      "httpUrlPathParams": formData.get('httpUrlPathParams'),
-      "requestType": this.state.config.method})
-    );
-
-    const options = {
-      method: "POST",
-      body: formData
-    }
-
-    fetch('/api/templates/create', options).then(response => response.json())
-      .then(({template}) => this.setState({"details": template}))
-      .catch(err => console.error({ err }));
-  }
-
-  handleSubmit2(evt) {
+  submitDataFile(evt) {
     evt.preventDefault();
     console.log('creating template')
     const form = evt.target;
@@ -76,54 +53,27 @@ export default class TemplateCreation extends React.Component {
 
   render() {
     return (
-      <div>
-        <form id="create-template" onSubmit={this.handleSubmit}>
-          <section id="template-header">
-            <input name="templateName" placeholder="Template Name *Required" required />
-            <input name="description" placeholder="Template Description *Required" required />
-          </section>
-          <main>
-            <section id="template-config" >
-              <Dropdown name="service" data={stubData.services} />
-              <Dropdown name="environment" data={stubData.environment} />
-              <Dropdown name="configuration" data={stubData.configuration} onChange={this.handleConfigChange}/>
-            </section>
-
-            {this.state.showTemplateBuilder ?
-            (
-              <React.Fragment>
-                <section id="template-builderHeader">
-                  <input name="requestType" disabled placeholder={this.state.config.method} />
-                  <input name="httpUrlPathParams" defaultValue={this.state.config.url} className="template-url" />
+      <ViewContext.Consumer>
+          {({ createTempl }) => {
+            return (
+              <form id="create-template" onSubmit={createTempl}>
+                <section id="template-header">
+                  <input name="templateName" placeholder="Template Name *Required" required />
+                  <input name="description" placeholder="Template Description *Required" required />
                 </section>
-                <section>
-                  <aside className="meta-info">
-                    <div>{stubData.api}</div>
-                  </aside>
-                  <input
-                    name="files"
-                    id="input-file"
-                    type="file"
-                    accept=".csv,.xls "
-                    multiple
-                    onChange={this.uploadFile}
-                  />
-                  <section id="template-button">
-                    <button type="submit">Send</button>
+                <main>
+                  <section id="template-config" >
+                    <Dropdown name="service" data={stubData.services} />
+                    <Dropdown name="environment" data={stubData.environment} />
+                    <Dropdown name="configuration" data={stubData.configuration} onChange={this.handleConfigChange}/>
                   </section>
-                </section>
-              </React.Fragment>
-            ) : ''
+                  {this.state.showTemplateBuilder && <TemplateBuilder config={this.state.config} />}
+                </main>
+              </form>
+                )
             }
-          </main>
-        </form>
-        {
-          this.state.details ?
-          (
-              <TemplateResponse data={this.state.details}/>
-          ) : ''
         }
-      </div>
+      </ViewContext.Consumer>
     );
   }
 }

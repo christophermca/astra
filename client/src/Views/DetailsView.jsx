@@ -1,27 +1,28 @@
 import React from 'react';
 import { TemplateResponse } from '../Components';
-import View from './View.jsx'
 
-export default class DetailsView extends View {
+export default class DetailsView extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {}
+  }
+
   componentDidMount() {
-    fetch(`/api/templates/templatedetails?id=${(this.state.match.params.id.length > 3) ? 1 : this.state.match.params.id}`, {
+    fetch(`/api/templates/templatedetails?id=${(this.props.match.params.id.length > 3) ? 1 : this.props.match.params.id}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'
       }
     })
     .then(resp => resp.json())
-    .then(json => this.setState({'details': json}))
+    .then(json => this.setState({'templateData': json.template}))
   }
 
   render() {
     return (
-      <div>
-      { this.state.details ?
             <section className="component">
-              <TemplateResponse data={this.state.details} />
-            </section> : ''}
-      </div>
+      {this.state.templateData && <TemplateResponse data={this.state.templateData} />}
+    </section>
     );
   }
 }

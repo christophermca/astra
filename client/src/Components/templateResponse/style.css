@@ -8,6 +8,12 @@ form#template-response {
   display: flex;
   flex-direction: column;
 }
+#template-response #template-header {
+  display: inline-flex;
+}
+#template-response #template-header index:first-of-type {
+  flex-basis: 25%;
+}
 
 .response-body{
   display: flex;
