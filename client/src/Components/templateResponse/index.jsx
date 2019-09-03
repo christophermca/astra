@@ -1,6 +1,7 @@
 import React from "react";
 import "./style.css";
 import StatefullAccordian from "../shared/statefullaccordian";
+import AssertionData from "../shared/assertions/assertionData";
 
 export default class TemplateResponse extends React.Component {
   render() {
@@ -50,9 +51,13 @@ export default class TemplateResponse extends React.Component {
                 </div>
               }
             />
+            <StatefullAccordian
+                    name="Assertions"
+                    content={<AssertionData />}
+                  />
           </section>
           <section className="assertions">
-
+          
           </section>
         </main>
       </form>
