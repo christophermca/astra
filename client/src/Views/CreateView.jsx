@@ -29,14 +29,13 @@ function handleSubmit(evt) {
 function handleSave(evt) {
   evt.preventDefault();
   console.log('saving template')
-  this.state({})
   const options = {
     method: "PUT",
     body: JSON.stringify(this.state.templateData)
   }
 
   return fetch('/api/templates/save', options).then(response => response.json())
-    .then(json => this.setState({'templateData': json.template}))
+    .then(json => console.log(json.message))
     .catch(err => console.error({ err }));
 }
 
@@ -46,8 +45,8 @@ export default class CreateView extends React.Component {
   constructor(props) {
     super(props);
     this.handleSubmit = handleSubmit.bind(this);
-    this.state = {createTempl: this.handleSubmit}
-
+    this.handleSave = handleSave.bind(this);
+    this.state = {createTempl: this.handleSubmit, saveTempl: this.handleSave}
     }
 
   render() {
