@@ -86,12 +86,10 @@ const saveTemplate = async (req, res) => {
   try {
     if (useStubData) {
       console.log("using stub response");
-      template = JSON.parse(
-        fs.readFileSync(
-          path.resolve(__dirname, "../../stubs/templatedetails.stub.json")
-        )
-      );
-      res.status(200).send(template);
+      const data = {
+        message: "I'm the template"
+      }
+      res.status(200).send(data);
     } else {
       const save = request(saveTemplateURL);
       req.pipe(save).pipe(res);
