@@ -18,7 +18,7 @@ export default class TemplateList extends ListView {
       "pagination": {
         "pageNumber": 1,
         "recordPerPage": 20,
-        "orderByColumn": "template_id",
+        "orderByColumn": "created_at",
         "searchBy": [{}]
       }
     }

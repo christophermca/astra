@@ -8,9 +8,9 @@ const {IP: dynamicAddress} = require('../../config.js')
 // address is subject to change
 const JavaEngineIP = `http://172.22.${dynamicAddress}:8080/v2`
 
-const templateListURL = `${JavaEngineIP}/template/getTemplateList/1`;
+const templateListURL = `${JavaEngineIP}/template/getTemplateList`;
 const templateDetailsURL = `${JavaEngineIP}/template/getTemplateDetails`;
-const createTemplateURL = `${JavaEngineIP}/template/createTemplatev2`;
+const createTemplateURL = `${JavaEngineIP}/template/createTemplate`;
 const debugEndpoint = 'https://ptsv3.com/t/mwz5g-1566870939/post';
 const saveTemplateURL = `${JavaEngineIP}/template/saveTemplate`;
 
