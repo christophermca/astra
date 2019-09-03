@@ -2,23 +2,6 @@ section#template-builder {
   display: flex;
   flex-direction: column;
 
-    header {
-      display: flex;
-      margin: 20px 0;
-
-      input {
-        padding: 0 10px 0;
-
-        &[name="requestType"] {
-          margin-right: 20px;
-        }
-
-        &.template-url{
-          flex-grow: 2;
-        }
-      }
-    }
-
     & > main {
       margin: 20px 0;
       display: flex;

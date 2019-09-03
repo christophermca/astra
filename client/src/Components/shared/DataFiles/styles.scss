@@ -1,0 +1,13 @@
+.data-files-component {
+  width: 100%;
+  header {
+    display: flex;
+    justify-content: space-between;
+
+    span, aside {
+      flex: 50%;
+    }
+  }
+
+}
+

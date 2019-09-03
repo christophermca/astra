@@ -1,0 +1,18 @@
+header.endpoint-template-header {
+  display: flex;
+  margin: 20px 0;
+
+  input {
+    padding: 0 10px 0;
+    border: 1px solid black;
+    border-radius: 5px;
+
+    &[name="requestType"] {
+      margin-right: 20px;
+    }
+
+    &.template-url{
+      flex-grow: 2;
+    }
+  }
+}
