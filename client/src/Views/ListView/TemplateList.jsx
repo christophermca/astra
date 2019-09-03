@@ -3,10 +3,62 @@ import { CardComponent } from '../../Components';
 import { Link } from "react-router-dom";
 import ListView from './ListView.jsx';
 
-export default class TemplateList extends ListView {
-  constructor(props) {
-    super(props);
-    this.state = {};
+class TemplateList extends ListView {
+  constructor(props){
+    super(props)
+
+    this.state = {
+      // selectedTemplate: []
+      selectedTemplate: ""
+    }
+  }
+
+ handleCheckbox = id => {
+   if (this.state.selectedTemplate.includes(id)) {
+     this.setState(prevState => ({selectedTemplate:prevState.selectedTemplate.filter(el => el !== id)}))
+   } else {
+      this.setState(state => {
+      const selectedTemplate = [...state.selectedTemplate, id];
+      console.log(selectedTemplate)
+      return {
+        selectedTemplate
+      }
+    });
+   }
+ }
+
+  handleClick = event => {
+    console.log(event.target.id)
+    let myId = event.target.id
+    // if(!this.state.selectedTemplate.length){
+    //   this.setState(state => {
+    //     const selectedTemplate = [...state.selectedTemplate,myId];
+    //     console.log(selectedTemplate)
+    //     return {
+    //       selectedTemplate
+    //     }
+    //   })
+    // }
+    this.setState({selectedTemplate:myId},()=>{
+      let url= `/api/templates/execute?templateId=${this.state.selectedTemplate}`
+      fetch(url, {
+        method: "POST",
+        body: JSON.stringify(this.state.selectedTemplate),
+        headers: { "Content-Type": "application/json" }
+      })
+        .then(response => response.json())
+        .then(json => {
+          console.log(json)
+        })
+    })
+    
+    // fetch(`/api/templates/execute?templateId=${this.state.selectedTemplate}`, {
+    //   method: "POST",
+    //   body: JSON.stringify(this.state.selectedTemplate),
+    //   headers: { "Content-Type": "application/json" }
+    // })
+
+
   }
 
   componentDidMount() {
@@ -60,7 +112,12 @@ export default class TemplateList extends ListView {
             </div>
             {this.state.list
               ? this.state.list.map(item => {
-                return (<CardComponent key={item.templateId} data={item} />)
+                return (<CardComponent 
+                  key={item.templateId}
+                  data={item}
+                  handleClick={this.handleClick}
+                  handleCheckbox={this.handleCheckbox}
+                       />)
               })
               : ''
             }
@@ -88,3 +145,5 @@ export default class TemplateList extends ListView {
     );
   }
 }
+
+export default TemplateList;
