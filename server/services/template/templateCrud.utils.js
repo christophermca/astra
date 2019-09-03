@@ -92,7 +92,8 @@ const saveTemplate = async (req, res) => {
       res.status(200).send(data);
     } else {
       const save = request(saveTemplateURL);
-      req.pipe(save).pipe(res);
+      req.pipe(save).pipe(res)
+      //.then(res.status(200).redirect('..'))
     }
   } catch (err) {
     console.error(err);
