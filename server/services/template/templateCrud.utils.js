@@ -11,7 +11,8 @@ const JavaEngineIP = `http://172.22.${dynamicAddress}:8080/v2`
 const templateListURL = `${JavaEngineIP}/template/getTemplateList/1`;
 const templateDetailsURL = `${JavaEngineIP}/template/getTemplateDetails`;
 const createTemplateURL = `${JavaEngineIP}/template/createTemplatev2`;
-const debugEndpoint = 'https://ptsv3.com/t/mwz5g-1566870939/post'
+const debugEndpoint = 'https://ptsv3.com/t/mwz5g-1566870939/post';
+const saveTemplateURL = `${JavaEngineIP}/template/saveTemplate`;
 
 const useStubData = process.env.OFFLINE === 'true';
 
@@ -71,8 +72,30 @@ const createTemplate = async (req, res) => {
   }
 };
 
+const saveTemplate = async (req, res) => {
+  try {
+    if (useStubData) {
+      console.log("using stub response");
+      template = JSON.parse(
+        fs.readFileSync(
+          path.resolve(__dirname, "../../stubs/templatedetails.stub.json")
+        )
+      );
+      res.status(200).send(template);
+    } else {
+      const save = request(saveTemplateURL);
+      req.pipe(save).pipe(res);
+    }
+  } catch (err) {
+    console.error(err);
+    res.status(400);
+  }
+}
+
+
 module.exports = {
   getAllTemplates,
   getOneTemplate,
-  createTemplate
+  createTemplate,
+  saveTemplate
 }
