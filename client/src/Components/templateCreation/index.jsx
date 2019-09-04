@@ -1,9 +1,8 @@
 import React from "react";
 import Dropdown from "./dropdown.jsx";
 import TemplateBuilder from './templateBuilder.jsx';
-import "./style.css";
+import "./styles/index.scss";
 import { profileConfig, responseStub as stubData } from './stubs/index'
-import StatefullAccordian from "../shared/statefullaccordian";
 import { ViewContext } from '../../Views/context.js'
 
 
@@ -57,10 +56,10 @@ export default class TemplateCreation extends React.Component {
           {({ createTempl }) => {
             return (
               <form id="create-template" onSubmit={createTempl}>
-                <section id="template-header">
+                <header id="template-header">
                   <input name="templateName" placeholder="Template Name *Required" required />
                   <input name="description" placeholder="Template Description *Required" required />
-                </section>
+                </header>
                 <main>
                   <section id="template-config" >
                     <Dropdown name="service" data={stubData.services} />

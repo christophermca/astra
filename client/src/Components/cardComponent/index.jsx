@@ -2,46 +2,38 @@ import React from "react";
 import "./style.css";
 import { Link } from "react-router-dom";
 
-export default class CardComponent extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = Object.assign({}, props);
-    this.handleClick = this.handleClick.bind(this);
-  }
 
-  handleClick = () => {
-    console.log("clicked");
-  }
-
-  render() {
-    let templateDetail = `/templates/details/${this.state.data.templateId}`
+const CardComponent = props => {
+  // console.log(props)
+    let templateDetail = `/templates/details/${props.data.templateId}`
     return (
-      <section key={this.state.data.templateName} className="card-container">
-        <Link to={templateDetail} className="card-header">{this.state.data.templateName}</Link>
-        <div className="card-button">
-          Execute<span></span>
+      <section key={props.data.templateId} id={props.data.templateId} className="card-container">
+        <Link to={templateDetail} className="card-header">{props.data.templateName}</Link>
+        <div onClick={props.handleClick} id={props.data.templateId} className="card-button">
+          Execute
         </div>
 
         <div className="card-main">
           <div className="card-checkbox">
-            <input onClick={this.handleClick} type="checkBox" />
+            <input onClick={() => props.handleCheckbox(props.data.templateId)} type="checkBox" />
           </div>
           <div className="card-info">
             <div className="card-value">
-              <span className="card-label">Service</span> {this.state.data.serviceId}
+              <span className="card-label">Service</span> {props.data.serviceId}
             </div>
             <div className="card-value">
-              <span className="card-label">Created Time</span> {this.state.data.createAt}
+              <span className="card-label">Created Time</span> {props.data.createAt}
             </div>
             <div className="card-value">
-              <span className="card-label">User ID</span> {this.state.data.userId}
+              <span className="card-label">User ID</span> {props.data.userId}
             </div>
             <div className="card-value">
-              <span className="card-label">Team Name</span>{this.state.data.teamName}
+              <span className="card-label">Team Name</span>{props.data.teamName}
             </div>
           </div>
         </div>
       </section>
     );
-  }
 }
+
+export default CardComponent;

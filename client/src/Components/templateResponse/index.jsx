@@ -1,12 +1,15 @@
 import React from "react";
-import "./style.css";
+import "./style.scss";
 import StatefullAccordian from "../shared/statefullaccordian";
 import AssertionData from "../shared/assertions/assertionData";
+import StatelessAccordian from "../shared/statelessaccordian";
+import { EndpointRequestHeader } from "../shared/index"
+import DataFiles from "./DataFiles"
 
 export default class TemplateResponse extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { assertionsResponseObject: "" };
+    this.state = { assertionsResponseObject: "", displaySections: [] };
   }
   componentDidMount() {
     const obj = this.props.data.responseBody;
@@ -59,65 +62,40 @@ export default class TemplateResponse extends React.Component {
     console.log('clicked')
     console.log(e.target);
   };
+
+
   render() {
-    const data = this.props.data;
+    const { data } = this.props;
     return (
       <form id="template-response">
-        <section id="template-header">
-          <input name="method" value={data.requestType} />
-          <input value={data.httpUrlPathParams} className="template-url" />
-        </section>
-        <main id="responseSection">
+        <EndpointRequestHeader method={data.requestType} url={data.httpUrlPathParams} />
+        <main>
           <section className="response-body">
-            <StatefullAccordian
-              name="Request Header"
-              content={
-                <div className="responseContent">
-                  {JSON.stringify(data.requestHeaders, null, 1)}
-                </div>
-              }
-            />
-            <StatefullAccordian
-              name="Request Body"
-              content={
-                <div className="responseContent">{data.requestBody}</div>
-              }
-            />
-            <StatefullAccordian
-              name="Response Body"
-              onClick={this.onResponseItemClick}
-              content={
-                <div className="responseContent">
-                  {JSON.stringify(data.responseBody, null, 1)}
-                </div>
-              }
-            />
-            <StatefullAccordian
-              name="Input File"
-              content={
-                <div className="responseNestedContent">
-                  {data.files}
-                  <StatefullAccordian
-                    name="input File"
-                    content="input file here"
-                  />{" "}
-                  <StatefullAccordian
-                    name="input File"
-                    content="input file here"
-                  />{" "}
-                  <StatefullAccordian
-                    name="input File"
-                    content="input file here"
-                  />
-                </div>
-              }
-            />
+            <StatefullAccordian name="Request Header">
+              <div className="responseContent">{data.requestBody}</div>
+            </StatefullAccordian>
+            <StatefullAccordian name="Request Body">
+              <div className="responseContent">{data.requestBody}</div>
+            </StatefullAccordian>
+            <StatefullAccordian name="Response Body" >
+              <div className="responseContent">{JSON.stringify(data.responseBody, null, 2)}</div>
+            </StatefullAccordian>
+              {/* example of nested accordions */}
+            <StatefullAccordian name="Input File">
+              <div className="responseNestedContent">
+                <StatefullAccordian name="input File">
+                    input file here
+                </StatefullAccordian>
+              </div>
+            </StatefullAccordian>
           </section>
           <section className="assertions">
-            <StatefullAccordian
-              name="Assertions"
-              content={<AssertionData data={data.requestBody} />}
-            />
+            <StatefullAccordian name="Data Files">
+              <DataFiles datasets={data.datasets} />
+            </StatefullAccordian>
+            <StatefullAccordian name="Assertions">
+              <AssertionData />
+            </StatefullAccordian>
           </section>
         </main>
       </form>

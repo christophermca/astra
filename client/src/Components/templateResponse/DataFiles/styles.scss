@@ -1,0 +1,44 @@
+.data-files-component {
+  width: 100%;
+
+  header {
+    display: flex;
+    justify-content: space-between;
+    height: 70px;
+
+    a {
+      color: rgb(0, 151, 219);
+    }
+
+    span, aside {
+      flex: 50%;
+    }
+  }
+
+  main {
+    display: flex;
+    flex-direction: column;
+
+    .data-file-list-item {
+      border: 1px solid black;
+      display: inline-flex;
+
+      label {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+      }
+    }
+  }
+}
+.ReactModalPortal h5 {
+  color: grey;
+  font-weight: 400;
+}
+
+.uploadDropzone{
+  width: 500px;
+  border: 1px dotted grey;
+  background: #f1f1f1;
+}
+

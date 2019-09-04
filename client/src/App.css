@@ -25,17 +25,17 @@ section.component select {
   border-top: none;
   border-left: none;
   border-right: none;
-  background: rgb(224, 228, 230);
+  /* background: rgb(224, 228, 230); */
 }
 
 /* these styles styles should to be specific to component */
 
 section.component section {
   padding: 0 20px;
-  border: none;
-  border-radius: 2px;
+  /* border: none; */
+  /* border-radius: 2px; */
   /* box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.05); */
-  height: 146px;
+  /* height: 146px; */
 }
 
 .App {
@@ -48,15 +48,15 @@ section.component section {
 }
 
 .App h2 {
-align-items: center;
-display: flex;
-height: 100px;
-justify-content: center;
-margin: 0;
+  align-items: center;
+  display: flex;
+  height: 100px;
+  justify-content: center;
+  margin: 0;
 
 }
 
-.App header {
+.App #content-container > header {
   background: rgb(0, 151, 219);
 }
 
