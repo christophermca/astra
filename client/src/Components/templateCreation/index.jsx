@@ -3,7 +3,7 @@ import Dropdown from "./dropdown.jsx";
 import TemplateBuilder from './templateBuilder.jsx';
 import "./styles/index.scss";
 import { profileConfig, responseStub as stubData } from './stubs/index'
-import { ViewContext } from '../../Views/context.js'
+import { ViewContext } from '../../Contexts/'
 
 
 export default class TemplateCreation extends React.Component {
@@ -53,7 +53,7 @@ export default class TemplateCreation extends React.Component {
   render() {
     return (
       <ViewContext.Consumer>
-          {({ createTempl }) => {
+          { ({ createTempl }) => {
             return (
               <form id="create-template" onSubmit={createTempl}>
                 <header id="template-header">

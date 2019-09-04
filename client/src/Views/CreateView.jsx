@@ -1,7 +1,7 @@
 import React from 'react';
 import { TemplateResponse, TemplateCreation } from '../Components';
 import './styles/createView.css';
-import {ViewContext} from './context.js';
+import {ViewContext} from '../Contexts';
 
 function handleSubmit(evt) {
   evt.preventDefault();
