@@ -27,12 +27,6 @@ export default class TemplateResponse extends React.Component {
     this.setState({ assertionsResponseObject: assertionObj }, () => console.log(this.state));
   }
 
-  onClick = () =>{
-    const obj = this.props.data.responseBody;
-    Object.entries(obj).map(i =>{
-      return i
-   })
-  }
 
   nestedObjectToArray = obj => {
     if (typeof obj !== "object") {
@@ -59,8 +53,22 @@ export default class TemplateResponse extends React.Component {
   };
 
   onResponseItemClick = (e) => {
-    console.log('clicked')
-    console.log(e.target);
+    // console.log('clicked')
+    // console.log(e.target);
+
+    let s = window.getSelection();
+    var range = s.getRangeAt(0);
+    var node = s.anchorNode;
+    while (range.toString().indexOf(' ') !== 0) {
+        range.setStart(node, (range.startOffset - 1));
+    }
+    range.setStart(node, range.startOffset + 1);
+    do {
+        range.setEnd(node, range.endOffset + 1);
+
+    } while (range.toString().indexOf(' ') === -1 && range.toString().trim() !== '' && range.endOffset < node.length);
+    var str = range.toString().trim();
+    console.log(str)
   };
 
 
@@ -78,7 +86,7 @@ export default class TemplateResponse extends React.Component {
               <div className="responseContent">{data.requestBody}</div>
             </StatefullAccordian>
             <StatefullAccordian name="Response Body" >
-              <div className="responseContent">{JSON.stringify(data.responseBody, null, 2)}</div>
+              <div onClick={this.onResponseItemClick}  className="responseContent">{JSON.stringify(data.responseBody, null, 2)}</div>
             </StatefullAccordian>
               {/* example of nested accordions */}
             <StatefullAccordian name="Input File">
@@ -93,7 +101,7 @@ export default class TemplateResponse extends React.Component {
             <StatefullAccordian name="Data Files">
               <DataFiles datasets={data.datasets} />
             </StatefullAccordian>
-            <StatefullAccordian name="Assertions">
+            <StatefullAccordian  name="Assertions">
               <AssertionData />
             </StatefullAccordian>
           </section>
