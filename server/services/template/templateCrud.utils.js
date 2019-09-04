@@ -20,11 +20,12 @@ const getAllTemplates = async (req, res) => {
   try {
     if(useStubData) {
       console.log('using stub response');
+
       const data = JSON.parse(fs.readFileSync(path.resolve(__dirname, '../../stubs/templatelist.stub.json')));
       res.status(200).send(data);
     } else {
       console.log('request - calling templateListURL');
-      console.log("sofar good")
+
       const templateList = request(templateListURL);
       req.pipe(templateList).pipe(res);
 
