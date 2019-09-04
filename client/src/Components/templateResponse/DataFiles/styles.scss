@@ -1,18 +1,40 @@
-.uploadDropzone{
-  width: 500px;
-  height: 500px;
-  border: 1px dotted grey;
-}
 .data-files-component {
   width: 100%;
+
   header {
     display: flex;
     justify-content: space-between;
+    height: 70px;
+
+    a {
+      color: rgb(0, 151, 219);
+    }
 
     span, aside {
       flex: 50%;
     }
   }
 
+  .uploadDropzone{
+    width: 500px;
+    height: 500px;
+    border: 1px dotted grey;
+  }
+
+  main {
+    display: flex;
+    flex-direction: column;
+
+    .data-file-list-item {
+      border: 1px solid black;
+      display: inline-flex;
+
+      label {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+      }
+    }
+  }
 }
 

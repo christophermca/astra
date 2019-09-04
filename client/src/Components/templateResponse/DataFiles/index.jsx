@@ -4,17 +4,27 @@ import ReactDropzone from "react-dropzone";
 import Modal from "react-modal";
 import Inline from '../inline.jsx'
 
+//TODO move to a better location.
 const ListFile = (props) => {
+  let id=`file-${props.id}`
   return (
-    <React.Fragment>
-      <tbody>
-        <tr>
-          <td>{props.id}</td>
-          <td>{props.filePath}</td>
-          <td><img src="#" height="20" width="20" /></td>
-        </tr>
-      </tbody>
-    </React.Fragment>
+    <div className="data-file-list-item">
+      <input type="radio" checked={props.primary} id={id} name='dataFile' value=""/>
+      <label for={id}>
+        <span>
+            {props.filePath}
+        </span>
+        <span>
+            {props.id}
+        </span>
+        <span>
+            {props.createData? props.createData : 'N/A'}
+        </span>
+        <span>
+          <img src="#" height="20" width="20" />
+        </span>
+      </label>
+    </div>
   )
 }
 export default class DataFilesComponent extends React.Component {
@@ -69,41 +79,34 @@ export default class DataFilesComponent extends React.Component {
       <div className="data-files-component">
         <header>
           <Inline />
-            <a className="upload" onClick={this.openModal}>
-              Upload File
-              <img src="#" width="40" height="40" />
-            </a>
-            <Modal
-              isOpen={this.state.modalIsOpen}
-              onRequestClose={this.closeModal}
-              contentLabel="inline"
-              ariaHideApp={false}
-            >
-            <ReactDropzone onDrop={this.uploadDataFile}>
-              {({ getInputProps, getRootProps }) => (
-                <section>
-                  <div className="uploadDropzone" {...getRootProps()}>
-                    <input {...getInputProps()} />
-                    <p>Drag 'n' drop some files here, or click to select files</p>
-                  </div>
-                </section>
-              )}
-            </ReactDropzone>
-            <button onClick={this.closeModal}>close</button>
-          </Modal>
+          <a className="upload" onClick={this.openModal}>
+            Upload File
+            <img src="#" width="30" height="30" />
+          </a>
+          <Modal
+            isOpen={this.state.modalIsOpen}
+            onRequestClose={this.closeModal}
+            contentLabel="inline"
+            ariaHideApp={false}
+          >
+          <ReactDropzone onDrop={this.uploadDataFile}>
+            {({ getInputProps, getRootProps }) => (
+              <section>
+                <div className="uploadDropzone" {...getRootProps()}>
+                  <input {...getInputProps()} />
+                  <p>Drag 'n' drop some files here, or click to select files</p>
+                </div>
+              </section>
+            )}
+          </ReactDropzone>
+          <button onClick={this.closeModal}>close</button>
+        </Modal>
         </header>
-        <table>
-          <thead>
-            <tr>
-              <td>ID:</td>
-              <td>filePath</td>
-              <td>Download</td>
-            </tr>
-          </thead>
+        <main>
             {this.state.datasets && this.state.datasets.map(data => {
               return ( <ListFile {...data} /> )
             })}
-        </table>
+        </main>
       </div>
     )
   }
