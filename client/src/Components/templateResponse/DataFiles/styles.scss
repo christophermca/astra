@@ -15,12 +15,6 @@
     }
   }
 
-  .uploadDropzone{
-    width: 500px;
-    height: 500px;
-    border: 1px dotted grey;
-  }
-
   main {
     display: flex;
     flex-direction: column;
@@ -36,5 +30,15 @@
       }
     }
   }
+}
+.ReactModalPortal h5 {
+  color: grey;
+  font-weight: 400;
+}
+
+.uploadDropzone{
+  width: 500px;
+  border: 1px dotted grey;
+  background: #f1f1f1;
 }
 

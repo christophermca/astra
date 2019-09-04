@@ -89,6 +89,7 @@ export default class DataFilesComponent extends React.Component {
             contentLabel="inline"
             ariaHideApp={false}
           >
+            <h5>Upload File</h5>
           <ReactDropzone onDrop={this.uploadDataFile}>
             {({ getInputProps, getRootProps }) => (
               <section>
