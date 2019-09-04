@@ -2,7 +2,8 @@ import React from "react";
 import "./style.scss";
 import StatefullAccordian from "../shared/statefullaccordian";
 import StatelessAccordian from "../shared/statelessaccordian";
-import { DataFilesComponent as DataFiles, EndpointRequestHeader } from "../shared/index"
+import { EndpointRequestHeader } from "../shared/index"
+import DataFiles from "./DataFiles"
 
 export default class TemplateResponse extends React.Component {
 
@@ -11,10 +12,6 @@ export default class TemplateResponse extends React.Component {
     this.state = {displaySections: []}
   }
 
-  toggleSection() {
-
-
-  }
   render() {
     const { data } = this.props;
     return (
@@ -42,7 +39,7 @@ export default class TemplateResponse extends React.Component {
           </section>
           <section className="assertions">
             <StatefullAccordian name="Data Files">
-              <DataFiles data={data.dataFiles} />
+              <DataFiles datasets={data.datasets} />
             </StatefullAccordian>
           </section>
         </main>
