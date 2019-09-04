@@ -8,14 +8,13 @@ export default class DetailsView extends React.Component {
   }
 
   componentDidMount() {
-    fetch(`/api/templates/templatedetails?id=${(this.props.match.params.id.length > 3) ? 1 : this.props.match.params.id}`, {
+    debugger
+    fetch(`/api/templates/templatedetails?id=${this.props.match.params.id}`, {
       method: 'GET',
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
-    .then(resp => resp.json())
-    .then(json => this.setState({'templateData': json.template}))
+    }).then(resp => resp.json())
+      .then(json => {
+        debugger;
+      })
   }
 
   render() {
