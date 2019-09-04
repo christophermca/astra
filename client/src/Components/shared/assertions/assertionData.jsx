@@ -2,12 +2,13 @@ import React from "react";
 import { fromJS } from "immutable";
 import { Query, Builder, Preview, Utils } from "react-awesome-query-builder";
 import config from "./config";
+import {ViewContext} from '../../../Views/context.js';
 
 import "react-awesome-query-builder/css/styles.scss";
 import "react-awesome-query-builder/css/compact_styles.scss";
 import "react-awesome-query-builder/css/denormalize.scss";
 
-const { queryBuilderFormat, queryString, mongodbFormat } = Utils;
+const { queryString } = Utils;
 var stringify = require("json-stringify-safe");
 const Immutable = require("immutable");
 const transit = require("transit-immutable-js");
@@ -37,15 +38,19 @@ if (!seriazlieAsImmutable) {
   loadTree = transit.fromJSON;
 }
 
-const AssertionData = props => {
-  const { tree, ...config_props } = config;
+export default class AssertionData extends React.Component {
+    constructor(props){
+        super(props)
+        this.state = {templateData: {}}
+        console.log(this.state)
+    }
 
-  const getData = props => {
+  getData = props => {
     const children = props.get("children1");
 
     let childObj = {};
     let result = [];
-
+    
     children.map(item => {
       const properties = item.get("properties");
       let valueList = null;
@@ -62,11 +67,16 @@ const AssertionData = props => {
       };
 
       result.push(childObj);
+      return result;
     });
-    console.log(result);
+    console.log(result)
+    this.setState({
+        templateData: result
+    })
+    return result
   };
 
-  const getChildren = props => {
+  getChildren = props => {
     const jsonStyle = {
       backgroundColor: "darkgrey",
       margin: "10px",
@@ -92,14 +102,18 @@ const AssertionData = props => {
       </div>
     );
   };
+  render(){
+    console.log(this.state)
+    return (
 
-  return (
-    <div className="queryBuilder">
-      <Query {...config} get_children={getChildren} onChange={getData}>
-        {" "}
-      </Query>
-    </div>
-  );
+        <div className="queryBuilder">
+        <ViewContext.Provider value={this.state}>
+          <Query {...config} get_children={this.getChildren} onChange={this.getData}>
+            {" "}
+          </Query>
+          </ViewContext.Provider>
+        </div>
+      );
+  }  
 };
 
-export default AssertionData;

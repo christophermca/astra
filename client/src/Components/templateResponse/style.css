@@ -21,6 +21,10 @@ form#template-response {
   flex-direction: column;
 }
 
+#responseSection{
+  display: flex;
+}
+
 .responseContent{
   text-align: left;
   font-size: 15px;

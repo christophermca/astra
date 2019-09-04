@@ -1,7 +1,6 @@
 import React from "react";
 import "./style.css";
 const StatelessAccordian = props => {
-  console.log(props);
 
   const accordianState = props => {
     if (props.toggleState) {

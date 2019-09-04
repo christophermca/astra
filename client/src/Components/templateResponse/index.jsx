@@ -12,7 +12,7 @@ export default class TemplateResponse extends React.Component {
           <input name="method" value={data.requestType}/>
           <input value={data.httpUrlPathParams} className="template-url" />
         </section>
-        <main>
+        <main id="responseSection">
           <section className="response-body">
 
             <StatefullAccordian
@@ -51,13 +51,13 @@ export default class TemplateResponse extends React.Component {
                 </div>
               }
             />
-            <StatefullAccordian
-                    name="Assertions"
-                    content={<AssertionData />}
-                  />
+            
           </section>
           <section className="assertions">
-          
+          <StatefullAccordian
+                    name="Assertions"
+                    content={<AssertionData data={data.requestBody} />}
+                  />
           </section>
         </main>
       </form>

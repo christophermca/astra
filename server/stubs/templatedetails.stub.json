@@ -20,7 +20,34 @@
             "Content-Type": "application/json"
         },
         "requestBody": "{    \"offerContexts\": [{ \n\t\t\"offerId\": {\n\t\t   \"offerId\": \"$OFFER_ID$\" \n\t\t} \n\t}] ,\n    \"postalAddress\": {\n   \"addressLineOne\": \"850 CHERRY AVE\",\n   \"district\": \"Alameda\",\n   \"addressType\": \"OFFICE\",\n   \"city\": \"San Bruno\",\n   \"countryCode\": \"US\",\n   \"stateOrProvinceName\": \"California\",\n   \"stateOrProvinceCode\": \"CA\",\n   \"isApoFpo\": false,\n   \"isPoBox\": false,\n   \"postalCode\": \"94588\"\n },\n \"storeFrontIds\": [{\n   \"USStoreId\": $STORE_ID$\n }]\n    \n}",
-        "responseBody": "",
+        "responseBody": {
+            "data": [{
+              "type": "articles",
+              "id": "1",
+              "attributes": {
+                "title": "JSON:API paints my bikeshed!",
+                "body": "The shortest article. Ever.",
+                "created": "2015-05-22T14:56:29.000Z",
+                "updated": "2015-05-22T14:56:28.000Z"
+              },
+              "relationships": {
+                "author": {
+                  "data": {"id": "42", "type": "people"}
+                }
+              }
+            }],
+            "included": [
+              {
+                "type": "people",
+                "id": "42",
+                "attributes": {
+                  "name": "John",
+                  "age": 80,
+                  "gender": "male"
+                }
+              }
+            ]
+          },
         "disabled": false,
         "assertions": [
             {

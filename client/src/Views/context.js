@@ -1,4 +1,4 @@
 import React from 'react';
 
 
-export const ViewContext = React.createContext({ createTempl: () => {}, templateDate: {} });
+export const ViewContext = React.createContext({ createTempl: () => {}, templateData: [] });

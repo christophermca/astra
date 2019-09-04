@@ -45,7 +45,25 @@ export default {
     },
     fields: {
         sabah: {
+            label: 'label',
+            type: 'text',
+            operators: ['equal', 'not_equal', 'greater', 'less'],
+            defaultOperator: 'not_equal', //will not be used
+        },
+        test: {
             label: 'Test',
+            type: 'text',
+            operators: ['equal', 'not_equal', 'greater', 'less'],
+            defaultOperator: 'not_equal', //will not be used
+        },
+        value: {
+            label: 'value',
+            type: 'text',
+            operators: ['equal', 'not_equal', 'greater', 'less'],
+            defaultOperator: 'not_equal', //will not be used
+        },
+        key: {
+            label: 'key',
             type: 'text',
             operators: ['equal', 'not_equal', 'greater', 'less'],
             defaultOperator: 'not_equal', //will not be used
