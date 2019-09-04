@@ -9,7 +9,7 @@ import DataFiles from "./DataFiles"
 export default class TemplateResponse extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { assertionsResponseObject: "", displaySections: [] };
+    this.state = { assertionsResponseObject: "", displaySections: [], assertionsClicked: "" };
   }
   componentDidMount() {
     const obj = this.props.data.responseBody;
@@ -53,13 +53,10 @@ export default class TemplateResponse extends React.Component {
   };
 
   onResponseItemClick = (e) => {
-    // console.log('clicked')
-    // console.log(e.target);
-
     let s = window.getSelection();
     var range = s.getRangeAt(0);
     var node = s.anchorNode;
-    while (range.toString().indexOf(' ') !== 0) {
+    while (range.toString().indexOf('"') !== 0) {
         range.setStart(node, (range.startOffset - 1));
     }
     range.setStart(node, range.startOffset + 1);
@@ -67,8 +64,10 @@ export default class TemplateResponse extends React.Component {
         range.setEnd(node, range.endOffset + 1);
 
     } while (range.toString().indexOf(' ') === -1 && range.toString().trim() !== '' && range.endOffset < node.length);
-    var str = range.toString().trim();
-    console.log(str)
+    var str = range.toString();
+    var clicked = str.substr(0, str.indexOf('"'))
+    console.log(clicked)
+    this.setState({assertionsClicked: clicked}, () => console.log(this.state))
   };
 
 
