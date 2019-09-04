@@ -1,0 +1,18 @@
+.uploadDropzone{
+  width: 500px;
+  height: 500px;
+  border: 1px dotted grey;
+}
+.data-files-component {
+  width: 100%;
+  header {
+    display: flex;
+    justify-content: space-between;
+
+    span, aside {
+      flex: 50%;
+    }
+  }
+
+}
+

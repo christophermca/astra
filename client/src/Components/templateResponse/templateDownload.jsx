@@ -3,7 +3,7 @@ import Modal from "react-modal";
 import ReactDropzone from "react-dropzone";
 import request from "superagent";
 
-import Inline from "./inline.jsx";
+import Inline from './inline.jsx'
 
 export default class TemplateDownload extends React.Component {
   constructor(props) {
@@ -11,39 +11,20 @@ export default class TemplateDownload extends React.Component {
     this.state = {
       modalIsOpen: false
     };
+
+    console.log(props);
   }
 
-  handleFiles = async e => {
-    const file = e.target.files;
+  onDrop = files => {
+    console.log(files[0].name);
+    const req = request.post("https://httpbin.org/post");
 
-    var reader = new FileReader();
-    let binaryFile;
-    reader.onload = async function(e) {
-      var contents = e.target.result;
-      binaryFile = window.btoa(unescape(encodeURIComponent(contents)));
-
-      var fileObj = {
-        fileContents: binaryFile,
-        name: file[0].name,
-        extension: file[0].type
-      };
-      console.log(fileObj);
-
-      const fileUpload = await fetch("http://localhost:3002/api/files/upload", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(fileObj),
+    files.forEach(file => {
+      req.attach(file.name, file);
     });
-    };
 
-    reader.readAsText(file[0]);
+    req.end();
   };
-
-  saveModal = async e =>{
-
-  }
 
   openModal = e => {
     e.preventDefault();
@@ -55,12 +36,12 @@ export default class TemplateDownload extends React.Component {
   };
 
   render() {
-    console.log(this.props.files)
     return (
       <div id="template-response">
         <label className="header-title">{this.props.name}</label>
         <div className="header-info">
-          <Inline />
+
+        <Inline />
 
           <a className="upload" onClick={this.openModal}>
             Upload File
@@ -72,17 +53,14 @@ export default class TemplateDownload extends React.Component {
             ariaHideApp={false}
           >
             <div>Upload</div>
-            <form action="/" method="post" encType="multipart/form-data">
-              <input
-                id="input-file"
-                type="file"
-                accept=".csv,.xls "
-                multiple
-                onChange={this.handleFiles}
-              />
-            </form>
+            <ReactDropzone onDrop={this.onDrop}>
+              {({ getRootProps }) => (
+                <div className="uploadDropzone" {...getRootProps()}>
+                  Upload File
+                </div>
+              )}
+            </ReactDropzone>
             <button onClick={this.closeModal}>close</button>
-            <button onClick={this.saveModal}>save</button>
           </Modal>
 
           <div className="fileList">
