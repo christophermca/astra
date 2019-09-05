@@ -19,8 +19,8 @@ function handleSubmit(evt) {
 
   const options = {
     method: "POST",
-    body: formData
-  }
+    body: formData,
+  };
 
   return fetch('/api/templates/create', options).then(response => response.json())
     .then(json => this.setState({'templateData': json.template}))
@@ -28,14 +28,17 @@ function handleSubmit(evt) {
 }
 function handleSave(evt) {
   evt.preventDefault();
+  const formData = new FormData()
+  formData.append('template', JSON.stringify(this.state.templateData))
+  console.log(formData.get('template'));
   console.log('saving template')
   const options = {
     method: "PUT",
-    body: JSON.stringify(this.state.templateData)
+    body: formData
   }
 
   return fetch('/api/templates/save', options).then(response => response.json())
-    .then(json => console.log(json.message))
+    .then(json => console.log(`The Template Object: ${json}`))
     .catch(err => console.error({ err }));
 }
 
