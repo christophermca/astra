@@ -85,7 +85,7 @@ export default class DataFilesComponent extends React.Component {
           </Modal>
         </header>
         <main>
-            {this.props.inlineDatasets && Object.keys(this.props.inlineDatasets[0]).length && <FileList filePath="Inline Data" /> }
+            {this.props.inlineDatasets && (Object.keys(this.props.inlineDatasets[0]).length > 0) && <FileList filePath="Inline Data" /> }
 
             {this.props.datasets && this.props.datasets.map(data => {
               return ( <FileList {...data} /> )
