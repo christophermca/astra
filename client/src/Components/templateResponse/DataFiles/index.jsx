@@ -2,40 +2,20 @@ import React from 'react';
 import './styles.scss';
 import ReactDropzone from "react-dropzone";
 import Modal from "react-modal";
-import Inline from '../inline.jsx'
+import {Inline, FileList} from './Components';
+import {TemplateContext} from '../../../Contexts';
 
 //TODO move to a better location.
-const ListFile = (props) => {
-  let id=`file-${props.id}`
-  return (
-    <div className="data-file-list-item">
-      <input type="radio" checked={props.primary} id={id} name='dataFile' value=""/>
-      <label for={id}>
-        <span>
-            {props.filePath}
-        </span>
-        <span>
-            {props.id}
-        </span>
-        <span>
-            {props.createData? props.createData : 'N/A'}
-        </span>
-        <span>
-          <img src="#" height="20" width="20" />
-        </span>
-      </label>
-    </div>
-  )
-}
+
 export default class DataFilesComponent extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = Object.assign({
       modalIsOpen: false
-    }, props)
+    })
 
-    this.uploadDataFile = this.uploadDataFile.bind(this);
+    this.uploadDataFiles = this.uploadDataFiles.bind(this);
   }
 
   openModal = e => {
@@ -47,7 +27,8 @@ export default class DataFilesComponent extends React.Component {
     this.setState({ modalIsOpen: false });
   };
 
-  uploadDataFile(files) {
+
+  uploadDataFiles(files) {
     const formData = new FormData()
     // TODO update template id
     formData.append('templateId', 1)
@@ -67,7 +48,7 @@ export default class DataFilesComponent extends React.Component {
 
     //mocked response
     const mockedResponse = files.map((file, i) => {
-      const fileListLength = this.state.datasets.length;
+      const fileListLength = this.props.datasets.length;
       return ({id: `${fileListLength + i+1}`, filePath: `/user/temp/${file.name}`})
     })
 
@@ -78,9 +59,9 @@ export default class DataFilesComponent extends React.Component {
     return (
       <div className="data-files-component">
         <header>
-          <Inline />
-          <a className="upload" onClick={this.openModal}>
-            Upload File
+          <Inline contextVariables={this.props.contextVariables} inlineDatasets={this.props.inlineDataSets}/>
+          <a href="Javascript:viod(0);" className="upload" onClick={this.openModal}>
+              Upload File
             <img src="#" width="30" height="30" />
           </a>
           <Modal
@@ -90,26 +71,28 @@ export default class DataFilesComponent extends React.Component {
             ariaHideApp={false}
           >
             <h5>Upload File</h5>
-          <ReactDropzone onDrop={this.uploadDataFile}>
-            {({ getInputProps, getRootProps }) => (
+            <ReactDropzone onDrop={this.uploadDataFile}>
+                {({ getInputProps, getRootProps }) => (
               <section>
                 <div className="uploadDropzone" {...getRootProps()}>
                   <input {...getInputProps()} />
                   <p>Drag 'n' drop some files here, or click to select files</p>
                 </div>
               </section>
-            )}
-          </ReactDropzone>
-          <button onClick={this.closeModal}>close</button>
-        </Modal>
+                )}
+            </ReactDropzone>
+            <button onClick={this.closeModal}>close</button>
+          </Modal>
         </header>
         <main>
-            {this.state.datasets && this.state.datasets.map(data => {
-              return ( <ListFile {...data} /> )
+            {this.props.inlineDatasets && Object.keys(this.props.inlineDatasets[0]).length && <FileList filePath="Inline Data" /> }
+
+            {this.props.datasets && this.props.datasets.map(data => {
+              return ( <FileList {...data} /> )
             })}
-        </main>
-      </div>
-    )
+          </main>
+        </div>
+          )
   }
 }
 

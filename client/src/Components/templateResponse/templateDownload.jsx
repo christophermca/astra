@@ -3,7 +3,7 @@ import Modal from "react-modal";
 import ReactDropzone from "react-dropzone";
 import request from "superagent";
 
-import Inline from './inline.jsx'
+import Inline from './DataFiles/Components/inline.jsx'
 
 export default class TemplateDownload extends React.Component {
   constructor(props) {
