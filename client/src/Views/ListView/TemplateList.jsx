@@ -51,7 +51,7 @@ class TemplateList extends ListView {
           console.log(json)
         })
     })
-    
+
     // fetch(`/api/templates/execute?templateId=${this.state.selectedTemplate}`, {
     //   method: "POST",
     //   body: JSON.stringify(this.state.selectedTemplate),
@@ -70,7 +70,6 @@ class TemplateList extends ListView {
       "pagination": {
         "pageNumber": 1,
         "recordPerPage": 20,
-        "orderByColumn": "template_id",
         "searchBy": [{}]
       }
     }
@@ -112,7 +111,7 @@ class TemplateList extends ListView {
             </div>
             {this.state.list
               ? this.state.list.map(item => {
-                return (<CardComponent 
+                return (<CardComponent
                   key={item.templateId}
                   data={item}
                   handleClick={this.handleClick}

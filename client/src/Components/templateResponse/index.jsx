@@ -5,18 +5,30 @@ import AssertionData from "../shared/assertions/assertionData";
 import StatelessAccordian from "../shared/statelessaccordian";
 import { EndpointRequestHeader } from "../shared/index";
 import DataFiles from "./DataFiles";
-import { ViewContext } from '../../Views/context.js'
 import ContextVariables from "./ContextVariables/contextVariables";
+import { TemplateContext } from "../../Contexts/index";
 
 export default class TemplateResponse extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      assertionsResponseObject: "",
-      displaySections: [],
-      assertionsClicked: ""
-    };
+    this.uploadInlineData = this.uploadInlineData.bind(this);
+
+    this.state = Object.assign(
+      { uploadInlineData: this.uploadInlineData },
+      { data: props.data },
+      { assertionsClicked: [] }, 
+      { contextClick: [] }
+    );
   }
+
+  uploadInlineData(inlineData) {
+    const temp = [];
+    for (let item of inlineData.entries()) {
+      temp.push(item);
+    }
+    this.setState(prevState => (prevState["data"]["inlineDatasets"] = temp));
+  }
+
   componentDidMount() {
     const obj = this.props.data.responseBody;
 
@@ -30,9 +42,7 @@ export default class TemplateResponse extends React.Component {
       return obj;
     });
 
-    this.setState({ assertionPathResponse: assertionObj }, () =>
-      console.log(this.state)
-    );
+    this.setState({ assertionPathResponse: assertionObj });
   }
 
   nestedObjectToArray = obj => {
@@ -59,10 +69,11 @@ export default class TemplateResponse extends React.Component {
     return result;
   };
 
-  onResponseItemClick = e => {
+  onContextClick = e =>{
     let s = window.getSelection();
     var range = s.getRangeAt(0);
     var node = s.anchorNode;
+    let clickedItems = [];
     while (range.toString().indexOf('"') !== 0) {
       range.setStart(node, range.startOffset - 1);
     }
@@ -76,8 +87,33 @@ export default class TemplateResponse extends React.Component {
     );
     var str = range.toString();
     var clicked = str.substr(0, str.indexOf('"'));
-    console.log(clicked);
-    this.setState({ assertionsClicked: clicked }, () =>
+    clickedItems.push(clicked);
+
+    console.log(clickedItems)
+  }
+
+  onResponseItemClick = e => {
+    let s = window.getSelection();
+    var range = s.getRangeAt(0);
+    var node = s.anchorNode;
+    let clickedItems = [];
+    while (range.toString().indexOf('"') !== 0) {
+      range.setStart(node, range.startOffset - 1);
+    }
+    range.setStart(node, range.startOffset + 1);
+    do {
+      range.setEnd(node, range.endOffset + 1);
+    } while (
+      range.toString().indexOf(" ") === -1 &&
+      range.toString().trim() !== "" &&
+      range.endOffset < node.length
+    );
+    var str = range.toString();
+    var clicked = str.substr(0, str.indexOf('"'));
+    clickedItems.push(clicked);
+
+    // console.log(clickedItems)
+    this.setState({ assertionsClicked: clickedItems }, () =>
       console.log(this.state)
     );
   };
@@ -85,55 +121,55 @@ export default class TemplateResponse extends React.Component {
   render() {
     const { data } = this.props;
     return (
-      <ViewContext.Consumer>
-        {({ assertionPathResponse }) => {
-          return (
-            <form id="template-response">
-              <EndpointRequestHeader
-                method={data.requestType}
-                url={data.httpUrlPathParams}
-              />
-              <main>
-                <section className="response-body">
-                  <StatefullAccordian name="Request Header">
-                    <div className="responseContent">{data.requestBody}</div>
+      <TemplateContext.Provider value={this.state}>
+        <form id="template-response">
+          <EndpointRequestHeader
+            method={data.requestType}
+            url={data.httpUrlPathParams}
+          />
+          <main>
+            <section className="response-body">
+              <StatefullAccordian name="Request Header">
+                <div onClick={this.onResponseItemClick} className="responseContent">{data.requestBody}</div>
+              </StatefullAccordian>
+              <StatefullAccordian name="Request Body">
+                <div className="responseContent">{data.requestBody}</div>
+              </StatefullAccordian>
+              <StatefullAccordian name="Response Body">
+                <div
+                  onClick={this.onResponseItemClick}
+                  className="responseContent"
+                >
+                  {JSON.stringify(data.responseBody, null, 2)}
+                </div>
+              </StatefullAccordian>
+              {/* example of nested accordions */}
+              <StatefullAccordian name="Input File">
+                <div className="responseNestedContent">
+                  <StatefullAccordian name="input File">
+                    input file here
                   </StatefullAccordian>
-                  <StatefullAccordian name="Request Body">
-                    <div className="responseContent">{data.requestBody}</div>
-                  </StatefullAccordian>
-                  <StatefullAccordian name="Response Body">
-                    <div
-                      onClick={this.onResponseItemClick}
-                      className="responseContent"
-                    >
-                      {JSON.stringify(data.responseBody, null, 2)}
-                    </div>
-                  </StatefullAccordian>
-                  {/* example of nested accordions */}
-                  <StatefullAccordian name="Input File">
-                    <div className="responseNestedContent">
-                      <StatefullAccordian name="input File">
-                        input file here
-                      </StatefullAccordian>
-                    </div>
-                  </StatefullAccordian>
-                </section>
-                <section className="assertions">
-                <StatefullAccordian name="Context Variables">
-                    <ContextVariables />
-                  </StatefullAccordian>
-                  <StatefullAccordian name="Data Files">
-                    <DataFiles datasets={data.datasets} />
-                  </StatefullAccordian>
-                  <StatefullAccordian name="Assertions">
-                    <AssertionData assertionsClicked={this.state.assertionsClicked}/>
-                  </StatefullAccordian>
-                </section>
-              </main>
-            </form>
-          );
-        }}
-      </ViewContext.Consumer>
+                </div>
+              </StatefullAccordian>
+            </section>
+            <section className="assertions">
+              <StatefullAccordian name="Context Variables">
+                <ContextVariables />
+              </StatefullAccordian>
+              <StatefullAccordian name="Data Files">
+                <DataFiles
+                  contextVariables={data.contextVariables}
+                  inlineDatasets={data.inlineDatasets}
+                  datasets={data.datasets}
+                />
+              </StatefullAccordian>
+              <StatefullAccordian name="Assertions">
+                <AssertionData />
+              </StatefullAccordian>
+            </section>
+          </main>
+        </form>
+      </TemplateContext.Provider>
     );
   }
 }
