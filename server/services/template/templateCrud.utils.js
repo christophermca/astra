@@ -9,7 +9,7 @@ const {IP: dynamicAddress} = require('../../config.js')
 const JavaEngineIP = `http://172.22.${dynamicAddress}:8080/v2`
 const templateListURL = `${JavaEngineIP}/template/getTemplateList`;
 const templateDetailsURL = `${JavaEngineIP}/template/getTemplateDetails`;
-const createTemplateURL = `${JavaEngineIP}/template/createTemplatev2`;
+const createTemplateURL = `${JavaEngineIP}/template/createTemplate`;
 const executeEndpoint = `${JavaEngineIP}/template/executeTemplate`;
 
 const useStubData = process.env.OFFLINE === 'true';
