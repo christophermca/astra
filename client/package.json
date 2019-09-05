@@ -2,6 +2,7 @@
   "name": "client",
   "version": "0.1.0",
   "dependencies": {
+    "antd": "^3.23.1",
     "material-design-icons": "^3.0.1",
     "react": "^16.8.6",
     "react-awesome-query-builder": "^0.2.51",
