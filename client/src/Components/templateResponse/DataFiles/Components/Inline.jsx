@@ -17,6 +17,7 @@ export default class Inline extends React.Component {
   };
 
   closeModal = (cb, evt) => {
+    // TODO fix arguments when calling closeModal from onRequestClose
     evt.preventDefault()
 
     const form = evt.target;
