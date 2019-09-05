@@ -2,7 +2,7 @@ import React from "react";
 import { fromJS } from "immutable";
 import { Query, Builder, Preview, Utils } from "react-awesome-query-builder";
 import config from "./config";
-import {ViewContext} from '../../../Views/context.js';
+import { ViewContext } from "../../../Views/context.js";
 
 import "react-awesome-query-builder/css/styles.scss";
 import "react-awesome-query-builder/css/compact_styles.scss";
@@ -39,27 +39,32 @@ if (!seriazlieAsImmutable) {
 }
 
 export default class AssertionData extends React.Component {
-    constructor(props){
-        super(props)
-        this.state = {templateData: {}}
-        console.log(this.state)
-    }
+  constructor(props) {
+    super(props);
+    this.state = { templateData: {} };
+    console.log(this.state)
+  }
+
+  componentDidUpdate(props){
+
+  }
 
   getData = props => {
     const children = props.get("children1");
 
     let childObj = {};
     let result = [];
-    
+
     children.map(item => {
       const properties = item.get("properties");
       let valueList = null;
 
+      
       properties.get("value").map(list => {
         valueList = list;
         return list;
       });
-    
+
       childObj = {
         path: properties.get("field"),
         operator: properties.get("operator"),
@@ -69,11 +74,12 @@ export default class AssertionData extends React.Component {
       result.push(childObj);
       return result;
     });
-    console.log(result)
+    
     this.setState({
-        templateData: result
-    })
-    return result
+      templateData: result
+    });
+
+    return result;
   };
 
   getChildren = props => {
@@ -102,18 +108,22 @@ export default class AssertionData extends React.Component {
       </div>
     );
   };
-  render(){
-    console.log(this.state)
+  render() {
+    console.log(this.state);
     return (
-
-        <div className="queryBuilder">
-        <ViewContext.Provider value={this.state}>
-          <Query {...config} get_children={this.getChildren} onChange={this.getData}>
-            {" "}
-          </Query>
-          </ViewContext.Provider>
-        </div>
-      );
-  }  
-};
-
+        <ViewContext.Consumer>
+          {({ assertionPathResponse, templateData }) => {
+            return (
+              <Query
+                {...config}
+                get_children={this.getChildren}
+                onChange={this.getData}
+              >
+                {" "}
+              </Query>
+            );
+          }}
+        </ViewContext.Consumer>
+    );
+  }
+}

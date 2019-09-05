@@ -122,7 +122,7 @@ export default class TemplateResponse extends React.Component {
                     <DataFiles datasets={data.datasets} />
                   </StatefullAccordian>
                   <StatefullAccordian name="Assertions">
-                    <AssertionData />
+                    <AssertionData assertionsClicked={this.state.assertionsClicked}/>
                   </StatefullAccordian>
                 </section>
               </main>

@@ -21,6 +21,7 @@ function handleSubmit(evt) {
     method: "POST",
     body: formData
   }
+  
 
   return fetch('/api/templates/create', options).then(response => response.json())
     .then(json => this.setState({'templateData': json.template}))
