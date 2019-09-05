@@ -6,6 +6,7 @@ import StatelessAccordian from "../shared/statelessaccordian";
 import { EndpointRequestHeader } from "../shared/index";
 import DataFiles from "./DataFiles";
 import { ViewContext } from '../../Views/context.js'
+import ContextVariables from "./ContextVariables/contextVariables";
 
 export default class TemplateResponse extends React.Component {
   constructor(props) {
@@ -118,6 +119,9 @@ export default class TemplateResponse extends React.Component {
                   </StatefullAccordian>
                 </section>
                 <section className="assertions">
+                <StatefullAccordian name="Context Variables">
+                    <ContextVariables />
+                  </StatefullAccordian>
                   <StatefullAccordian name="Data Files">
                     <DataFiles datasets={data.datasets} />
                   </StatefullAccordian>

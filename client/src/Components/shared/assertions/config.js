@@ -2,6 +2,7 @@ import React from 'react';
 import { Widgets, Operators } from 'react-awesome-query-builder';
 import moment from 'moment';
 import en_US from 'antd/lib/locale-provider/en_US';
+import { ViewContext } from '../../../Views/context';
 
 const {
     TextWidget,
