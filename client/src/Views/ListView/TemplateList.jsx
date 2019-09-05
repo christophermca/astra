@@ -8,8 +8,8 @@ class TemplateList extends ListView {
     super(props)
 
     this.state = {
-      // selectedTemplate: []
-      selectedTemplate: ""
+      selectedTemplate: [],
+      filtered: false
     }
   }
 
@@ -30,36 +30,37 @@ class TemplateList extends ListView {
   handleClick = event => {
     console.log(event.target.id)
     let myId = event.target.id
-    // if(!this.state.selectedTemplate.length){
-    //   this.setState(state => {
-    //     const selectedTemplate = [...state.selectedTemplate,myId];
-    //     console.log(selectedTemplate)
-    //     return {
-    //       selectedTemplate
-    //     }
-    //   })
-    // }
-    this.setState({selectedTemplate:myId},()=>{
-      let url= `/api/templates/execute?templateId=${this.state.selectedTemplate}`
-      fetch(url, {
-        method: "POST",
-        body: JSON.stringify(this.state.selectedTemplate),
-        headers: { "Content-Type": "application/json" }
-      })
-        .then(response => response.json())
-        .then(json => {
-          console.log(json)
+    if(!this.state.selectedTemplate.length){
+      this.setState(state => {
+        const selectedTemplate = [...state.selectedTemplate,myId];
+        console.log(selectedTemplate)
+        return {
+          selectedTemplate
+        }
+      }, () => {
+        debugger
+        let url= `/api/templates/execute?templateId=${this.state.selectedTemplate}`
+        fetch(url, {
+          method: "POST",
+          body: JSON.stringify(this.state.selectedTemplate),
+          headers: { "Content-Type": "application/json" }
         })
-    })
-
-    // fetch(`/api/templates/execute?templateId=${this.state.selectedTemplate}`, {
-    //   method: "POST",
-    //   body: JSON.stringify(this.state.selectedTemplate),
-    //   headers: { "Content-Type": "application/json" }
-    // })
-
-
+          .then(response => response.json())
+          .then(json => {
+            console.log(json)
+          })
+      });
+    }
   }
+
+  handleFilterButton = () => {
+      this.setState(prevState=> {
+        return {
+          filtered: !prevState.filtered
+        }
+      }, () => this.getList(this.state.filtered))  
+  }
+ 
 
   componentDidMount() {
     let data = {
@@ -86,6 +87,7 @@ class TemplateList extends ListView {
   }
 
   render() {
+    let buttonDisplay = this.state.filtered? "Unfilter" : "Filter"
     return (
       <div>
         <React.Fragment>
@@ -107,15 +109,16 @@ class TemplateList extends ListView {
               <button id="create-template-btn">
                 <Link to="/templates/create"><i id="create-template-icon" className="material-icons">control_point</i></Link>
                 <Link to="/templates/create" id="create-template-link">Create new template</Link>
+                <button onClick={this.handleFilterButton}>{buttonDisplay}</button>
               </button>
             </div>
             {this.state.list
               ? this.state.list.map(item => {
-                return (<CardComponent
-                  key={item.templateId}
-                  data={item}
-                  handleClick={this.handleClick}
-                  handleCheckbox={this.handleCheckbox}
+                return (<CardComponent 
+                           key={item.templateId}
+                           data={item}
+                           handleClick={this.handleClick}
+                           handleCheckbox={this.handleCheckbox}
                        />)
               })
               : ''
