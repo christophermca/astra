@@ -1,9 +1,16 @@
 import React from 'react';
 
-const ContextVariables = () =>{
+const ContextVariables = (props) =>{
+    
+    
 return(
     <div>
-        test
+        {props.variables.map(i =>{
+            return (<>
+            <h1> {i.name }</h1>
+            <h1> {i.value }</h1>
+            </>)
+        })}
     </div>
 )
 }
