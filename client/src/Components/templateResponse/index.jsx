@@ -11,6 +11,7 @@ import Modal from "react-modal";
 
 import './ContextVariables/style.css'
 
+let contextArray = [];
 export default class TemplateResponse extends React.Component {
   constructor(props) {
     super(props);
@@ -20,10 +21,13 @@ export default class TemplateResponse extends React.Component {
     // this.afterOpenModal = this.afterOpenModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
 
+    
+
     this.state = Object.assign(
       { uploadInlineData: this.uploadInlineData },
       { data: props.data },
       { currentSelection: "" },
+      { contextName: ""},
       { contextVariables: [] },
       { modalIsOpen: false }
     );
@@ -94,20 +98,10 @@ export default class TemplateResponse extends React.Component {
 
     let contextName = e.target.value;
 
-    let contextArray = [];
-
-    let context = {
-      name: contextName,
-      value: this.state.currentSelection
-    }
-
-    contextArray.push(context);
-
     this.setState({
-      contextVariables: contextArray
+      contextName: contextName
     })
-
-    console.log(contextArray)
+   
   }
 
   onResponseItemClick = e => {
@@ -140,6 +134,18 @@ export default class TemplateResponse extends React.Component {
   }
 
   closeModal() {
+    let context = {
+      name: this.state.contextName,
+      value: this.state.currentSelection
+    }
+
+    contextArray.push(context);
+
+    this.setState({
+      contextVariables: contextArray
+    })
+
+    console.log(contextArray)
     this.setState({ modalIsOpen: false });
   }
 
