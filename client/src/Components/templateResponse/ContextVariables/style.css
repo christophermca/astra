@@ -1,3 +1,27 @@
+.contextWrapper{
+    border-radius: 25px;
+    border: 1px solid grey;
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+}
+
+.contextWrapper h1{
+    margin: 0;
+    /* padding-right: 5px; */
+   
+}
+
+.context{
+    padding: 10px;
+}
+
+.contextDelete{
+    border-radius: 50px;
+}
+
+
 .react-contextmenu {
     background-color: #fff;
     background-clip: padding-box;

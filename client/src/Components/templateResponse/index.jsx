@@ -18,10 +18,7 @@ export default class TemplateResponse extends React.Component {
     this.uploadInlineData = this.uploadInlineData.bind(this);
 
     this.openModal = this.openModal.bind(this);
-    // this.afterOpenModal = this.afterOpenModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
-
-    
 
     this.state = Object.assign(
       { uploadInlineData: this.uploadInlineData },
@@ -95,7 +92,6 @@ export default class TemplateResponse extends React.Component {
   };
 
   handleContextVariables = (e) =>{
-
     let contextName = e.target.value;
 
     this.setState({
@@ -145,7 +141,8 @@ export default class TemplateResponse extends React.Component {
       contextVariables: contextArray
     })
 
-    console.log(contextArray)
+    
+    console.log(this.state.data)
     this.setState({ modalIsOpen: false });
   }
 
@@ -167,19 +164,19 @@ export default class TemplateResponse extends React.Component {
                     onContextMenu={this.onContextClick}
                     className="responseContent"
                   >
-                    {data.requestBody}
+                   <pre>{data.requestBody}</pre>
                   </div>
                 </ContextMenuTrigger>
               </StatefullAccordian>
               <StatefullAccordian name="Request Body">
-                <div className="responseContent">{data.requestBody}</div>
+                <div className="responseContent"><pre>{data.requestBody}</pre></div>
               </StatefullAccordian>
               <StatefullAccordian name="Response Body">
                 <div
                   onClick={this.onResponseItemClick}
                   className="responseContent"
                 >
-                  {JSON.stringify(data.responseBody, null, 2)}
+                  <pre>{JSON.stringify(data.responseBody, null, 2)}</pre>
                 </div>
               </StatefullAccordian>
               {/* example of nested accordions */}
@@ -220,8 +217,7 @@ export default class TemplateResponse extends React.Component {
 
         <Modal
           isOpen={this.state.modalIsOpen}
-          onRequestClose={this.closeModal}
-          contentLabel="Example Modal"
+          contentLabel="Add Context Variable"
           ariaHideApp={false}
         >
           <h2>Add Context Variable</h2>
@@ -234,6 +230,8 @@ export default class TemplateResponse extends React.Component {
             <span>Value: </span>
             {this.state.currentSelection}
           </div>
+          <button onClick={this.closeModal}>Save</button>
+          
         </Modal>
       </TemplateContext.Provider>
     );

@@ -124,7 +124,7 @@ export default class AssertionData extends React.Component {
               >
                 {" "}
               </Query>
-              <h1>{assertionsClicked[0]}</h1>
+              <h1>{assertionsClicked}</h1>
               </>
             );
           }}
