@@ -150,6 +150,8 @@ export default class TemplateResponse extends React.Component {
 
   close() {
     this.setState({ modalIsOpen: false });
+  }
+  
     submitTemplateToSave(evt) {
     evt.preventDefault();
     console.log('creating template')
