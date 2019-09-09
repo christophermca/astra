@@ -4,31 +4,53 @@ import StatefullAccordian from "../shared/statefullaccordian";
 import StatelessAccordian from "../shared/statelessaccordian";
 import { EndpointRequestHeader } from "../shared/index";
 import DataFiles from "./DataFiles";
-import { TemplateContext } from '../../Contexts/index';
+import { TemplateContext } from "../../Contexts/index";
 
 export default class TemplateResponse extends React.Component {
-
   constructor(props) {
     super(props);
     this.uploadInlineData = this.uploadInlineData.bind(this);
+    this.submitTemplateToSave = this.submitTemplateToSave.bind(this);
 
-    this.state = Object.assign({uploadInlineData: this.uploadInlineData}, {data: props.data})
+    this.state = Object.assign(
+      { uploadInlineData: this.uploadInlineData },
+      { data: props.data }
+    );
   }
 
   uploadInlineData(inlineData) {
-    const temp = []
-    for(let item of inlineData.entries()) {
-      temp.push(item)
+    const temp = [];
+    for (let item of inlineData.entries()) {
+      temp.push(item);
     }
-    this.setState((prevState) => prevState['data']['inlineDatasets'] = temp)
+    this.setState(prevState => (prevState["data"]["inlineDatasets"] = temp));
+  }
+
+    submitTemplateToSave(evt) {
+    evt.preventDefault();
+    console.log('creating template')
+    const formData = new FormData();
+
+    formData.append("template", JSON.stringify(this.state.data));
+    const options = {
+      method: "PUT",
+      body: formData
+    }
+
+    fetch('/api/templates/save', options).then(response => response.json())
+      .then(json => json)
+      .catch(err => console.error({ err }));
   }
 
   render() {
     const { data } = this.props;
     return (
       <TemplateContext.Provider value={this.state}>
-        <form id="template-response">
-          <EndpointRequestHeader method={data.requestType} url={data.httpUrlPathParams} />
+        <form id="template-response" onSubmit={this.submitTemplateToSave}>
+          <EndpointRequestHeader
+            method={data.requestType}
+            url={data.httpUrlPathParams}
+          />
           <main>
             <section className="response-body">
               <StatefullAccordian name="Request Header">
@@ -37,26 +59,34 @@ export default class TemplateResponse extends React.Component {
               <StatefullAccordian name="Request Body">
                 <div className="responseContent">{data.requestBody}</div>
               </StatefullAccordian>
-              <StatefullAccordian name="Response Body" >
-                <div className="responseContent">{JSON.stringify(data.responseBody, null, 2)}</div>
+              <StatefullAccordian name="Response Body">
+                <div className="responseContent">
+                  {JSON.stringify(data.responseBody, null, 2)}
+                </div>
               </StatefullAccordian>
-                {/* example of nested accordions */}
+              {/* example of nested accordions */}
               <StatefullAccordian name="Input File">
                 <div className="responseNestedContent">
                   <StatefullAccordian name="input File">
-                      input file here
+                    input file here
                   </StatefullAccordian>
                 </div>
               </StatefullAccordian>
             </section>
             <section className="assertions">
               <StatefullAccordian name="Data Files">
-                <DataFiles contextVariables={data.contextVariables} inlineDatasets={data.inlineDatasets} datasets={data.datasets} />
+                <DataFiles
+                  contextVariables={data.contextVariables}
+                  inlineDatasets={data.inlineDatasets}
+                  datasets={data.datasets}
+                />
               </StatefullAccordian>
             </section>
           </main>
+          <button type="submit">Save</button>
+          <button>Execute</button>
         </form>
       </TemplateContext.Provider>
-      )
-    }
+    );
   }
+}
