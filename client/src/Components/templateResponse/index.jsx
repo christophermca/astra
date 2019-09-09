@@ -11,6 +11,7 @@ export default class TemplateResponse extends React.Component {
     super(props);
     this.uploadInlineData = this.uploadInlineData.bind(this);
     this.submitTemplateToSave = this.submitTemplateToSave.bind(this);
+    this.executeSingleTemplate = this.executeSingleTemplate.bind(this);
 
     this.state = Object.assign(
       { uploadInlineData: this.uploadInlineData },
@@ -42,6 +43,21 @@ export default class TemplateResponse extends React.Component {
       .catch(err => console.error({ err }));
   }
 
+  executeSingleTemplate(evt) {
+    evt.preventDefault();
+    const options = {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify([this.state.data.templateId])
+    };
+
+    fetch("/api/templates/execute", options)
+      .then(response => response.json())
+      .then(json => json)
+      .catch(err => console.error({ err }));
+  }
   render() {
     const { data } = this.props;
     return (
@@ -84,7 +100,7 @@ export default class TemplateResponse extends React.Component {
             </section>
           </main>
           <button type="submit">Save</button>
-          <button>Execute</button>
+          <button onClick={this.executeSingleTemplate}>Execute</button>
         </form>
       </TemplateContext.Provider>
     );
