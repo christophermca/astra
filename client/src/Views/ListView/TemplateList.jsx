@@ -30,7 +30,7 @@ class TemplateList extends ListView {
   handleExecute = event => {
     console.log(event.target.id)
     let myId = event.target.id
-    if(!this.state.selectedTemplate.length){
+    if(!this.state.selectedTemplate.length) {
       this.setState(state => {
         const selectedTemplate = [...state.selectedTemplate,myId];
         console.log(selectedTemplate)
@@ -52,8 +52,28 @@ class TemplateList extends ListView {
     }
   }
 
-  handleDelete = () => {
-    console.log("this clicked template shoulde be deleted")
+  handleDelete = event => {
+    let myId = event.target.id
+    if(this.state.selectedTemplate.length) {
+      this.setState(state => {
+        const newList = state.selectedTemplate.filter(temp => temp.id !== myId)
+        console.log(newList)
+        return {
+          selectedTemplate : newList
+        }
+      }, () => {
+        let url= `/api/templates/deleted?templateId=${this.state.selectedTemplate}`
+        fetch(url, {
+          method: "delete",
+          body: JSON.stringify(this.state.selectedTemplate),
+          headers: { "Content-Type": "application/json" }
+        })
+          .then(response => response.json())
+          .then(json => {
+            console.log(json)
+          })
+      });
+    }
   }
 
   handleFilterButton = () => {
@@ -74,7 +94,7 @@ class TemplateList extends ListView {
       "pagination": {
         "pageNumber": 1,
         "recordPerPage": 20,
-        "searchBy": [{}]
+        "searchBy": {}
       }
     }
 

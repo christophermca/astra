@@ -15,4 +15,8 @@ router.route("/create")
   router.route("/execute")
   .post(templateCrud.execute);
 
+  router.route("/deleted")
+  .post(templateCrud.deleted)
+
+
 module.exports = router;

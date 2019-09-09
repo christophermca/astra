@@ -12,7 +12,7 @@ const CardComponent = props => {
         <div onClick={props.handleExecute} id={props.data.templateId} className="card-button">
           Execute
         </div><br/>
-        <div style={{color:"red"}} onClick={props.handleDelete}>
+        <div style={{color:"red"}} onClick={props.handleDelete}  id={props.data.templateId}>
           Delete
         </div>
 
