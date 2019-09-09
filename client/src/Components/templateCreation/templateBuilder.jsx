@@ -1,6 +1,6 @@
 import React from "react";
-import './styles/template-builder.scss'
-import EndpointRequestHeader from "../shared/endpointRequestHeader"
+import "./styles/template-builder.scss";
+import EndpointRequestHeader from "../shared/endpointRequestHeader";
 
 function TemplateBuilder(props) {
   const { config } = props;
