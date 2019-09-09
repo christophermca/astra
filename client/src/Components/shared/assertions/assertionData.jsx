@@ -72,7 +72,6 @@ export default class AssertionData extends React.Component {
       templateData: result
     });
 
-    console.log(result)
     return result;
   };
   
