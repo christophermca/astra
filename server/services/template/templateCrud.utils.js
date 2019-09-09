@@ -11,7 +11,8 @@ const templateListURL = `${JavaEngineIP}/template/getTemplateList`;
 const templateDetailsURL = `${JavaEngineIP}/template/getTemplateDetails`;
 const createTemplateURL = `${JavaEngineIP}/template/createTemplate`;
 const executeEndpoint = `${JavaEngineIP}/template/executeTemplate`;
-const deletedEndpoint = `${JavaEngineIP}/template/deletedTemplate`;
+// const deletedEndpoint = `${JavaEngineIP}/template/deleteTemplates`;
+const deletedEndpoint = "http://localhost:8080/v2/template/deleteTemplates"
 
 const useStubData = process.env.OFFLINE === 'true';
 
@@ -63,6 +64,7 @@ const execute = (req, res) => {
 const deleted = (req, res) => {
   try {
     const deletedCard = request(deletedEndpoint);
+    // res.send()
     req.pipe(deletedCard).pipe(res);
 
   } catch (err) {

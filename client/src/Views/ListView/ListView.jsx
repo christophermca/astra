@@ -9,9 +9,7 @@ import React, {Component} from 'react';
     this.onSearchSubmit = this.onSearchSubmit.bind(this);
     this.getList = this.getList.bind(this);
 
-    this.state = {
-    
-    }
+    this.state = {}
   }
   
 

@@ -44,9 +44,9 @@ class TemplateList extends ListView {
           body: JSON.stringify(this.state.selectedTemplate),
           headers: { "Content-Type": "application/json" }
         })
-          .then(response => response.json())
-          .then(json => {
-            console.log(json)
+          .then(response => response.text())
+          .then(data => {
+            console.log(data)
           })
       });
     }
@@ -54,7 +54,6 @@ class TemplateList extends ListView {
 
   handleDelete = event => {
     let myId = event.target.id
-    if(this.state.selectedTemplate.length) {
       this.setState(state => {
         const newList = state.selectedTemplate.filter(temp => temp.id !== myId)
         console.log(newList)
@@ -62,18 +61,20 @@ class TemplateList extends ListView {
           selectedTemplate : newList
         }
       }, () => {
-        let url= `/api/templates/deleted?templateId=${this.state.selectedTemplate}`
+        console.log(this.state.selectedTemplate)
+        // let url= `/api/templates/deleted?templateId=${this.state.selectedTemplate}`
+        let url= "/api/templates/deleted"
+        debugger
         fetch(url, {
-          method: "delete",
+          method: "DELETE",
           body: JSON.stringify(this.state.selectedTemplate),
           headers: { "Content-Type": "application/json" }
         })
-          .then(response => response.json())
+          .then(response => response.text())
           .then(json => {
             console.log(json)
           })
       });
-    }
   }
 
   handleFilterButton = () => {
