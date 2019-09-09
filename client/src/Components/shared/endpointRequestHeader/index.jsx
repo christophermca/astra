@@ -4,7 +4,7 @@ import './styles.scss';
 export default ({ method, url }) => (
   <header className="endpoint-template-header">
     <input name="requestType" value={method} />
-    <input value={url} className="template-url" />
+    <input name="httpUrlPathParams" value={url} className="template-url" />
   </header>
 );
 

@@ -17,6 +17,8 @@ export default class TemplateResponse extends React.Component {
   constructor(props) {
     super(props);
     this.uploadInlineData = this.uploadInlineData.bind(this);
+    this.submitTemplateToSave = this.submitTemplateToSave.bind(this);
+    this.executeSingleTemplate = this.executeSingleTemplate.bind(this);
 
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
@@ -148,13 +150,42 @@ export default class TemplateResponse extends React.Component {
 
   close() {
     this.setState({ modalIsOpen: false });
+    submitTemplateToSave(evt) {
+    evt.preventDefault();
+    console.log('creating template')
+    const formData = new FormData();
+
+    formData.append("template", JSON.stringify(this.state.data));
+    const options = {
+      method: "PUT",
+      body: formData
+    }
+
+    fetch('/api/templates/save', options).then(response => response.json())
+      .then(json => json)
+      .catch(err => console.error({ err }));
   }
 
+  executeSingleTemplate(evt) {
+    evt.preventDefault();
+    const options = {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify([this.state.data.templateId])
+    };
+
+    fetch("/api/templates/execute", options)
+      .then(response => response.json())
+      .then(json => json)
+      .catch(err => console.error({ err }));
+  }
   render() {
     const { data } = this.props;
     return (
       <TemplateContext.Provider value={this.state}>
-        <form id="template-response">
+        <form id="template-response" onSubmit={this.submitTemplateToSave}>
           <ContextMenuTrigger id="contextMenu">
             <EndpointRequestHeader
               onContextMenu={this.onContextClick}
@@ -217,6 +248,8 @@ export default class TemplateResponse extends React.Component {
               </StatefullAccordian>
             </section>
           </main>
+          <button type="submit">Save</button>
+          <button onClick={this.executeSingleTemplate}>Execute</button>
         </form>
 
         <ContextMenu id="contextMenu">

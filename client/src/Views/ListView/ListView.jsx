@@ -1,15 +1,16 @@
-import React from 'react';
+import React from "react";
 
 export default class ListView extends React.Component {
   constructor(props) {
     super(props);
-    this.handlePaginationDropdownChange = this.handlePaginationDropdownChange.bind(this);
+    this.handlePaginationDropdownChange = this.handlePaginationDropdownChange.bind(
+      this
+    );
     this.handleNextPage = this.handleNextPage.bind(this);
     this.handlePrevPage = this.handlePrevPage.bind(this);
     this.onSearchSubmit = this.onSearchSubmit.bind(this);
 
-    this.state = {}
-
+    this.state = {};
   }
 
   onSearchSubmit(event) {
@@ -19,29 +20,38 @@ export default class ListView extends React.Component {
 
   getList() {
     let dynamicData = {
-      "user": {
-        "userId": "1",
-        "teamId": "1"
-    },
-      "pagination": {
-        "pageNumber": this.state.currentPage,
-        "recordPerPage": this.state.value,
-        "searchBy": [{}]
+      user: {
+        userId: "1",
+        teamId: "1"
+      },
+      pagination: {
+        pageNumber: this.state.currentPage,
+        recordPerPage: this.state.value,
+        orderByColumn: "created_at",
+        searchBy: [{}]
       }
     };
 
-    const {templateNameValue, templateIdValue, teamNameValue, userIdValue} = this.state;
+    const {
+      templateNameValue,
+      templateIdValue,
+      teamNameValue,
+      userIdValue
+    } = this.state;
     if (templateNameValue) {
       dynamicData.pagination.searchBy[0].template_name = this.state.templateNameValue;
-    } if (templateIdValue) {
+    }
+    if (templateIdValue) {
       dynamicData.pagination.searchBy[0].template_id = this.state.templateIdValue;
-    } if (teamNameValue) {
+    }
+    if (teamNameValue) {
       dynamicData.pagination.searchBy[0].team_name = this.state.teamNameValue;
-    } if (userIdValue) {
+    }
+    if (userIdValue) {
       dynamicData.pagination.searchBy[0].user_id = this.state.userIdValue;
     }
 
-    fetch('/api/templates/templatelist', {
+    fetch("/api/templates/templatelist", {
       method: "POST",
       body: JSON.stringify(dynamicData),
       headers: {
@@ -49,7 +59,7 @@ export default class ListView extends React.Component {
       }
     })
       .then(response => response.json())
-      .then(({templateList}) => this.setState({ "list": templateList }))
+      .then(({ templateList }) => this.setState({ list: templateList }));
   }
 
   handleNextPage() {
@@ -73,7 +83,6 @@ export default class ListView extends React.Component {
       this.getList();
     });
   }
-
 }
 
-module.export = ListView
+module.export = ListView;
