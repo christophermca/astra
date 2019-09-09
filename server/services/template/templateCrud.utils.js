@@ -19,15 +19,12 @@ const getAllTemplates = async (req, res) => {
   try {
     if(useStubData) {
       console.log('using stub response');
-
       const data = JSON.parse(fs.readFileSync(path.resolve(__dirname, '../../stubs/templatelist.stub.json')));
       res.status(200).send(data);
     } else {
       console.log('request - calling templateListURL');
-
       const templateList = request(templateListURL);
       req.pipe(templateList).pipe(res);
-
     }
   } catch (err) {
       console.error(err)
@@ -64,7 +61,6 @@ const execute = (req, res) => {
 
 // simular to running http.serverRequest
 const createTemplate = async (req, res) => {
-
   try {
     if(useStubData) {
       console.log('using stub response');
@@ -74,8 +70,6 @@ const createTemplate = async (req, res) => {
       const create = request(createTemplateURL);
       req.pipe(create).pipe(res);
     }
-
-
   } catch (err) {
     console.error(err);
     res.status(400);

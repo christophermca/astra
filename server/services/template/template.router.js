@@ -13,6 +13,6 @@ router.route("/create")
   .post(templateCrud.createTemplate);
 
   router.route("/execute")
-  .post(templateCrud.createTemplate);
+  .post(templateCrud.execute);
 
 module.exports = router;

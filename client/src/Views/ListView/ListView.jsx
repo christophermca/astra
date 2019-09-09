@@ -9,9 +9,9 @@ import React, {Component} from 'react';
     this.onSearchSubmit = this.onSearchSubmit.bind(this);
     this.getList = this.getList.bind(this);
 
-    this.state = {}
+    this.state = {
     
-
+    }
   }
   
 
@@ -23,13 +23,13 @@ import React, {Component} from 'react';
   getList(myTemplates=false) {
      let dynamicData = {
     "user": {
-      "userId": "1",
-      "teamId": "1"
+      "userId": "3",
+      "teamId": "3"
     },
     "pagination": {
       "pageNumber": this.state.currentPage,
       "recordPerPage": this.state.value,
-      "searchBy": [{}]
+      "searchBy": {}
     }
     };
 
@@ -37,19 +37,19 @@ import React, {Component} from 'react';
     //run the following
 
     if (myTemplates) {
-      dynamicData.pagination.searchBy.push(dynamicData.user)
+      dynamicData.pagination.searchBy = dynamicData.user
     } else {
       const { templateNameValue, templateIdValue, teamNameValue, userIdValue } = this.state;
       if (templateNameValue) {
-        dynamicData.pagination.searchBy[0].template_name = this.state.templateNameValue;
+        dynamicData.pagination.searchBy.template_name = this.state.templateNameValue;
       } if (templateIdValue) {
-        dynamicData.pagination.searchBy[0].template_id = this.state.templateIdValue;
+        dynamicData.pagination.searchBy.template_id = this.state.templateIdValue;
       } if (teamNameValue) {
-        dynamicData.pagination.searchBy[0].team_name = this.state.teamNameValue;
+        dynamicData.pagination.searchBy.team_name = this.state.teamNameValue;
       } if (userIdValue) {
-        dynamicData.pagination.searchBy[0].user_id = this.state.userIdValue;
+        dynamicData.pagination.searchBy.user_id = this.state.userIdValue;
       }
-
+    }
     fetch('/api/templates/templatelist', {
       method: "POST",
       body: JSON.stringify(dynamicData),
@@ -59,7 +59,6 @@ import React, {Component} from 'react';
     })
       .then(response => response.json())
       .then(({templateList}) => this.setState({ "list": templateList }))
-    }
   }
 
   handleNextPage() {
@@ -83,7 +82,6 @@ import React, {Component} from 'react';
       this.getList();
     });
   }
-
 }
 
 export default ListView;

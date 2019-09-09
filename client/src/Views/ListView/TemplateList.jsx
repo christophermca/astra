@@ -27,7 +27,7 @@ class TemplateList extends ListView {
    }
  }
 
-  handleClick = event => {
+  handleExecute = event => {
     console.log(event.target.id)
     let myId = event.target.id
     if(!this.state.selectedTemplate.length){
@@ -38,7 +38,6 @@ class TemplateList extends ListView {
           selectedTemplate
         }
       }, () => {
-        debugger
         let url= `/api/templates/execute?templateId=${this.state.selectedTemplate}`
         fetch(url, {
           method: "POST",
@@ -51,6 +50,10 @@ class TemplateList extends ListView {
           })
       });
     }
+  }
+
+  handleDelete = () => {
+    console.log("this clicked template shoulde be deleted")
   }
 
   handleFilterButton = () => {
@@ -87,20 +90,44 @@ class TemplateList extends ListView {
   }
 
   render() {
-    let buttonDisplay = this.state.filtered? "Unfilter" : "Filter"
+    let filterDisplay = this.state.filtered? "Unfilter" : "Filter"
     return (
       <div>
         <React.Fragment>
           <div className="search-bar-div">
             <form onSubmit={this.onSearchSubmit}>
               <label>Template Name  </label>
-              <input type="text" id="template-name-search-bar" placeholder="Search" value={this.state.templateNameValue} name="templateNameValue" onChange={this.handleChange} />
+              <input type="text" 
+                     id="template-name-search-bar" 
+                     placeholder="Search"
+                     value={this.state.templateNameValue}
+                     name="templateNameValue" 
+                     onChange={this.handleChange} />
+
               <label>Template ID  </label>
-              <input type="text" id="template-id-search-bar" placeholder="Search" value={this.state.templateIdValue} name="templateIdValue" onChange={this.handleChange} />
+              <input type="text" 
+                     id="template-id-search-bar"
+                     placeholder="Search"
+                     value={this.state.templateIdValue}
+                     name="templateIdValue" 
+                     onChange={this.handleChange} />
+
               <label>Team Name  </label>
-              <input type="text" id="team-search-bar" placeholder="Search" value={this.state.teamNameValue} name="teamNameValue" onChange={this.handleChange} />
+              <input type="text" 
+                     id="team-search-bar" 
+                     placeholder="Search" 
+                     value={this.state.teamNameValue} 
+                     name="teamNameValue" 
+                     onChange={this.handleChange} />
+
               <label>User ID  </label>
-              <input type="text" id="user-id-search-bar" placeholder="Search" value={this.state.userIdValue} name="userIdValue" onChange={this.handleChange} />
+              <input type="text" 
+                     id="user-id-search-bar"
+                     placeholder="Search"
+                     value={this.state.userIdValue} 
+                     name="userIdValue" 
+                     onChange={this.handleChange} />
+
               <button type="submit">APPLY</button>
             </form>
           </div>
@@ -109,16 +136,17 @@ class TemplateList extends ListView {
               <button id="create-template-btn">
                 <Link to="/templates/create"><i id="create-template-icon" className="material-icons">control_point</i></Link>
                 <Link to="/templates/create" id="create-template-link">Create new template</Link>
-                <button onClick={this.handleFilterButton}>{buttonDisplay}</button>
+                <div onClick={this.handleFilterButton}>{filterDisplay}</div>
               </button>
             </div>
-            {this.state.list
-              ? this.state.list.map(item => {
+            {this.state.list? 
+              this.state.list.map(item => {
                 return (<CardComponent 
                            key={item.templateId}
                            data={item}
-                           handleClick={this.handleClick}
+                           handleExecute={this.handleExecute}
                            handleCheckbox={this.handleCheckbox}
+                           handleDelete={this.handleDelete}
                        />)
               })
               : ''
