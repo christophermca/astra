@@ -71,6 +71,8 @@ export default class AssertionData extends React.Component {
     this.setState({
       templateData: result
     });
+
+    console.log(result)
     return result;
   };
   
@@ -102,7 +104,6 @@ export default class AssertionData extends React.Component {
     );
   };
   render() {
-      console.log(this.props)
     return (
         <TemplateContext.Consumer>
           {({ assertionsClicked }) => {

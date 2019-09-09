@@ -2,6 +2,7 @@ import React from "react";
 
 const ContextVariables = props => {
 
+    
   return (
     <div className="context">
       {props.variables.map(i => {
