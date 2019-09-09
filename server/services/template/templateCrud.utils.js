@@ -10,6 +10,7 @@ const JavaEngineIP = `http://172.22.${dynamicAddress}:8080/v2`
 const templateListURL = `${JavaEngineIP}/template/getTemplateList`;
 const templateDetailsURL = `${JavaEngineIP}/template/getTemplateDetails`;
 const createTemplateURL = `${JavaEngineIP}/template/createTemplate`;
+const saveTemplateURL = `${JavaEngineIP}/template/saveTemplate`;
 const executeEndpoint = `${JavaEngineIP}/template/executeTemplate`;
 
 const useStubData = process.env.OFFLINE === 'true';
@@ -106,5 +107,6 @@ module.exports = {
   getAllTemplates,
   getOneTemplate,
   createTemplate,
+  saveTemplate,
   execute
 }
