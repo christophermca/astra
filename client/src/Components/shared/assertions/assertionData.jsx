@@ -9,13 +9,13 @@ import "react-awesome-query-builder/css/compact_styles.scss";
 import "react-awesome-query-builder/css/denormalize.scss";
 
 const { queryString } = Utils;
-var stringify = require("json-stringify-safe");
+let stringify = require("json-stringify-safe");
 const Immutable = require("immutable");
 const transit = require("transit-immutable-js");
 
-var seriazlieAsImmutable = true;
+let seriazlieAsImmutable = true;
 
-var serializeTree, loadTree, initValue;
+let serializeTree, loadTree, initValue;
 if (!seriazlieAsImmutable) {
   serializeTree = function(tree) {
     return JSON.stringify(tree.toJS());
@@ -41,15 +41,6 @@ if (!seriazlieAsImmutable) {
 }
 
 export default class AssertionData extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { templateData: {} };
-    console.log(this.state)
-  }
-
-  componentDidUpdate(props){
-
-  }
 
   getData = (assertionsClicked, props)  => {
     const children = props.get("children1");
@@ -80,9 +71,9 @@ export default class AssertionData extends React.Component {
     this.setState({
       templateData: result
     });
-    console.log(assertionsClicked);
     return result;
   };
+  
 
   getChildren = props => {
     const jsonStyle = {
@@ -111,6 +102,7 @@ export default class AssertionData extends React.Component {
     );
   };
   render() {
+      console.log(this.props)
     return (
         <TemplateContext.Consumer>
           {({ assertionsClicked }) => {
@@ -118,7 +110,7 @@ export default class AssertionData extends React.Component {
               <>
               <Query
               value={loadTree(initValue)}
-                {...config}
+                {...this.props.configuration}
                 get_children={this.getChildren}
                 onChange={this.getData.bind(assertionsClicked, this)}
               >

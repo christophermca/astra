@@ -8,8 +8,9 @@ import ContextVariables from "./ContextVariables/contextVariables";
 import { TemplateContext } from "../../Contexts/index";
 import { ContextMenu, MenuItem, ContextMenuTrigger } from "react-contextmenu";
 import Modal from "react-modal";
+import config from '../shared/assertions/config'
 
-import './ContextVariables/style.css'
+import "./ContextVariables/style.css";
 
 let contextArray = [];
 export default class TemplateResponse extends React.Component {
@@ -24,9 +25,10 @@ export default class TemplateResponse extends React.Component {
       { uploadInlineData: this.uploadInlineData },
       { data: props.data },
       { currentSelection: "" },
-      { contextName: ""},
+      { contextName: "" },
       { contextVariables: [] },
-      { modalIsOpen: false }
+      { modalIsOpen: false }, 
+      { configProps: config}
     );
   }
 
@@ -91,14 +93,13 @@ export default class TemplateResponse extends React.Component {
     return text;
   };
 
-  handleContextVariables = (e) =>{
+  handleContextVariables = e => {
     let contextName = e.target.value;
 
     this.setState({
       contextName: contextName
-    })
-   
-  }
+    });
+  };
 
   onResponseItemClick = e => {
     let s = window.getSelection();
@@ -120,9 +121,8 @@ export default class TemplateResponse extends React.Component {
     var clicked = str.substr(0, str.indexOf('"'));
     clickedItems.push(clicked);
 
-    this.setState({ assertionsClicked: clickedItems }, () =>
-      console.log(this.state)
-    );
+    this.setState({ assertionsClicked: clickedItems });
+   
   };
 
   openModal() {
@@ -133,43 +133,56 @@ export default class TemplateResponse extends React.Component {
     let context = {
       name: this.state.contextName,
       value: this.state.currentSelection
-    }
+    };
 
     contextArray.push(context);
 
     this.setState({
       contextVariables: contextArray
-    })
+    });
 
-    
-    console.log(this.state.data)
+    this.setState(prevState => Object.assign(prevState, {contextVariables: contextArray}))
+
     this.setState({ modalIsOpen: false });
   }
 
+  close() {
+    this.setState({ modalIsOpen: false });
+  }
 
   render() {
     const { data } = this.props;
     return (
       <TemplateContext.Provider value={this.state}>
         <form id="template-response">
-          <EndpointRequestHeader
-            method={data.requestType}
-            url={data.httpUrlPathParams}
-          />
+          <ContextMenuTrigger id="contextMenu">
+            <EndpointRequestHeader
+              onContextMenu={this.onContextClick}
+              method={data.requestType}
+              url={data.httpUrlPathParams}
+            />
+          </ContextMenuTrigger>
           <main>
             <section className="response-body">
               <StatefullAccordian name="Request Header">
-                <ContextMenuTrigger id="some_unique_identifier">
+                <ContextMenuTrigger id="contextMenu">
                   <div
                     onContextMenu={this.onContextClick}
                     className="responseContent"
                   >
-                   <pre>{data.requestBody}</pre>
+                    <pre>{data.requestBody}</pre>
                   </div>
                 </ContextMenuTrigger>
               </StatefullAccordian>
               <StatefullAccordian name="Request Body">
-                <div className="responseContent"><pre>{data.requestBody}</pre></div>
+                <ContextMenuTrigger id="contextMenu">
+                  <div
+                    onContextMenu={this.onContextClick}
+                    className="responseContent"
+                  >
+                    <pre>{data.requestBody}</pre>
+                  </div>
+                </ContextMenuTrigger>
               </StatefullAccordian>
               <StatefullAccordian name="Response Body">
                 <div
@@ -200,13 +213,13 @@ export default class TemplateResponse extends React.Component {
                 />
               </StatefullAccordian>
               <StatefullAccordian name="Assertions">
-                <AssertionData />
+                <AssertionData configuration = {this.state.configProps} />
               </StatefullAccordian>
             </section>
           </main>
         </form>
 
-        <ContextMenu id="some_unique_identifier">
+        <ContextMenu id="contextMenu">
           <MenuItem
             style={{ backgroundColor: "black" }}
             onClick={this.openModal}
@@ -218,12 +231,17 @@ export default class TemplateResponse extends React.Component {
         <Modal
           isOpen={this.state.modalIsOpen}
           contentLabel="Add Context Variable"
+          onRequestClose={this.close}
           ariaHideApp={false}
         >
           <h2>Add Context Variable</h2>
           <label>
-            Name: 
-            <input type="text" name="name" onChange={this.handleContextVariables}/>
+            Name:
+            <input
+              type="text"
+              name="name"
+              onChange={this.handleContextVariables}
+            />
           </label>
           <div>
             {" "}
@@ -231,7 +249,6 @@ export default class TemplateResponse extends React.Component {
             {this.state.currentSelection}
           </div>
           <button onClick={this.closeModal}>Save</button>
-          
         </Modal>
       </TemplateContext.Provider>
     );
