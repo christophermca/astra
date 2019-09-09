@@ -71,7 +71,7 @@ class TemplateList extends ListView {
         pageNumber: 1,
         recordPerPage: 20,
         orderByColumn: "created_at",
-        searchBy: [{}]
+        searchBy: {}
       }
     };
 
