@@ -11,7 +11,6 @@ import Modal from "react-modal";
 import config from "../shared/assertions/config";
 
 import "./ContextVariables/style.css";
-import { array } from "prop-types";
 
 let contextArray = [];
 export default class TemplateResponse extends React.Component {
@@ -152,7 +151,7 @@ export default class TemplateResponse extends React.Component {
     });
 
     this.setState(prevState =>
-      Object.assign(prevState, { contextVariables: contextArray })
+      Object.assign(prevState.data, { contextVariables: contextArray })
     );
 
     this.setState({ modalIsOpen: false });
@@ -168,6 +167,9 @@ export default class TemplateResponse extends React.Component {
 
     this.setState({ contextVariables: contextArray})
 
+    this.setState(prevState =>
+      Object.assign(prevState.data, { contextVariables: contextArray })
+    );
   }
 
 
