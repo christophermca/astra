@@ -10,6 +10,7 @@ export default class TemplateResponse extends React.Component {
   constructor(props) {
     super(props);
     this.uploadInlineData = this.uploadInlineData.bind(this);
+    this.submitTemplateToSave = this.submitTemplateToSave.bind(this);
 
     this.state = Object.assign(
       { uploadInlineData: this.uploadInlineData },
@@ -25,11 +26,27 @@ export default class TemplateResponse extends React.Component {
     this.setState(prevState => (prevState["data"]["inlineDatasets"] = temp));
   }
 
+    submitTemplateToSave(evt) {
+    evt.preventDefault();
+    console.log('creating template')
+    const formData = new FormData();
+
+    formData.append("template", JSON.stringify(this.state.data));
+    const options = {
+      method: "PUT",
+      body: formData
+    }
+
+    fetch('/api/templates/save', options).then(response => response.json())
+      .then(json => json)
+      .catch(err => console.error({ err }));
+  }
+
   render() {
     const { data } = this.props;
     return (
       <TemplateContext.Provider value={this.state}>
-        <form id="template-response">
+        <form id="template-response" onSubmit={this.submitTemplateToSave}>
           <EndpointRequestHeader
             method={data.requestType}
             url={data.httpUrlPathParams}
@@ -66,6 +83,8 @@ export default class TemplateResponse extends React.Component {
               </StatefullAccordian>
             </section>
           </main>
+          <button type="submit">Save</button>
+          <button>Execute</button>
         </form>
       </TemplateContext.Provider>
     );
