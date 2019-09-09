@@ -13,6 +13,7 @@ const templateDetailsURL = `${JavaEngineIP}/template/getTemplateDetails`;
 const createTemplateURL = `${JavaEngineIP}/template/createTemplate`;
 const debugEndpoint = 'https://ptsv3.com/t/mwz5g-1566870939/post';
 const saveTemplateURL = `${JavaEngineIP}/template/saveTemplate`;
+const executeEndpoint = `${JavaEngineIP}/template/executeTemplate`;
 
 const useStubData = process.env.OFFLINE === 'true';
 

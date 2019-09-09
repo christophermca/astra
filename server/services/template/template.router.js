@@ -16,6 +16,6 @@ router.route("/save")
   .put(templateCrud.saveTemplate);
 
   router.route("/execute")
-  .post(templateCrud.createTemplate);
+  .post(templateCrud.execute);
 
 module.exports = router;
