@@ -83,7 +83,6 @@ export default class TemplateResponse extends React.Component {
   };
 
   onContextClick = e => {
-    console.log(e.type);
 
     var text = "";
     if (window.getSelection) {
@@ -102,6 +101,7 @@ export default class TemplateResponse extends React.Component {
       contextName: contextName
     });
   };
+
 
   onResponseItemClick = e => {
     let s = window.getSelection();
@@ -143,12 +143,9 @@ export default class TemplateResponse extends React.Component {
       contextVariables: contextArray
     });
 
+
     this.setState(prevState => Object.assign(prevState, {contextVariables: contextArray}))
 
-    this.setState({ modalIsOpen: false });
-  }
-
-  close() {
     this.setState({ modalIsOpen: false });
   }
   
@@ -266,7 +263,6 @@ export default class TemplateResponse extends React.Component {
         <Modal
           isOpen={this.state.modalIsOpen}
           contentLabel="Add Context Variable"
-          onRequestClose={this.close}
           ariaHideApp={false}
         >
           <h2>Add Context Variable</h2>
@@ -284,6 +280,7 @@ export default class TemplateResponse extends React.Component {
             {this.state.currentSelection}
           </div>
           <button onClick={this.closeModal}>Save</button>
+          <button onClick={() => this.setState({ modalIsOpen: false })}>Close</button>
         </Modal>
       </TemplateContext.Provider>
     );
