@@ -4,11 +4,11 @@ const StatelessAccordian = props => {
 
   const accordianState = props => {
     if (props.toggleState) {
-      return <div className="accordianState">+</div>;
+      return <div className="accordianState">-</div>;
     } else {
       return (
         <>
-          <div className="accordianState">-</div>
+          <div className="accordianState">+</div>
         </>
       );
     }

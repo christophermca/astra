@@ -162,13 +162,11 @@ export default class TemplateResponse extends React.Component {
   onDelete(e, name){
     e.preventDefault();
 
-    let curContext = this.state.contextVariables;
-
-     curContext = curContext.filter(el =>{
+     contextArray = contextArray.filter(el =>{
        return el.name !== name;
      })
 
-    this.setState({ contextVariables: curContext})
+    this.setState({ contextVariables: contextArray})
 
   }
 
