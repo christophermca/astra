@@ -193,8 +193,7 @@ export default class TemplateResponse extends React.Component {
     };
 
     fetch("/api/templates/save", options)
-      .then(response => response.json())
-      .then(json => json)
+      .then(window.location.href = "http://localhost:3000/templates/")
       .catch(err => console.error({ err }));
   }
 
