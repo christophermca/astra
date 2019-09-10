@@ -105,7 +105,7 @@ export default class QueryBuilder {
     this.outerWrapper.appendChild(this.outputContainer);
     
     // Construct first rule group
-    this.addGroup();
+    this.addGroup(true);
   }
   
   // For constructing new elements from HTML strings
@@ -116,7 +116,7 @@ export default class QueryBuilder {
     return html.body.firstChild;
   }
 
-  addGroup() {
+  addGroup(rootLevel = false) {
     let _newGroup = this.makeElement(this.templates.rulesGroup);
 
     // Header for button groups
@@ -156,18 +156,18 @@ export default class QueryBuilder {
     addRuleButton.classList.add('btn-addRule');
     addRuleButton.appendChild(this.makeElement(this.templates.icons.plus));
     addRuleButton.appendChild(this.makeElement('<span>Add Rule</span>'));
+    addRuleButton.addEventListener('click', () => { this.addRule(_newGroup); });
     addButtonsGroup.appendChild(addRuleButton);
     
     // Add Group button creation
-    let addGroupButton = this.makeElement(this.templates.button);
-    addGroupButton.classList.add('btn-addGroup');
-    addGroupButton.appendChild(this.makeElement(this.templates.icons.plusCircle));
-    addGroupButton.appendChild(this.makeElement('<span>Add Group</span>'));
-    addGroupButton.addEventListener('click', () =>  { this.addGroup(); });
-    addButtonsGroup.appendChild(addGroupButton);
-
-    // Assign our Add Rule button handler
-    addRuleButton.addEventListener('click', () => { this.addRule(_newGroup); });
+    if (rootLevel) {
+      let addGroupButton = this.makeElement(this.templates.button);
+      addGroupButton.classList.add('btn-addGroup');
+      addGroupButton.appendChild(this.makeElement(this.templates.icons.plusCircle));
+      addGroupButton.appendChild(this.makeElement('<span>Add Group</span>'));
+      addGroupButton.addEventListener('click', () =>  { this.addGroup(); });
+      addButtonsGroup.appendChild(addGroupButton);
+    }
 
     this.rulesContainer.appendChild(_newGroup);
     this.addRule(_newGroup);
