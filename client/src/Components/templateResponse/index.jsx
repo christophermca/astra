@@ -8,7 +8,7 @@ import ContextVariables from "./ContextVariables/contextVariables";
 import { TemplateContext } from "../../Contexts/index";
 import { ContextMenu, MenuItem, ContextMenuTrigger } from "react-contextmenu";
 import Modal from "react-modal";
-import config from "../shared/assertions/config";
+import QueryBuilder from "../shared/assertions/assertion";
 
 import "./ContextVariables/style.css";
 
@@ -32,7 +32,7 @@ export default class TemplateResponse extends React.Component {
       { startRange: "" },
       { endRange: "" },
       { modalIsOpen: false },
-      { configProps: config }
+      {assertionsClicked: ""}
     );
   }
 
@@ -131,7 +131,9 @@ export default class TemplateResponse extends React.Component {
     var clicked = str.substr(0, str.indexOf('"'));
     clickedItems.push(clicked);
 
-    this.setState({ assertionsClicked: clickedItems });
+    console.log(clicked)
+    this.setState({ assertionsClicked: clicked });
+
   };
 
   openModal() {
@@ -157,21 +159,19 @@ export default class TemplateResponse extends React.Component {
     this.setState({ modalIsOpen: false });
   }
 
-
-  onDelete(e, name){
+  onDelete(e, name) {
     e.preventDefault();
 
-     contextArray = contextArray.filter(el =>{
-       return el.name !== name;
-     })
+    contextArray = contextArray.filter(el => {
+      return el.name !== name;
+    });
 
-    this.setState({ contextVariables: contextArray})
+    this.setState({ contextVariables: contextArray });
 
     this.setState(prevState =>
       Object.assign(prevState.data, { contextVariables: contextArray })
     );
   }
-
 
   submitTemplateToSave(evt) {
     evt.preventDefault();
@@ -258,18 +258,23 @@ export default class TemplateResponse extends React.Component {
             </section>
             <section className="assertions">
               <StatefullAccordian name="Context Variables">
-              <div className="context">
-                {this.state.contextVariables.map(i => {
-                  return (
-                    <div className="contextWrapper">
-                      <h1 className="contextName">
-                        {" "}
-                        <span ref="nameRef">{i.name}</span>: {i.value}{" "}
-                      </h1>
-                      <button className="contextDelete" onClick={(evt) => this.onDelete(evt, i.name)}>X</button>
-                    </div>
-                  );
-                })}
+                <div className="context">
+                  {this.state.contextVariables.map(i => {
+                    return (
+                      <div className="contextWrapper">
+                        <h1 className="contextName">
+                          {" "}
+                          <span ref="nameRef">{i.name}</span>: {i.value}{" "}
+                        </h1>
+                        <button
+                          className="contextDelete"
+                          onClick={evt => this.onDelete(evt, i.name)}
+                        >
+                          X
+                        </button>
+                      </div>
+                    );
+                  })}
                 </div>
               </StatefullAccordian>
               <StatefullAccordian name="Data Files">
@@ -280,7 +285,7 @@ export default class TemplateResponse extends React.Component {
                 />
               </StatefullAccordian>
               <StatefullAccordian name="Assertions">
-                <AssertionData configuration={this.state.configProps} />
+                <AssertionData clicked = {this.state.assertionsClicked}/>
               </StatefullAccordian>
             </section>
           </main>

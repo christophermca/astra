@@ -15,7 +15,9 @@
 .accordianHeader, .accordianState{
     align-self: center;
 }
-
+#query-builder{
+    margin: 10px auto;
+}
 .accordianToggle{
     display: flex;
 }
