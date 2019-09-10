@@ -4,22 +4,25 @@ export default class QueryBuilder {
     constructor(element) {
         this.container = element;
         
+        // Initial values of first SELECT in the row
         this.fields = [
           'label',
           'key',
           'value'
         ];
         
+        // AND/OR buttons in header (immutable)
         this.conjunctions = Object.freeze({
           AND: 'AND',
           OR: 'OR',
-          // NOT: 'NOT',
+          // NOT: 'NOT',          // NOT IMPLEMENTED
           properties: {
             selected: 'AND',
-            sticky: 'NOT'
+            // sticky: 'NOT'      // NOT IMPLEMENTED
           }
         })
         
+        // Available operators (immutable)
         this.operators = Object.freeze({
           EQ: '==',
           NOT: '!==',
@@ -27,6 +30,7 @@ export default class QueryBuilder {
           LT: '<'
         });
         
+        // Template pieces for use in DOMParser functionality
         this.templates = {
           outerWrap: '<div class="query-builder"></div>',
           rulesContainer: '<div class="rules"></div>',
@@ -38,6 +42,8 @@ export default class QueryBuilder {
           select: '<select class="input"></select>',
           textfield: '<input class="input" type="text" placeholder="Enter text" />',
           output: '<code></code>',
+
+          // SVG icons
           icons: {
             plus: `
               <i aria-label="icon: plus">
@@ -72,18 +78,23 @@ export default class QueryBuilder {
       }
       
       init() {
+        // Ensure single initialization
         if (this.initialized === true) return;
         this.initialized = true;
         
+        // Main .query-builder wrapper
         let outerWrapper = this.makeElement(this.templates.outerWrap);
         this.container.appendChild(outerWrapper);
         
+        // Header for button groups
         let headerContainer = this.makeElement(this.templates.header);
         outerWrapper.appendChild(headerContainer);
         
+        // AND / OR buttons group
         let conjunctionsGroup = this.makeElement(this.templates.buttonGroup);
         headerContainer.appendChild(conjunctionsGroup);
         
+        // Build each button for conjunctions group
         let selectedConjunction = this.conjunctions.properties.selected;
         Object.entries(this.conjunctions).forEach(([key, value]) => {
           if (key !== 'properties') {
@@ -97,32 +108,36 @@ export default class QueryBuilder {
             })
             _conj.appendChild(this.makeElement(`<span>${value}</span>`));
             
+            // Set default selection button state
             if (selectedConjunction === value) _conj.classList.add('btn-primary');
             conjunctionsGroup.appendChild(_conj);
           }
         });
         
+        // Add Rule / Add Group buttons group
         let addButtonsGroup = this.makeElement(this.templates.buttonGroup);
         addButtonsGroup.classList.add('group-end');
         headerContainer.appendChild(addButtonsGroup);
         
+        // Add Rule button creation
         let addRuleButton = this.makeElement(this.templates.button);
         addRuleButton.classList.add('btn-addRule');
         addRuleButton.appendChild(this.makeElement(this.templates.icons.plus));
         addRuleButton.appendChild(this.makeElement('<span>Add Rule</span>'));
-        addRuleButton.addEventListener('click', () => {
-          this.addRule();
-        });
+        addRuleButton.addEventListener('click', () => { this.addRule(); });
         addButtonsGroup.appendChild(addRuleButton);
         
+        // Add Group button creation
         let addGroupButton = this.makeElement(this.templates.button);
         addGroupButton.classList.add('btn-addGroup');
         addGroupButton.appendChild(this.makeElement(this.templates.icons.plusCircle));
         addGroupButton.appendChild(this.makeElement('<span>Add Group</span>'));
         addButtonsGroup.appendChild(addGroupButton);
         
+        // Outer wrapper for rules
         this.rulesContainer = this.makeElement(this.templates.rulesContainer);
         
+        // Invoke sortablejs library for drag/drop
         let _this = this;
         this.sortable = new Sortable(this.rulesContainer, {
           handle: ".drag-handle",
@@ -132,29 +147,39 @@ export default class QueryBuilder {
         });
         outerWrapper.appendChild(this.rulesContainer);
         
+        // Add output container
         this.outputContainer = this.makeElement(this.templates.output);
         this.outputContainer.innerText = "Output";
         this.outputContainer.classList.add('output');
         outerWrapper.appendChild(this.outputContainer);
         
+        // Construct first rule
         this.addRule();
       }
       
+      // For constructing new elements from HTML strings
       makeElement(domstring) {
         const html = new DOMParser().parseFromString(domstring, 'text/html');
+        
+        // Extract newly created element
         return html.body.firstChild;
       }
       
+      // Rule creation
       addRule() {
+        // Rule wrapper
         let e = this.makeElement(this.templates.rule);
         
+        // Drag handle
         let _handle = this.makeElement(this.templates.handle);
         _handle.classList.add('drag-handle');
         _handle.appendChild(this.makeElement(this.templates.icons.sort));
         e.appendChild(_handle);
         
+        // 'Fields' SELECT (first dropdown)
         let _fields = this.makeElement(this.templates.select);
         _fields.classList.add('assertion-field');
+        // Populate OPTION list from fields array
         Object.entries(this.fields).forEach(([key, value]) => {
           let _o = this.makeElement(`<option value="${value}">${value}</option>`);
           _fields.appendChild(_o);
@@ -162,8 +187,10 @@ export default class QueryBuilder {
         _fields.addEventListener('change', () => this.generateQuery());
         e.appendChild(_fields);
         
+        // 'Operators' SELECT (second dropdown)
         let _ops = this.makeElement(this.templates.select);
         _ops.classList.add('assertion-operator');
+        // Populate OPTION list from operators object
         Object.entries(this.operators).forEach(([key, value]) => {
           let _o = this.makeElement(`<option value="${key}">${value}</option>`);
           _ops.appendChild(_o);
@@ -171,11 +198,13 @@ export default class QueryBuilder {
         _ops.addEventListener('change', () => this.generateQuery());
         e.appendChild(_ops);
         
+        // 'Value' textfield
         let _val = this.makeElement(this.templates.textfield);
         _val.classList.add('assertion-value', 'flex-grow');
         _val.addEventListener('input', () => this.generateQuery());
         e.appendChild(_val);
         
+        // Delete button
         let deleteRuleButton = this.makeElement(this.templates.button);
         deleteRuleButton.classList.add('icon-btn', 'btn-deleteRule');
         deleteRuleButton.appendChild(this.makeElement(this.templates.icons.trash));
@@ -183,15 +212,21 @@ export default class QueryBuilder {
         e.appendChild(deleteRuleButton);
         
         this.rulesContainer.appendChild(e);
-            
+        
+        // Generate query output
         this.generateQuery();
       }
       
+      // Query output
       generateQuery() {
+        // Clear existing output
         let _output = '';
-        this.rules = this.rulesContainer.querySelectorAll('.rule');
         this.outputContainer.innerText = _output;
+
+        // Iterate through rules
+        this.rules = this.rulesContainer.querySelectorAll('.rule');
         this.rules.forEach((rule, index) => {
+          // Add conjunction between rules
           if (index > 0) _output += ` ${this.conjunctions.properties.selected} `;
           
           let _field = rule.querySelector('.assertion-field');
@@ -199,7 +234,7 @@ export default class QueryBuilder {
           let _op = rule.querySelector('.assertion-operator');
           let _opValue = _op[_op.selectedIndex].value;
           let _val = rule.querySelector('.assertion-value').value;
-          _output += `(${_fieldValue} ${_opValue} '${_val}')`;
+          _output += `(${_fieldValue} ${_opValue} '${_val}')`;    // Final output
         });
         this.outputContainer.innerText = _output;
       }
