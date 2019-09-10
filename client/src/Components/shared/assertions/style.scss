@@ -154,13 +154,22 @@
         }
       }
     }
-  
-    .rule {
-      margin-top: 4px;
-      display: flex;
-  
-      &.over {
-        border: 2px dashed #000;
+
+    .rules-group {
+      .rule {
+        margin-top: 4px;
+        display: flex;
+    
+        &.over {
+          border: 2px dashed #000;
+        }
+      }
+
+      &:not(:first-child) {
+        border-left: 1px solid #ccc;
+        padding-left: 12px;
+        margin-left: 2px;
+        margin-top: 12px;
       }
     }
   

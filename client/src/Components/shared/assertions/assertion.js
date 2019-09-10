@@ -82,12 +82,46 @@ export default class QueryBuilder {
     this.initialized = true;
     
     // Main .query-builder wrapper
-    let outerWrapper = this.makeElement(this.templates.outerWrap);
-    this.container.appendChild(outerWrapper);
+    this.outerWrapper = this.makeElement(this.templates.outerWrap);
+    this.container.appendChild(this.outerWrapper);
     
+    // Outer wrapper for rules
+    this.rulesContainer = this.makeElement(this.templates.rulesContainer);
+    
+    // Invoke sortablejs library for drag/drop
+    let _this = this;
+    this.sortable = new Sortable(this.rulesContainer, {
+      handle: ".drag-handle",
+      draggable: ".rule",
+      direction: "vertical",
+      onUpdate: () => _this.generateQuery()
+    });
+    this.outerWrapper.appendChild(this.rulesContainer);
+    
+    // Add output container
+    this.outputContainer = this.makeElement(this.templates.output);
+    this.outputContainer.innerText = "Output";
+    this.outputContainer.classList.add('output');
+    this.outerWrapper.appendChild(this.outputContainer);
+    
+    // Construct first rule group
+    this.addGroup();
+  }
+  
+  // For constructing new elements from HTML strings
+  makeElement(domstring) {
+    const html = new DOMParser().parseFromString(domstring, 'text/html');
+    
+    // Extract newly created element
+    return html.body.firstChild;
+  }
+
+  addGroup() {
+    let _newGroup = this.makeElement(this.templates.rulesGroup);
+
     // Header for button groups
     let headerContainer = this.makeElement(this.templates.header);
-    outerWrapper.appendChild(headerContainer);
+   _newGroup.appendChild(headerContainer);
     
     // AND / OR buttons group
     let conjunctionsGroup = this.makeElement(this.templates.buttonGroup);
@@ -102,7 +136,6 @@ export default class QueryBuilder {
         _conj.addEventListener('click', () => {
           conjunctionsGroup.querySelector('.btn-primary').classList.remove('btn-primary');
           _conj.classList.add('btn-primary');
-          this.conjunctions.properties.selected = value;
           this.generateQuery();
         })
         _conj.appendChild(this.makeElement(`<span>${value}</span>`));
@@ -130,44 +163,14 @@ export default class QueryBuilder {
     addGroupButton.classList.add('btn-addGroup');
     addGroupButton.appendChild(this.makeElement(this.templates.icons.plusCircle));
     addGroupButton.appendChild(this.makeElement('<span>Add Group</span>'));
+    addGroupButton.addEventListener('click', () =>  { this.addGroup(); });
     addButtonsGroup.appendChild(addGroupButton);
-    
-    // Outer wrapper for rules
-    this.rulesContainer = this.makeElement(this.templates.rulesContainer);
-    
-    // Invoke sortablejs library for drag/drop
-    let _this = this;
-    this.sortable = new Sortable(this.rulesContainer, {
-      handle: ".drag-handle",
-      draggable: ".rule",
-      direction: "vertical",
-      onUpdate: () => _this.generateQuery()
-    });
-    outerWrapper.appendChild(this.rulesContainer);
-    
-    // Add output container
-    this.outputContainer = this.makeElement(this.templates.output);
-    this.outputContainer.innerText = "Output";
-    this.outputContainer.classList.add('output');
-    outerWrapper.appendChild(this.outputContainer);
-    
-    // Construct first rule group
-    let _defaultGroup = this.makeElement(this.templates.rulesGroup);
-    this.rulesContainer.appendChild(_defaultGroup);
 
-    // Now that we have our first group, we can assign our Add Rule button handler
-    addRuleButton.addEventListener('click', () => { this.addRule(_defaultGroup); });
+    // Assign our Add Rule button handler
+    addRuleButton.addEventListener('click', () => { this.addRule(_newGroup); });
 
-    // Construct first rule
-    this.addRule(_defaultGroup);
-  }
-  
-  // For constructing new elements from HTML strings
-  makeElement(domstring) {
-    const html = new DOMParser().parseFromString(domstring, 'text/html');
-    
-    // Extract newly created element
-    return html.body.firstChild;
+    this.rulesContainer.appendChild(_newGroup);
+    this.addRule(_newGroup);
   }
   
   // Rule creation
@@ -228,19 +231,36 @@ export default class QueryBuilder {
     let _output = '';
     this.outputContainer.innerText = _output;
 
-    // Iterate through rules
-    this.rules = this.rulesContainer.querySelectorAll('.rule');
-    this.rules.forEach((rule, index) => {
-      // Add conjunction between rules
-      if (index > 0) _output += ` ${this.conjunctions.properties.selected} `;
-      
-      let _field = rule.querySelector('.assertion-field');
-      let _fieldValue = _field[_field.selectedIndex].value;
-      let _op = rule.querySelector('.assertion-operator');
-      let _opValue = _op[_op.selectedIndex].value;
-      let _val = rule.querySelector('.assertion-value').value;
-      _output += `(${_fieldValue} ${_opValue} '${_val}')`;    // Final output
-    });
+    // Iterate through rule groups
+    let _ruleGroups = this.rulesContainer.querySelectorAll('.rules-group');
+
+    _ruleGroups.forEach((group, groupIndex) => {
+      if (_ruleGroups.length > 1) {
+        _output += groupIndex > 0 ? ' AND (' : '(';
+      }
+
+      // Get selected conjunction for group
+      let _selectedConjunctionBtn = group.querySelector('.btn-primary');
+      let _conjunctionValue = _selectedConjunctionBtn.querySelector('span').innerText;
+
+      // Iterate through rules
+      let _rules = group.querySelectorAll('.rule');
+      _rules.forEach((rule, ruleIndex) => {
+        // Add conjunction between rules
+        if (ruleIndex > 0) _output += ` ${_conjunctionValue} `;
+        
+        let _field = rule.querySelector('.assertion-field');
+        let _fieldValue = _field[_field.selectedIndex].value;
+        let _op = rule.querySelector('.assertion-operator');
+        let _opValue = _op[_op.selectedIndex].value;
+        let _val = rule.querySelector('.assertion-value').value;
+        _output += `(${_fieldValue} ${_opValue} '${_val}')`;    // Final output
+      });
+
+      if (_ruleGroups.length > 1) _output += ')';
+    })
+
+    
     this.outputContainer.innerText = _output;
   }
 }
