@@ -2,14 +2,28 @@ import React from "react";
 import Modal from "react-modal";
 import {TemplateContext} from '../../../../Contexts';
 
+const rows = () => <tr><td> <input/> </td></tr>
+
 export default class Inline extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
       contextVariables: props.contextVariables,
-      modalIsOpen: false
+      modalIsOpen: false,
+      rows: 1
     };
+    this.addRow = this.addRow.bind(this);
+  }
+
+  createTable = () => {
+    let tbody = []
+    for(let i=0 i <= this.state.contextVariables.length; i++) {
+      for(let j=0; j <= this.state.rows; j++) {
+        tbody.push(<tr><td><input/></td></tr>)
+      }
+      return tbody;
+    }
   }
 
   openModal = e => {
@@ -30,6 +44,11 @@ export default class Inline extends React.Component {
     this.setState({ modalIsOpen: false }, cb(formData));
   };
 
+  addRow() {
+    this.setState(prevState => {rows: prevState.rows++}, console.log({row: this.state.rows}))
+
+
+  }
   render() {
     return (
       <TemplateContext.Consumer>
@@ -40,7 +59,10 @@ export default class Inline extends React.Component {
               Add/View inline View
           </a>
           <Modal isOpen={this.state.modalIsOpen} contentLabel="inline" ariaHideApp={false} >
-            <h5> Add Inline Data </h5>
+            <header>
+              <button onClick={this.addRow}>add</button>
+              <h5> Add Inline Data </h5>
+            </header>
               {this.state.contextVariables && (
               <form className="inline-data" onSubmit={(evt) => this.closeModal(evt, uploadInlineData)}>
               <table>
@@ -55,19 +77,7 @@ export default class Inline extends React.Component {
                     </React.Fragment>
                   </tr>
                 </thead>
-                <tbody>
-                  <tr>
-                    <React.Fragment>
-                      {this.state.contextVariables.map(item => {
-                      console.log(item);
-                      return (
-                      <td>
-                        <input name={item.name} defaultValue={item.value} value={this.state.value} onChange={this.handleInputChange}/>
-                      </td>
-                      )})}
-                    </React.Fragment>
-                  </tr>
-                </tbody>
+                  {this.createTable()}
               </table>
               <button type="submit">close</button>
             </form>
