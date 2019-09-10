@@ -64,6 +64,7 @@ export default class TemplateCreation extends React.Component {
                   <section id="template-config" >
                     <Dropdown name="service" data={stubData.services} />
                     <Dropdown name="environment" data={stubData.environment} />
+                    <Dropdown name="program" data={stubData.program} />
                     <Dropdown name="configuration" data={stubData.configuration} onChange={this.handleConfigChange}/>
                   </section>
                   {this.state.showTemplateBuilder && <TemplateBuilder config={this.state.config} />}
