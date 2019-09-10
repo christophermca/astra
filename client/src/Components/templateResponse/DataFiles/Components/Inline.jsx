@@ -9,33 +9,36 @@ export default class Inline extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      contextVariables: props.contextVariables,
+      contextVariables: props.contextVariables || [],
+      inlineDatasets: props.inlineDatasets || [],
       modalIsOpen: false,
       rows: 1
     };
     this.addRow = this.addRow.bind(this);
   }
 
-  createTable = () => {
-    let tbody = []
-    for(let i=0 i <= this.state.contextVariables.length; i++) {
+  createTable() {
+    let tbody = [];
+    console.log(this.state.contextVariables, this.state.inlineDatasets)
+    for(let i=0; i < this.state.contextVariables.length; i++) {
       for(let j=0; j <= this.state.rows; j++) {
-        tbody.push(<tr><td><input/></td></tr>)
+          console.log('second loop')
+          tbody.push(<tr><td><input/></td></tr>)
       }
       return tbody;
     }
   }
 
-  openModal = e => {
+  openModal(e) {
     e.preventDefault();
     this.setState({ modalIsOpen: true });
   };
 
-  handleInputChange = (evt) => {
+  handleInputChange(evt) {
     this.setState({value: evt.target.value}, console.log({cb: evt.target.value}));
   }
 
-  closeModal = (evt, cb) => {
+  closeModal(evt, cb) {
     evt.preventDefault()
 
     const form = evt.target;
@@ -44,18 +47,27 @@ export default class Inline extends React.Component {
     this.setState({ modalIsOpen: false }, cb(formData));
   };
 
-  addRow() {
-    this.setState(prevState => {rows: prevState.rows++}, console.log({row: this.state.rows}))
-
-
+  deleteRow() {
+    this.setState(prevState => {
+      let incrimentRows = prevState.rows - 1;
+      return {"rows": incrimentRows}
+    }, console.log(this.state))
   }
+
+  addRow() {
+    this.setState(prevState => {
+      let incrimentRows = prevState.rows + 1;
+      return {"rows": incrimentRows}
+    }, console.log(this.state))
+  }
+
   render() {
     return (
       <TemplateContext.Consumer>
           { ({uploadInlineData}) => {
           return (
         <div>
-          <a className="inline" onClick={this.openModal}>
+          <a className="inline" onClick={(evt) => this.openModal(evt)}>
               Add/View inline View
           </a>
           <Modal isOpen={this.state.modalIsOpen} contentLabel="inline" ariaHideApp={false} >
@@ -63,7 +75,7 @@ export default class Inline extends React.Component {
               <button onClick={this.addRow}>add</button>
               <h5> Add Inline Data </h5>
             </header>
-              {this.state.contextVariables && (
+              {!!this.state.contextVariables && (
               <form className="inline-data" onSubmit={(evt) => this.closeModal(evt, uploadInlineData)}>
               <table>
                 <thead>
@@ -77,7 +89,9 @@ export default class Inline extends React.Component {
                     </React.Fragment>
                   </tr>
                 </thead>
+                <tbody>
                   {this.createTable()}
+                </tbody>
               </table>
               <button type="submit">close</button>
             </form>
