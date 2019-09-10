@@ -46,6 +46,7 @@ export default class TemplateCreation extends React.Component {
     }
 
     fetch('/api/upload/files', options).then(response => response.json())
+      console.log(options.createAt)
       .then(json => json)
       .catch(err => console.error({ err }));
   }
