@@ -131,7 +131,6 @@ export default class TemplateResponse extends React.Component {
     var clicked = str.substr(0, str.indexOf('"'));
     clickedItems.push(clicked);
 
-    console.log(clicked)
     this.setState({ assertionsClicked: clicked });
 
   };

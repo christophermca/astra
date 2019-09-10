@@ -5,9 +5,7 @@ export default class QueryBuilder {
       this.container = element;
       
       this.fields = [
-        'label',
-        'key',
-        'value'
+        ''
       ];
       
       this.operators = Object.freeze({
@@ -164,5 +162,3 @@ export default class QueryBuilder {
       this.outputContainer.innerText = _output;
     }
   }
-
-//   module.exports = QueryBuilder;
