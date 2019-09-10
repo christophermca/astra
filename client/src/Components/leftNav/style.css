@@ -9,6 +9,10 @@
   padding: 0;
 }
 
+#left-bar li{
+  padding-top: 20px;
+}
+
 #left-bar li a {
  text-decoration: none;
  color: cyan;
