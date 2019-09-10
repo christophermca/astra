@@ -7,6 +7,7 @@ export default class Inline extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      contextVariables: props.contextVariables,
       modalIsOpen: false
     };
   }
@@ -15,6 +16,10 @@ export default class Inline extends React.Component {
     e.preventDefault();
     this.setState({ modalIsOpen: true });
   };
+
+  handleInputChange = (evt) => {
+    this.setState({value: evt.target.value}, console.log({cb: evt.target.value}));
+  }
 
   closeModal = (cb, evt) => {
     // TODO fix arguments when calling closeModal from onRequestClose
@@ -35,14 +40,9 @@ export default class Inline extends React.Component {
           <a className="inline" onClick={this.openModal}>
               Add/View inline View
           </a>
-          <Modal
-            isOpen={this.state.modalIsOpen}
-            onRequestClose={this.closeModal}
-            contentLabel="inline"
-            ariaHideApp={false}
-          >
+          <Modal isOpen={this.state.modalIsOpen} contentLabel="inline" ariaHideApp={false} >
             <h5> Add Inline Data </h5>
-              {this.props.contextVariables && (
+              {this.state.contextVariables && (
             <form className="inline-data" onSubmit={this.closeModal.bind(this, uploadInlineData)}>
               <table>
                 <thead>
@@ -59,11 +59,13 @@ export default class Inline extends React.Component {
                 <tbody>
                   <tr>
                     <React.Fragment>
-                        {this.props.contextVariables.map(item =>
+                      {this.state.contextVariables.map(item => {
+                      console.log(item);
+                      return (
                       <td>
-                        <input name={item.name} defaultValue={item.value} />
+                        <input name={item.name} defaultValue={item.value} value={this.state.value} onChange={this.handleInputChange}/>
                       </td>
-                        )}
+                      )})}
                     </React.Fragment>
                   </tr>
                 </tbody>

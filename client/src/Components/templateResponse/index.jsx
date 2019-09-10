@@ -307,9 +307,9 @@ export default class TemplateResponse extends React.Component {
               </StatefullAccordian>
               <StatefullAccordian name="Data Files">
                 <DataFiles
-                  contextVariables={data.contextVariables}
-                  inlineDatasets={data.inlineDatasets}
-                  datasets={data.datasets}
+                  contextVariables={this.state.contextVariables}
+                  inlineDatasets={this.state.inlineDatasets}
+                  datasets={this.state.datasets}
                 />
               </StatefullAccordian>
               <StatefullAccordian name="Assertions">
