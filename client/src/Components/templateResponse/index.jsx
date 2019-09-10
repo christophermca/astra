@@ -36,17 +36,17 @@ export default class TemplateResponse extends React.Component {
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
 
-    this.state = Object.assign(
-      { uploadInlineData: this.uploadInlineData },
-      { data: props.data },
-      { currentSelection: "" },
-      { contextName: "" },
-      { contextVariables: [] },
-      { startRange: "" },
-      { endRange: "" },
-      { modalIsOpen: false },
-      {assertionsClicked: ""}
-    );
+    this.state = {
+       uploadInlineData: this.uploadInlineData,
+       data: props.data,
+       currentSelection: "" ,
+       contextName: "",
+       contextVariables: [],
+       startRange: "",
+       endRange: "",
+       modalIsOpen: false,
+      assertionsClicked: ""
+    }
   }
 
   uploadInlineData(inlineData) {
@@ -54,7 +54,7 @@ export default class TemplateResponse extends React.Component {
     for (let item of inlineData.entries()) {
       temp.push(item);
     }
-    this.setState(prevState => (prevState["data"]["inlineDatasets"] = temp));
+    this.setState(prevState => (prevState["inlineDatasets"] = temp));
   }
 
   componentDidMount() {

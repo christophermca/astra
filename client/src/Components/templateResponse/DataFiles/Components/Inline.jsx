@@ -21,8 +21,7 @@ export default class Inline extends React.Component {
     this.setState({value: evt.target.value}, console.log({cb: evt.target.value}));
   }
 
-  closeModal = (cb, evt) => {
-    // TODO fix arguments when calling closeModal from onRequestClose
+  closeModal = (evt, cb) => {
     evt.preventDefault()
 
     const form = evt.target;
@@ -43,7 +42,7 @@ export default class Inline extends React.Component {
           <Modal isOpen={this.state.modalIsOpen} contentLabel="inline" ariaHideApp={false} >
             <h5> Add Inline Data </h5>
               {this.state.contextVariables && (
-            <form className="inline-data" onSubmit={this.closeModal.bind(this, uploadInlineData)}>
+              <form className="inline-data" onSubmit={(evt) => this.closeModal(evt, uploadInlineData)}>
               <table>
                 <thead>
                   <tr>

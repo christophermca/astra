@@ -5,8 +5,6 @@ import Modal from "react-modal";
 import {Inline, FileList} from './Components';
 import {TemplateContext} from '../../../Contexts';
 
-//TODO move to a better location.
-
 export default class DataFilesComponent extends React.Component {
   constructor(props) {
     super(props);
@@ -27,7 +25,6 @@ export default class DataFilesComponent extends React.Component {
     this.setState({ modalIsOpen: false });
   };
 
-
   uploadDataFiles(files) {
     const formData = new FormData()
     // TODO update template id
@@ -41,12 +38,13 @@ export default class DataFilesComponent extends React.Component {
 
     console.log('Will upload file(s)', [...files]);
     //TODO remove mocked response and actually fetch data
+
     // fetch('/api/upload/files', options).then(response => response.json())
     //   .then(json => json)
     //   .catch(err => console.error({ err }));
 
 
-    //mocked response
+    //mocked get datafiles response
     const mockedResponse = files.map((file, i) => {
       const fileListLength = this.props.datasets.length;
       return ({id: `${fileListLength + i+1}`, filePath: `/user/temp/${file.name}`})
