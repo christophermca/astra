@@ -9,7 +9,7 @@ import React, {Component} from 'react';
     this.onSearchSubmit = this.onSearchSubmit.bind(this);
     this.getList = this.getList.bind(this);
 
-    this.state = {}
+    this.state = {} 
   }
   
 
@@ -21,8 +21,8 @@ import React, {Component} from 'react';
   getList(myTemplates=false) {
      let dynamicData = {
     "user": {
-      "userId": "3",
-      "teamId": "3"
+      "userId": "1",
+      "teamId": "1"
     },
     "pagination": {
       "pageNumber": this.state.currentPage,
@@ -31,8 +31,6 @@ import React, {Component} from 'react';
     }
     };
 
-    //if myTemplates is true i'm going to push the user's info into searchBy array, otherwise i'm going to
-    //run the following
 
     if (myTemplates) {
       dynamicData.pagination.searchBy = dynamicData.user
@@ -48,6 +46,7 @@ import React, {Component} from 'react';
         dynamicData.pagination.searchBy.user_id = this.state.userIdValue;
       }
     }
+
     fetch('/api/templates/templatelist', {
       method: "POST",
       body: JSON.stringify(dynamicData),

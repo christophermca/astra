@@ -42,7 +42,7 @@ section.component section {
   display: flex;
   flex-direction: row;
   height: auto;
-  text-align: center;
+  /* text-align: center; */
   min-height: 100%;
   width: 100%;
 }

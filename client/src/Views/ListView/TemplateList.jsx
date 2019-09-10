@@ -2,6 +2,8 @@ import React from 'react';
 import { CardComponent } from '../../Components';
 import { Link } from "react-router-dom";
 import ListView from './ListView.jsx';
+import BulkAction from './BulkAction';
+// import Modal from 'react-modal'
 
 class TemplateList extends ListView {
   constructor(props){
@@ -9,13 +11,15 @@ class TemplateList extends ListView {
 
     this.state = {
       selectedTemplate: [],
-      filtered: false
+      filtered: false,
+      modalIsOpen: false
     }
   }
 
  handleCheckbox = id => {
    if (this.state.selectedTemplate.includes(id)) {
      this.setState(prevState => ({selectedTemplate:prevState.selectedTemplate.filter(el => el !== id)}))
+     console.log(this.state.selectedTemplate)
    } else {
       this.setState(state => {
       const selectedTemplate = [...state.selectedTemplate, id];
@@ -28,17 +32,7 @@ class TemplateList extends ListView {
  }
 
   handleExecute = event => {
-    console.log(event.target.id)
-    let myId = event.target.id
-    if(!this.state.selectedTemplate.length) {
-      this.setState(state => {
-        const selectedTemplate = [...state.selectedTemplate,myId];
-        console.log(selectedTemplate)
-        return {
-          selectedTemplate
-        }
-      }, () => {
-        let url= `/api/templates/execute?templateId=${this.state.selectedTemplate}`
+      let url= `/api/templates/execute?templateId=${this.state.selectedTemplate}`
         fetch(url, {
           method: "POST",
           body: JSON.stringify(this.state.selectedTemplate),
@@ -48,37 +42,50 @@ class TemplateList extends ListView {
           .then(data => {
             console.log(data)
           })
-      });
-    }
   }
 
+
   handleDelete = event => {
-    let myId = event.target.id
-      this.setState(state => {
-        const newList = state.selectedTemplate.filter(temp => temp.id !== myId)
-        console.log(newList)
-        return {
-          selectedTemplate : newList
-        }
-      }, () => {
-        console.log(this.state.selectedTemplate)
-        // let url= `/api/templates/deleted?templateId=${this.state.selectedTemplate}`
-        let url= "/api/templates/deleted"
-        debugger
+      let url= `/api/templates/deleted?templateId=${this.state.selectedTemplate}`
         fetch(url, {
-          method: "DELETE",
+          method: "delete",
           body: JSON.stringify(this.state.selectedTemplate),
           headers: { "Content-Type": "application/json" }
         })
           .then(response => response.text())
-          .then(json => {
-            console.log(json)
+          .then(data => {
+            console.log(data)
           })
-      });
-  }
+    }
+
+  
+  // handleDelete = event => {
+  //   let myId = event.target.id
+  //     this.setState(state => {
+  //       const newList = state.selectedTemplate.filter(temp => temp.id !== myId)
+  //       console.log(newList)
+  //       return {
+  //         selectedTemplate : newList,
+  //         modalIsOpen: true
+  //       }
+  //     }, () => {
+  //       console.log(this.state.selectedTemplate)
+  //       // let url= `/api/templates/deleted?templateId=${this.state.selectedTemplate}`
+  //       let url= "/api/templates/deleted"
+  //       fetch(url, {
+  //         method: "DELETE",
+  //         body: JSON.stringify(this.state.selectedTemplate),
+  //         headers: { "Content-Type": "application/json" }
+  //       })
+  //         .then(response => response.text())
+  //         .then(json => {
+  //           console.log(json)
+  //         })
+  //     });
+  // }
 
   handleFilterButton = () => {
-      this.setState(prevState=> {
+      this.setState(prevState => {
         return {
           filtered: !prevState.filtered
         }
@@ -110,14 +117,20 @@ class TemplateList extends ListView {
       })
   }
 
+  
   render() {
-    let filterDisplay = this.state.filtered? "Unfilter" : "Filter"
+    let myBulkAction = this.state.selectedTemplate.length > 0 && <BulkAction handleExecute={this.handleExecute} handleDelete={this.handleDelete}/>
+    let filterDisplay = this.state.filtered? "All Templates" : "My Templates"
     return (
       <div>
+        {/* <Modal isOpen={this.state.modalIsOpen}
+           onAfterOpen={this.afterOpenModal}
+           onRequestClose={this.closeModal}/> */}
+       
         <React.Fragment>
           <div className="search-bar-div">
             <form onSubmit={this.onSearchSubmit}>
-              <label>Template Name  </label>
+              <label>Template Name </label>
               <input type="text" 
                      id="template-name-search-bar" 
                      placeholder="Search"
@@ -153,11 +166,16 @@ class TemplateList extends ListView {
             </form>
           </div>
           <section className="component" name="card-component">
+            <div>
+              {myBulkAction}
+            </div>
+            <div className="filterTemplates">
+              <button onClick={this.handleFilterButton}>{filterDisplay}</button>
+            </div>
             <div className="create">
               <button id="create-template-btn">
                 <Link to="/templates/create"><i id="create-template-icon" className="material-icons">control_point</i></Link>
                 <Link to="/templates/create" id="create-template-link">Create new template</Link>
-                <div onClick={this.handleFilterButton}>{filterDisplay}</div>
               </button>
             </div>
             {this.state.list? 

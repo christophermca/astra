@@ -4,18 +4,11 @@ import { Link } from "react-router-dom";
 
 
 const CardComponent = props => {
-  console.log(props)
+  // console.log(props)
     let templateDetail = `/templates/details/${props.data.templateId}`
     return (
       <section key={props.data.templateId} id={props.data.templateId} className="card-container">
         <Link to={templateDetail} className="card-header">{props.data.templateName}</Link>
-        <div onClick={props.handleExecute} id={props.data.templateId} className="card-button">
-          Execute
-        </div><br/>
-        <div style={{color:"red"}} onClick={props.handleDelete}  id={props.data.templateId}>
-          Delete
-        </div>
-
         <div className="card-main">
           <div className="card-checkbox">
             <input onClick={() => props.handleCheckbox(props.data.templateId)} type="checkBox" />
