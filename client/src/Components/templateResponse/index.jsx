@@ -16,8 +16,12 @@ let contextArray = [];
 export default class TemplateResponse extends React.Component {
   constructor(props) {
     super(props);
+    if(props.data.createAt.length && props.data.modifiedAt.length) {
+      delete props.data.createAt
+      delete props.data.modifiedAt
+    }
     this.uploadInlineData = this.uploadInlineData.bind(this);
-    this.submitTemplateToSave = this.submitTemplateToSave.bind(this);
+    this.handleSave = this.handleSave.bind(this);
     this.executeSingleTemplate = this.executeSingleTemplate.bind(this);
 
     this.openModal = this.openModal.bind(this);
@@ -175,9 +179,14 @@ export default class TemplateResponse extends React.Component {
   submitTemplateToSave(evt) {
     evt.preventDefault();
     console.log("creating template");
-    const formData = new FormData();
 
+  handleSave(evt) {
+    evt.preventDefault();
+    const formData = new FormData();
+    console.log(this.state.data);
     formData.append("template", JSON.stringify(this.state.data));
+    console.log(JSON.parse(formData.get("template")));
+    console.log("saving template");
     const options = {
       method: "PUT",
       body: formData
@@ -208,7 +217,7 @@ export default class TemplateResponse extends React.Component {
     const { data } = this.props;
     return (
       <TemplateContext.Provider value={this.state}>
-        <form id="template-response" onSubmit={this.submitTemplateToSave}>
+        <form id="template-response" onSubmit={this.handleSave}>
           <ContextMenuTrigger id="contextMenu">
             <EndpointRequestHeader
               onContextMenu={this.onContextClick}
@@ -289,7 +298,7 @@ export default class TemplateResponse extends React.Component {
             </section>
           </main>
           <button type="submit">Save</button>
-          <button onClick={this.executeSingleTemplate}>Execute</button>
+          <button onClick={this.executeSingleTemplate}> Save & Execute</button>
         </form>
 
         <ContextMenu id="contextMenu">
