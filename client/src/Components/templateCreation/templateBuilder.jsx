@@ -18,7 +18,7 @@ function TemplateBuilder(props) {
               name="files"
               id="input-file"
               type="file"
-              accept=".csv,.xls "
+              accept=".json"
               multiple
             />
           </div>
