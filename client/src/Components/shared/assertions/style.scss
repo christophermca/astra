@@ -101,7 +101,7 @@
         border-radius: 4px
       }
   
-      &.btn-deleteRule {
+      &.btn-delete {
         color: #fff;
         background-color: #d9363e;
         border-color: #d9363e;
@@ -115,6 +115,7 @@
     .btn-group {
       position: relative;
       display: inline-block;
+      margin-left: 4px;
   
       &.group-end {
         flex: 1 1;
@@ -187,6 +188,7 @@
       text-rendering: optimizeLegibility;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
+      padding-top: 4px;
       cursor: grabbing;
     }
   

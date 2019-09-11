@@ -91,10 +91,11 @@ export default class QueryBuilder {
     // Invoke sortablejs library for drag/drop
     let _this = this;
     this.sortable = new Sortable(this.rulesContainer, {
+      draggable: ".rules-group",
+      group: "group",
       handle: ".drag-handle",
-      draggable: ".rule",
       direction: "vertical",
-      onUpdate: () => _this.generateQuery()
+      onUpdate: () => _this.updateGroups()
     });
     this.outerWrapper.appendChild(this.rulesContainer);
     
@@ -122,9 +123,16 @@ export default class QueryBuilder {
     // Header for button groups
     let headerContainer = this.makeElement(this.templates.header);
    _newGroup.appendChild(headerContainer);
+
+    // Drag handle
+    let _handle = this.makeElement(this.templates.handle);
+    _handle.classList.add('drag-handle');
+    _handle.appendChild(this.makeElement(this.templates.icons.sort));
+    headerContainer.appendChild(_handle);
     
     // AND / OR buttons group
     let conjunctionsGroup = this.makeElement(this.templates.buttonGroup);
+    conjunctionsGroup.classList.add('conjunctions');
     headerContainer.appendChild(conjunctionsGroup);
     
     // Build each button for conjunctions group
@@ -148,7 +156,7 @@ export default class QueryBuilder {
     
     // Add Rule / Add Group buttons group
     let addButtonsGroup = this.makeElement(this.templates.buttonGroup);
-    addButtonsGroup.classList.add('group-end');
+    addButtonsGroup.classList.add('addBtn-group', 'group-end');
     headerContainer.appendChild(addButtonsGroup);
     
     // Add Rule button creation
@@ -170,7 +178,59 @@ export default class QueryBuilder {
     }
 
     this.rulesContainer.appendChild(_newGroup);
+    
+    // Invoke sortablejs library for drag/drop
+    let _this = this;
+    this.sortable = new Sortable(_newGroup, {
+      draggable: ".rule",
+      group: "rule",
+      handle: ".drag-handle",
+      direction: "vertical",
+      onUpdate: () => _this.generateQuery()
+    });
+
+    this.updateGroups();
     this.addRule(_newGroup);
+  }
+
+  // Update group header buttons on remove / reorder
+  updateGroups() {
+    let _ruleGroups = this.rulesContainer.querySelectorAll('.rules-group');
+
+    _ruleGroups.forEach((group, groupIndex) => {
+      let _groupHeader = group.querySelector('.header');
+      let _buttonsGroup = _groupHeader.querySelector('.addBtn-group');
+      let _addGroupBtn = _buttonsGroup.querySelector('.btn-addGroup');
+      let _deleteBtn = _buttonsGroup.querySelector('.btn-deleteGroup');
+
+      if (groupIndex === 0) {
+        // Create 'Add Group' button if it doesn't exist
+        if (!_addGroupBtn) {
+          let addGroupButton = this.makeElement(this.templates.button);
+          addGroupButton.classList.add('btn-addGroup');
+          addGroupButton.appendChild(this.makeElement(this.templates.icons.plusCircle));
+          addGroupButton.appendChild(this.makeElement('<span>Add Group</span>'));
+          addGroupButton.addEventListener('click', () =>  { this.addGroup(); });
+          _buttonsGroup.appendChild(addGroupButton);
+        }
+
+        // Remove Delete button if it exists
+        if (_deleteBtn) _deleteBtn.remove();
+      } else {
+        // Remove 'Add Group' button if it exists
+        if (_addGroupBtn) _addGroupBtn.remove();
+
+        // Create delete button if it exists
+        if (!_deleteBtn) {
+          let deleteGroupButton = this.makeElement(this.templates.button);
+          deleteGroupButton.classList.add('icon-btn', 'btn-delete', 'btn-deleteGroup');
+          deleteGroupButton.appendChild(this.makeElement(this.templates.icons.trash));
+          deleteGroupButton.addEventListener('click', () => { group.remove(); this.updateGroups(); });
+          _buttonsGroup.appendChild(deleteGroupButton);
+        }
+      }
+    });
+    this.generateQuery();
   }
   
   // Rule creation
@@ -214,7 +274,7 @@ export default class QueryBuilder {
     
     // Delete button
     let deleteRuleButton = this.makeElement(this.templates.button);
-    deleteRuleButton.classList.add('icon-btn', 'btn-deleteRule');
+    deleteRuleButton.classList.add('icon-btn', 'btn-delete', 'btn-deleteRule');
     deleteRuleButton.appendChild(this.makeElement(this.templates.icons.trash));
     deleteRuleButton.addEventListener('click', () => { e.remove(); this.generateQuery(); });
     e.appendChild(deleteRuleButton);
