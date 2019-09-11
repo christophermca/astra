@@ -22,10 +22,10 @@ export default class QueryBuilder {
     
     // Available operators (immutable)
     this.operators = Object.freeze({
-      EQ: '==',
-      NOT: '!==',
-      GT: '>',
-      LT: '<'
+      'Equals': '==',
+      'Not Equal': '!=',
+      'Greater Than': '>',
+      'Less Than': '<'
     });
     
     // Template pieces for use in DOMParser functionality
@@ -260,7 +260,7 @@ export default class QueryBuilder {
     _ops.classList.add('assertion-operator');
     // Populate OPTION list from operators object
     Object.entries(this.operators).forEach(([key, value]) => {
-      let _o = this.makeElement(`<option value="${key}">${value}</option>`);
+      let _o = this.makeElement(`<option value="${value}">${key}</option>`);
       _ops.appendChild(_o);
     });
     _ops.addEventListener('change', () => this.generateQuery());
