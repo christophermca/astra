@@ -75,6 +75,7 @@ import React, {Component} from 'react';
   }
 
   handlePaginationDropdownChange(event) {
+    console.log("this is the event in my handlePagination :", event)
     this.setState({ value: event.target.value }, () => {
       this.getList();
     });
