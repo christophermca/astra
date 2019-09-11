@@ -20,9 +20,8 @@ export default class Inline extends React.Component {
   createTable() {
     let tbody = [];
     console.log(this.state.contextVariables, this.state.inlineDatasets)
-    for(let i=0; i < this.state.contextVariables.length; i++) {
-      for(let j=0; j <= this.state.rows; j++) {
-          console.log('second loop')
+    for(let i=0; i <= this.state.contextVariables.length; i++) {
+      for(let j=0; j < this.state.rows; j++) {
           tbody.push(<tr><td><input/></td></tr>)
       }
       return tbody;
