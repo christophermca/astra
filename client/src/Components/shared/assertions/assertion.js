@@ -324,5 +324,7 @@ export default class QueryBuilder {
     }
 
     if (_selects.length) _selects[_selects.length - 1].value = clickedItem;
+
+    this.generateQuery();
   }
 }
