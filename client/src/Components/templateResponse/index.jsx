@@ -8,7 +8,6 @@ import ContextVariables from "./ContextVariables/contextVariables";
 import { TemplateContext } from "../../Contexts/index";
 import { ContextMenu, MenuItem, ContextMenuTrigger } from "react-contextmenu";
 import Modal from "react-modal";
-import QueryBuilder from "../shared/assertions/assertion";
 
 import "./ContextVariables/style.css";
 
