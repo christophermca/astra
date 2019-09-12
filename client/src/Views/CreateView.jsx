@@ -34,7 +34,7 @@ export default class CreateView extends React.Component {
   constructor(props) {
     super(props);
     this.handleSubmit = handleSubmit.bind(this);
-    this.state = { createTempl: this.handleSubmit, saveTempl: this.handleSave };
+    this.state = { createTempl: this.handleSubmit };
   }
 
   render() {

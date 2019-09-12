@@ -31,6 +31,7 @@ export default class TemplateResponse extends React.Component {
 
     this.uploadInlineData = this.uploadInlineData.bind(this);
     this.handleSave = this.handleSave.bind(this);
+    this.submitTemplateToSave = this.submitTemplateToSave.bind(this);
     this.executeSingleTemplate = this.executeSingleTemplate.bind(this);
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
@@ -76,7 +77,8 @@ export default class TemplateResponse extends React.Component {
     if (typeof obj !== "object") {
       return [obj];
     }
-    var result = [];
+    let result = [];
+
     if (obj.constructor === Array) {
       obj.map(item => {
         result = result.concat(this.nestedObjectToArray(item));
@@ -209,6 +211,23 @@ export default class TemplateResponse extends React.Component {
     };
 
     fetch("/api/templates/execute", options)
+      .then(response => response.json())
+      .then(json => json)
+      .catch(err => console.error({ err }));
+  }
+
+  submitTemplateToSave(evt) {
+    evt.preventDefault();
+    console.log("creating template");
+    const formData = new FormData();
+
+    formData.append("template", JSON.stringify(this.state.data));
+    const options = {
+      method: "PUT",
+      body: formData
+    };
+
+    fetch("/api/templates/save", options)
       .then(response => response.json())
       .then(json => json)
       .catch(err => console.error({ err }));

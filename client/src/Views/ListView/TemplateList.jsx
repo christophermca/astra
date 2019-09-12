@@ -1,7 +1,7 @@
-import React from 'react';
-import { CardComponent } from '../../Components';
+import React from "react";
+import { CardComponent } from "../../Components";
 import { Link } from "react-router-dom";
-import ListView from './ListView.jsx';
+import ListView from "./ListView.jsx";
 import BulkAction from './BulkAction';
 
 class TemplateList extends ListView {
@@ -11,7 +11,7 @@ class TemplateList extends ListView {
     this.state = {
       selectedTemplate: [],
       filtered: false,
-      modalIsOpen: false
+      showModal: false
     }
   }
 
@@ -22,7 +22,7 @@ class TemplateList extends ListView {
    } else {
       this.setState(state => {
         const selectedTemplate = [...state.selectedTemplate, id];
-        return {
+       return {
           selectedTemplate
         };
       });
@@ -62,6 +62,18 @@ class TemplateList extends ListView {
       }, () => this.getList(this.state.filtered))
   }
 
+  handleOpenModal = () => {
+    this.setState({ showModal: true });
+  }
+
+  handleCloseModal = () => {
+    this.setState({ showModal: false });
+  }
+
+  handleConfirmExecute = () => {
+    this.handleExecute();
+    this.handleCloseModal();
+  }
 
   componentDidMount() {
     let data = {
@@ -89,7 +101,14 @@ class TemplateList extends ListView {
 
 
   render() {
-    let myBulkAction = this.state.selectedTemplate.length > 0 && <BulkAction handleExecute={this.handleExecute} handleDelete={this.handleDelete}/>
+    let myBulkAction = this.state.selectedTemplate.length > 0 &&
+    <BulkAction handleExecute={this.handleExecute}
+                handleDelete={this.handleDelete}
+                handleOpenModal={this.handleOpenModal}
+                handleCloseModal={this.handleCloseModal}
+                handleConfirmExecute={this.handleConfirmExecute}
+                state={this.state}/>
+
     let filterDisplay = this.state.filtered? "All Templates" : "My Templates"
     return (
       <div>
