@@ -115,19 +115,26 @@ export default class TemplateResponse extends React.Component {
     var range = s.getRangeAt(0);
     var node = s.anchorNode;
     let clickedItems = [];
-    while (range.toString().indexOf('"') !== 0) {
+
+    while (range.toString().indexOf('\n') !== 0) {
       range.setStart(node, range.startOffset - 1);
     }
     range.setStart(node, range.startOffset + 1);
+
     do {
       range.setEnd(node, range.endOffset + 1);
     } while (
-      range.toString().indexOf(" ") === -1 &&
+      range.toString().indexOf("\n") === -1 &&
       range.toString().trim() !== "" &&
       range.endOffset < node.length
     );
     var str = range.toString();
-    var clicked = str.substr(0, str.indexOf('"'));
+
+    var clicked = str.substr(0, str.indexOf('\n'));
+    clicked = clicked.trim();
+    clicked = clicked.replace(/\"|[,\s]*$/g, "");              // remove trailing comma and surrounding quotes
+    clicked = clicked.split(': ');                            // split on key/value
+
     clickedItems.push(clicked);
 
     this.setState({ assertionsClicked: clicked });

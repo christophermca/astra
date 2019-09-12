@@ -314,16 +314,33 @@ export default class QueryBuilder {
   injectFieldData(clickedItem) {
     let _selects = this.rulesContainer.querySelectorAll(".assertion-field");
 
-    if (!this.config.fields.includes(clickedItem)) {
-      this.config.fields.push(clickedItem);
+    if (!this.config.fields.includes(clickedItem[0])) {
+      this.config.fields.push(clickedItem[0]);
 
       let self = this;
       _selects.forEach((select, index) => {
-        select.appendChild(self.makeElement(`<option value="${clickedItem}">${clickedItem}</option>`));
+        select.appendChild(self.makeElement(`<option value="${clickedItem[0]}">${clickedItem[0]}</option>`));
       });
     }
 
-    if (_selects.length) _selects[_selects.length - 1].value = clickedItem;
+    let lastSelect = _selects.length ? _selects[_selects.length - 1] : null;
+    if (lastSelect !== null) {
+      lastSelect.value = clickedItem[0];
+
+      if (clickedItem[1] !== '{') {
+        let elem = lastSelect.nextElementSibling;
+
+        while (elem) {
+          if (elem.matches('.assertion-value')) {
+            console.log('Found it');
+            elem.value = clickedItem[1];
+            break;
+          }
+
+          elem = elem.nextElementSibling;
+        }
+      }
+    }
 
     this.generateQuery();
   }
