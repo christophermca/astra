@@ -3,13 +3,15 @@ import React, {Component} from 'react';
  class ListView extends Component {
   constructor(props) {
     super(props);
-    this.handlePaginationDropdownChange = this.handlePaginationDropdownChange.bind(this);
+    this.handlePaginationDropdownChange = this.handlePaginationDropdownChange.bind(
+      this
+    );
     this.handleNextPage = this.handleNextPage.bind(this);
     this.handlePrevPage = this.handlePrevPage.bind(this);
     this.onSearchSubmit = this.onSearchSubmit.bind(this);
     this.getList = this.getList.bind(this);
 
-    this.state = {} 
+    this.state = {};
   }
   
 
@@ -47,7 +49,7 @@ import React, {Component} from 'react';
       }
     }
 
-    fetch('/api/templates/templatelist', {
+    fetch("/api/templates/templatelist", {
       method: "POST",
       body: JSON.stringify(dynamicData),
       headers: {
@@ -55,7 +57,7 @@ import React, {Component} from 'react';
       }
     })
       .then(response => response.json())
-      .then(({templateList}) => this.setState({ "list": templateList }))
+      .then(({ templateList }) => this.setState({ list: templateList }));
   }
 
   handleNextPage() {

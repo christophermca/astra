@@ -1,9 +1,9 @@
 import React from "react";
-import './styles/template-builder.scss'
-import EndpointRequestHeader from "../shared/endpointRequestHeader"
+import "./styles/template-builder.scss";
+import EndpointRequestHeader from "../shared/endpointRequestHeader";
 
 function TemplateBuilder(props) {
-  const {config} = props
+  const { config } = props;
   return (
     <React.Fragment>
       <section id="template-builder">
@@ -18,7 +18,7 @@ function TemplateBuilder(props) {
               name="files"
               id="input-file"
               type="file"
-              accept=".csv,.xls "
+              accept=".json"
               multiple
             />
           </div>
@@ -31,4 +31,4 @@ function TemplateBuilder(props) {
   );
 }
 
-export default TemplateBuilder
+export default TemplateBuilder;

@@ -13,6 +13,13 @@
     "delta"
   ],
 
+  "program": [
+    "alpha",
+    "bravo",
+    "charlie",
+    "delta"
+  ],
+
   "configuration": [
     "alpha",
     "bravo",

@@ -19,20 +19,37 @@ function handleSubmit(evt) {
 
   const options = {
     method: "POST",
-    body: formData
-  }
+    body: formData,
+  };
 
   return fetch('/api/templates/create', options).then(response => response.json())
     .then(json => this.setState({'templateData': json.template}))
     .catch(err => console.error({ err }));
 }
+function handleSave(evt) {
+  evt.preventDefault();
+  const formData = new FormData()
+  formData.append('template', JSON.stringify(this.state.templateData))
+  console.log(formData.get('template'));
+  console.log('saving template')
+  const options = {
+    method: "PUT",
+    body: formData
+  }
+
+  return fetch('/api/templates/save', options).then(response => response.json())
+    .then(json => console.log(`The Template Object: ${json}`))
+    .catch(err => console.error({ err }));
+}
+
+
 
 export default class CreateView extends React.Component {
   constructor(props) {
     super(props);
     this.handleSubmit = handleSubmit.bind(this);
-    this.state = {createTempl: this.handleSubmit}
-
+    this.handleSave = handleSave.bind(this);
+    this.state = {createTempl: this.handleSubmit, saveTempl: this.handleSave}
     }
 
   render() {

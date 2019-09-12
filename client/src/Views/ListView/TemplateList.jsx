@@ -1,18 +1,18 @@
-import React from 'react';
-import { CardComponent } from '../../Components';
+import React from "react";
+import { CardComponent } from "../../Components";
 import { Link } from "react-router-dom";
-import ListView from './ListView.jsx';
+import ListView from "./ListView.jsx";
 import BulkAction from './BulkAction';
-// import Modal from 'react-modal'
+
 
 class TemplateList extends ListView {
-  constructor(props){
-    super(props)
+  constructor(props) {
+    super(props);
 
     this.state = {
       selectedTemplate: [],
       filtered: false,
-      modalIsOpen: false
+      showModal: false
     }
   }
 
@@ -22,14 +22,14 @@ class TemplateList extends ListView {
      console.log(this.state.selectedTemplate)
    } else {
       this.setState(state => {
-      const selectedTemplate = [...state.selectedTemplate, id];
-      console.log(selectedTemplate)
-      return {
-        selectedTemplate
-      }
-    });
-   }
- }
+        const selectedTemplate = [...state.selectedTemplate, id];
+        console.log(selectedTemplate);
+        return {
+          selectedTemplate
+        };
+      });
+    }
+  };
 
   handleExecute = event => {
       let url= `/api/templates/execute?templateId=${this.state.selectedTemplate}`
@@ -66,7 +66,19 @@ class TemplateList extends ListView {
         }
       }, () => this.getList(this.state.filtered))  
   }
+
+  handleOpenModal = () => {
+    this.setState({ showModal: true });
+  }
  
+  handleCloseModal = () => {
+    this.setState({ showModal: false });
+  }
+
+  handleConfirmExecute = () => {
+    this.handleExecute();
+    this.handleCloseModal();
+  }
 
   componentDidMount() {
     let data = {
@@ -79,29 +91,32 @@ class TemplateList extends ListView {
         "recordPerPage": 20,
         "searchBy": {}
       }
-    }
+    };
 
-    fetch('/api/templates/templatelist', {
+    fetch("/api/templates/templatelist", {
       method: "POST",
       body: JSON.stringify(data),
       headers: { "Content-Type": "application/json" }
     })
       .then(response => response.json())
       .then(json => {
-        this.setState({ list: json.templateList })
-      })
+        this.setState({ list: json.templateList });
+      });
   }
 
   
   render() {
-    let myBulkAction = this.state.selectedTemplate.length > 0 && <BulkAction handleExecute={this.handleExecute} handleDelete={this.handleDelete}/>
+    let myBulkAction = this.state.selectedTemplate.length > 0 && 
+    <BulkAction handleExecute={this.handleExecute} 
+                handleDelete={this.handleDelete}
+                handleOpenModal={this.handleOpenModal}
+                handleCloseModal={this.handleCloseModal}
+                handleConfirmExecute={this.handleConfirmExecute}
+                state={this.state}/>
+
     let filterDisplay = this.state.filtered? "All Templates" : "My Templates"
     return (
       <div>
-        {/* <Modal isOpen={this.state.modalIsOpen}
-           onAfterOpen={this.afterOpenModal}
-           onRequestClose={this.closeModal}/> */}
-       
         <React.Fragment>
           <div className="search-bar-div">
             <form onSubmit={this.onSearchSubmit}>
@@ -149,8 +164,14 @@ class TemplateList extends ListView {
             </div>
             <div className="create">
               <button id="create-template-btn">
-                <Link to="/templates/create"><i id="create-template-icon" className="material-icons">control_point</i></Link>
-                <Link to="/templates/create" id="create-template-link">Create new template</Link>
+                <Link to="/templates/create">
+                  <i id="create-template-icon" className="material-icons">
+                    control_point
+                  </i>
+                </Link>
+                <Link to="/templates/create" id="create-template-link">
+                  Create new template
+                </Link>
               </button>
             </div>
             {this.state.list? 
@@ -166,26 +187,44 @@ class TemplateList extends ListView {
               : ''
             }
             <div className="template-list-footer">
-              <label id="records-per-page">
-                Records per page:
-              </label>
+              <label id="records-per-page">Records per page:</label>
               <div id="custom-select">
-                <select id="records-per-page-select" value={this.state.value} onChange={this.handlePaginationDropdownChange}>
+                <select
+                  id="records-per-page-select"
+                  value={this.state.value}
+                  onChange={this.handlePaginationDropdownChange}
+                >
                   <option value="10">10</option>
                   <option value="20">20</option>
                   <option value="50">50</option>
                   <option value="100">100</option>
                 </select>
               </div>
-              <span id="template-page-number">Page {this.state.currentPage}</span>
+              <span id="template-page-number">
+                Page {this.state.currentPage}
+              </span>
               <div id="pagination-btns">
-                <button onClick={this.handlePrevPage} className="pagination-btn"><i className="material-icons md-13" id="pagination-back">arrow_back_ios</i></button>
-                <button onClick={this.handleNextPage} className="pagination-btn"><i className="material-icons md-13" id="pagination-forward">arrow_forward_ios</i></button>
+                <button
+                  onClick={this.handlePrevPage}
+                  className="pagination-btn"
+                >
+                  <i className="material-icons md-13" id="pagination-back">
+                    arrow_back_ios
+                  </i>
+                </button>
+                <button
+                  onClick={this.handleNextPage}
+                  className="pagination-btn"
+                >
+                  <i className="material-icons md-13" id="pagination-forward">
+                    arrow_forward_ios
+                  </i>
+                </button>
               </div>
             </div>
           </section>
         </React.Fragment>
-      </div >
+      </div>
     );
   }
 }
