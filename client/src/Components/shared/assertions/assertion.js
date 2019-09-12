@@ -35,8 +35,7 @@ export default class QueryBuilder {
         rule: 'rule',
         handle: 'drag-handle',
         select: 'input',
-        textfield: 'input',
-        output: 'output'
+        textfield: 'input'
       },
       icons: {
         plus: `
@@ -67,6 +66,8 @@ export default class QueryBuilder {
           </i>`
       }
     };
+
+    this.queryString = '';
     
     this.init();
   }
@@ -93,10 +94,6 @@ export default class QueryBuilder {
       onUpdate: () => _this.updateGroups()
     });
     this.outerWrapper.appendChild(this.rulesContainer);
-    
-    // Add output container
-    this.outputContainer = this.makeElement(`<code class="${this.config.cssClasses.output}"></code>`);
-    this.outerWrapper.appendChild(this.outputContainer);
     
     // Construct first rule group
     this.addGroup(true);
@@ -312,6 +309,6 @@ export default class QueryBuilder {
     })
 
     
-    this.outputContainer.innerText = _output;
+    this.queryString = _output;
   }
 }
