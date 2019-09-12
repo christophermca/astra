@@ -214,7 +214,7 @@ export default class QueryBuilder {
 
         // Create delete button if it exists
         if (!_deleteBtn) {
-          let deleteGroupButton = this.makeElement(`<button type="button" class="${this.config.cssClasses.buttonGroup}"></button>`);
+          let deleteGroupButton = this.makeElement(`<button type="button" class="${this.config.cssClasses.button}"></button>`);
           deleteGroupButton.classList.add('icon-btn', 'btn-delete', 'btn-deleteGroup');
           deleteGroupButton.appendChild(this.makeElement(this.config.icons.trash));
           deleteGroupButton.addEventListener('click', () => { group.remove(); this.updateGroups(); });
@@ -264,7 +264,7 @@ export default class QueryBuilder {
     e.appendChild(_val);
     
     // Delete button
-    let deleteRuleButton = this.makeElement(`<div class="${this.config.cssClasses.buttonGroup}"></div>`);
+    let deleteRuleButton = this.makeElement(`<div class="${this.config.cssClasses.button}"></div>`);
     deleteRuleButton.classList.add('icon-btn', 'btn-delete', 'btn-deleteRule');
     deleteRuleButton.appendChild(this.makeElement(this.config.icons.trash));
     deleteRuleButton.addEventListener('click', () => { e.remove(); this.generateQuery(); });
