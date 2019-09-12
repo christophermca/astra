@@ -12,22 +12,8 @@ export default class AssertionData extends React.Component {
   }
 
   componentDidUpdate(){
-    let _selects = queryBuilder.rulesContainer.querySelectorAll(
-      ".assertion-field")
-
-      if(this.props.clicked !== undefined ){
-        if (!queryBuilder.fields.includes(this.props.clicked)) {
-          queryBuilder.fields.push(this.props.clicked);
-  
-          _selects.forEach((select, index) => {
-            select.appendChild(
-              queryBuilder.makeElement(`<option value="${this.props.clicked}">${this.props.clicked}</option>`)
-            );
-          });
-        }
-  
-        if (_selects.length) _selects[_selects.length - 1].value = this.props.clicked;
-      }
+    if(this.props.clicked !== undefined )
+      queryBuilder.injectFieldData(this.props.clicked);
   }
 
   render() {

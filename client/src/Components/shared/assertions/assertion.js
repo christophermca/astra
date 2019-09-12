@@ -277,7 +277,6 @@ export default class QueryBuilder {
   generateQuery() {
     // Clear existing output
     let _output = '';
-    this.outputContainer.innerText = _output;
 
     // Iterate through rule groups
     let _ruleGroups = this.rulesContainer.querySelectorAll(`.${this.config.cssClasses.rulesGroup}`);
@@ -310,5 +309,20 @@ export default class QueryBuilder {
 
     
     this.queryString = _output;
+  }
+
+  injectFieldData(clickedItem) {
+    let _selects = this.rulesContainer.querySelectorAll(".assertion-field");
+
+    if (!this.config.fields.includes(clickedItem)) {
+      this.config.fields.push(clickedItem);
+
+      let self = this;
+      _selects.forEach((select, index) => {
+        select.appendChild(self.makeElement(`<option value="${clickedItem}">${clickedItem}</option>`));
+      });
+    }
+
+    if (_selects.length) _selects[_selects.length - 1].value = clickedItem;
   }
 }
