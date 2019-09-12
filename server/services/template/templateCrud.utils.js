@@ -18,7 +18,7 @@ const executeEndpoint = `${JavaEngineIP}/template/executeTemplate`;
 const useStubData = process.env.OFFLINE === 'true';
 
 const getAllTemplates = async (req, res) => {
-  console.log('[GET] all Templates - ')
+  console.log('[GET] all Templates')
   try {
     if(useStubData) {
       console.log('using stub response');

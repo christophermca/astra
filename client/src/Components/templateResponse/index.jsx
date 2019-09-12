@@ -16,14 +16,22 @@ let contextArray = [];
 export default class TemplateResponse extends React.Component {
   constructor(props) {
     super(props);
-    if(props.data.createAt.length && props.data.modifiedAt.length) {
+
+    /*
+     *TODO: The Template Data returned from the getTemplateData endpoint returns malformed data
+     * The `createAt` and `modifiedAt` keys in a non ISO format which the
+     * next subsequent request requires. The React App should only be
+     * responsible for reading those keys and should not be required to reformat the data.
+     **/
+
+    if(props.data.hasOwnProperty('createAt') && props.data.hasOwnProperty('modifiedAt')) {
       delete props.data.createAt
       delete props.data.modifiedAt
     }
+
     this.uploadInlineData = this.uploadInlineData.bind(this);
     this.handleSave = this.handleSave.bind(this);
     this.executeSingleTemplate = this.executeSingleTemplate.bind(this);
-
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
 
@@ -176,17 +184,10 @@ export default class TemplateResponse extends React.Component {
     );
   }
 
-  submitTemplateToSave(evt) {
-    evt.preventDefault();
-    console.log("creating template");
-
   handleSave(evt) {
     evt.preventDefault();
     const formData = new FormData();
-    console.log(this.state.data);
     formData.append("template", JSON.stringify(this.state.data));
-    console.log(JSON.parse(formData.get("template")));
-    console.log("saving template");
     const options = {
       method: "PUT",
       body: formData
@@ -212,6 +213,7 @@ export default class TemplateResponse extends React.Component {
       .then(json => json)
       .catch(err => console.error({ err }));
   }
+
   render() {
     const { data } = this.props;
     return (

@@ -23,7 +23,7 @@ export default class TemplateCreation extends React.Component {
         this.setState({ 'config': profileConfig['bravo']})
         break;
       default:
-        console.log(`${evt.target.value} does not have a use case` )
+        console.warn(`${evt.target.value} does not have a use case` )
     }
 
     this.setState({'showTemplateBuilder': true})
@@ -33,7 +33,6 @@ export default class TemplateCreation extends React.Component {
 
   submitDataFile(evt) {
     evt.preventDefault();
-    console.log('creating template')
     const form = evt.target;
     const formData = new FormData(form)
 
@@ -46,7 +45,6 @@ export default class TemplateCreation extends React.Component {
     }
 
     fetch('/api/upload/files', options).then(response => response.json())
-      console.log(options.createAt)
       .then(json => json)
       .catch(err => console.error({ err }));
   }
