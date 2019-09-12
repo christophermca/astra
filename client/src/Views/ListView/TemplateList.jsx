@@ -22,7 +22,8 @@ class TemplateList extends ListView {
    } else {
       this.setState(state => {
         const selectedTemplate = [...state.selectedTemplate, id];
-       return {
+        console.log(selectedTemplate);
+        return {
           selectedTemplate
         };
       });
@@ -75,6 +76,19 @@ class TemplateList extends ListView {
     this.handleCloseModal();
   }
 
+  handleOpenModal = () => {
+    this.setState({ showModal: true });
+  }
+ 
+  handleCloseModal = () => {
+    this.setState({ showModal: false });
+  }
+
+  handleConfirmExecute = () => {
+    this.handleExecute();
+    this.handleCloseModal();
+  }
+
   componentDidMount() {
     let data = {
       "user": {
@@ -101,8 +115,8 @@ class TemplateList extends ListView {
 
 
   render() {
-    let myBulkAction = this.state.selectedTemplate.length > 0 &&
-    <BulkAction handleExecute={this.handleExecute}
+    let myBulkAction = this.state.selectedTemplate.length > 0 && 
+    <BulkAction handleExecute={this.handleExecute} 
                 handleDelete={this.handleDelete}
                 handleOpenModal={this.handleOpenModal}
                 handleCloseModal={this.handleCloseModal}
@@ -190,7 +204,8 @@ class TemplateList extends ListView {
                 <select
                   id="records-per-page-select"
                   value={this.state.value}
-                  onChange={this.handlePaginationDropdownChange} >
+                  onChange={this.handlePaginationDropdownChange}
+                >
                   <option value="10">10</option>
                   <option value="20">20</option>
                   <option value="50">50</option>
@@ -203,7 +218,8 @@ class TemplateList extends ListView {
               <div id="pagination-btns">
                 <button
                   onClick={this.handlePrevPage}
-                  className="pagination-btn" >
+                  className="pagination-btn"
+                >
                   <i className="material-icons md-13" id="pagination-back">
                     arrow_back_ios
                   </i>

@@ -54,7 +54,7 @@ export default class TemplateResponse extends React.Component {
     for (let item of inlineData.entries()) {
       temp.push(item);
     }
-    this.setState(prevState => (prevState["inlineDatasets"] = temp));
+    this.setState(prevState => (prevState["data"]["inlineDatasets"] = temp));
   }
 
   componentDidMount() {
@@ -77,8 +77,7 @@ export default class TemplateResponse extends React.Component {
     if (typeof obj !== "object") {
       return [obj];
     }
-    let result = [];
-
+    var result = [];
     if (obj.constructor === Array) {
       obj.map(item => {
         result = result.concat(this.nestedObjectToArray(item));
@@ -233,11 +232,76 @@ export default class TemplateResponse extends React.Component {
       .catch(err => console.error({ err }));
   }
 
+  closeModal() {
+    let context = {
+      name: this.state.contextName,
+      value: this.state.currentSelection
+    };
+
+    contextArray.push(context);
+
+    this.setState({
+      contextVariables: contextArray
+    });
+
+    this.setState(prevState =>
+      Object.assign(prevState.data, { contextVariables: contextArray })
+    );
+
+    this.setState({ modalIsOpen: false });
+  }
+
+  onDelete(e, name) {
+    e.preventDefault();
+
+    contextArray = contextArray.filter(el => {
+      return el.name !== name;
+    });
+
+    this.setState({ contextVariables: contextArray });
+
+    this.setState(prevState =>
+      Object.assign(prevState.data, { contextVariables: contextArray })
+    );
+  }
+
+  submitTemplateToSave(evt) {
+    evt.preventDefault();
+    console.log("creating template");
+    const formData = new FormData();
+
+    formData.append("template", JSON.stringify(this.state.data));
+    const options = {
+      method: "PUT",
+      body: formData
+    };
+
+    fetch("/api/templates/save", options)
+      .then(response => response.json())
+      .then(json => json)
+      .catch(err => console.error({ err }));
+  }
+
+  executeSingleTemplate(evt) {
+    evt.preventDefault();
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify([this.state.data.templateId])
+    };
+
+    fetch("/api/templates/execute", options)
+      .then(response => response.json())
+      .then(json => json)
+      .catch(err => console.error({ err }));
+  }
   render() {
     const { data } = this.props;
     return (
       <TemplateContext.Provider value={this.state}>
-        <form id="template-response" onSubmit={this.handleSave}>
+        <form id="template-response" onSubmit={this.submitTemplateToSave}>
           <ContextMenuTrigger id="contextMenu">
             <EndpointRequestHeader
               onContextMenu={this.onContextClick}
@@ -307,9 +371,9 @@ export default class TemplateResponse extends React.Component {
               </StatefullAccordian>
               <StatefullAccordian name="Data Files">
                 <DataFiles
-                  contextVariables={this.state.contextVariables}
-                  inlineDatasets={this.state.inlineDatasets}
-                  templateId={data.templateId}
+                  contextVariables={data.contextVariables}
+                  inlineDatasets={data.inlineDatasets}
+                  datasets={data.datasets}
                 />
               </StatefullAccordian>
               <StatefullAccordian name="Assertions">
