@@ -16,10 +16,22 @@ let contextArray = [];
 export default class TemplateResponse extends React.Component {
   constructor(props) {
     super(props);
-    this.uploadInlineData = this.uploadInlineData.bind(this);
-    this.submitTemplateToSave = this.submitTemplateToSave.bind(this);
-    this.executeSingleTemplate = this.executeSingleTemplate.bind(this);
 
+    /*
+     *TODO: The Template Data returned from the getTemplateData endpoint returns malformed data
+     * The `createAt` and `modifiedAt` keys in a non ISO format which the
+     * next subsequent request requires. The React App should only be
+     * responsible for reading those keys and should not be required to reformat the data.
+     **/
+
+    if(props.data.hasOwnProperty('createAt') && props.data.hasOwnProperty('modifiedAt')) {
+      delete props.data.createAt
+      delete props.data.modifiedAt
+    }
+
+    this.uploadInlineData = this.uploadInlineData.bind(this);
+    this.handleSave = this.handleSave.bind(this);
+    this.executeSingleTemplate = this.executeSingleTemplate.bind(this);
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
 
@@ -172,11 +184,9 @@ export default class TemplateResponse extends React.Component {
     );
   }
 
-  submitTemplateToSave(evt) {
+  handleSave(evt) {
     evt.preventDefault();
-    console.log("creating template");
     const formData = new FormData();
-
     formData.append("template", JSON.stringify(this.state.data));
     const options = {
       method: "PUT",
@@ -184,8 +194,7 @@ export default class TemplateResponse extends React.Component {
     };
 
     fetch("/api/templates/save", options)
-      .then(response => response.json())
-      .then(json => json)
+      .then(window.location.href = "http://localhost:3000/templates/")
       .catch(err => console.error({ err }));
   }
 
@@ -204,11 +213,12 @@ export default class TemplateResponse extends React.Component {
       .then(json => json)
       .catch(err => console.error({ err }));
   }
+
   render() {
     const { data } = this.props;
     return (
       <TemplateContext.Provider value={this.state}>
-        <form id="template-response" onSubmit={this.submitTemplateToSave}>
+        <form id="template-response" onSubmit={this.handleSave}>
           <ContextMenuTrigger id="contextMenu">
             <EndpointRequestHeader
               onContextMenu={this.onContextClick}
@@ -289,7 +299,7 @@ export default class TemplateResponse extends React.Component {
             </section>
           </main>
           <button type="submit">Save</button>
-          <button onClick={this.executeSingleTemplate}>Execute</button>
+          <button onClick={this.executeSingleTemplate}> Save & Execute</button>
         </form>
 
         <ContextMenu id="contextMenu">

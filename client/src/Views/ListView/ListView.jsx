@@ -27,8 +27,8 @@ export default class ListView extends React.Component {
       pagination: {
         pageNumber: this.state.currentPage,
         recordPerPage: this.state.value,
-        orderByColumn: "created_at",
-        searchBy: [{}]
+        //orderByColumn: "created_at",
+        searchBy: {}
       }
     };
 

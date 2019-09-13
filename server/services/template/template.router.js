@@ -13,7 +13,8 @@ router.route("/create")
   .post(templateCrud.createTemplate);
 
 router.route("/save")
-  .put(templateCrud.saveTemplate);
+  .put(templateCrud.saveTemplate)
+  .get(templateCrud.getAllTemplates)
 
   router.route("/execute")
   .post(templateCrud.execute);
