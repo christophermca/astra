@@ -16,7 +16,10 @@ router.route("/save")
   .put(templateCrud.saveTemplate)
   .get(templateCrud.getAllTemplates)
 
-  router.route("/execute")
+router.route("/execute")
   .post(templateCrud.execute);
+
+router.route("/deleted")
+  .delete(templateCrud.deleted)
 
 module.exports = router;

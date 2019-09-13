@@ -9,10 +9,6 @@ const CardComponent = props => {
     return (
       <section key={props.data.templateId} id={props.data.templateId} className="card-container">
         <Link to={templateDetail} className="card-header">{props.data.templateName}</Link>
-        <div onClick={props.handleClick} id={props.data.templateId} className="card-button">
-          Execute
-        </div>
-
         <div className="card-main">
           <div className="card-checkbox">
             <input onClick={() => props.handleCheckbox(props.data.templateId)} type="checkBox" />

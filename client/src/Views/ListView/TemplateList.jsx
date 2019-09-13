@@ -1,27 +1,27 @@
-import React from "react";
-import { CardComponent } from "../../Components";
+import React from 'react';
+import { CardComponent } from '../../Components';
 import { Link } from "react-router-dom";
-import ListView from "./ListView.jsx";
+import ListView from './ListView.jsx';
+import BulkAction from './BulkAction';
 
 class TemplateList extends ListView {
   constructor(props) {
     super(props);
 
     this.state = {
-      // selectedTemplate: []
-      selectedTemplate: ""
-    };
+      selectedTemplate: [],
+      filtered: false,
+      modalIsOpen: false
+    }
   }
 
-  handleCheckbox = id => {
-    if (this.state.selectedTemplate.includes(id)) {
-      this.setState(prevState => ({
-        selectedTemplate: prevState.selectedTemplate.filter(el => el !== id)
-      }));
-    } else {
+ handleCheckbox = id => {
+   if (this.state.selectedTemplate.includes(id)) {
+     this.setState(prevState => ({selectedTemplate:prevState.selectedTemplate.filter(el => el !== id)}))
+     console.log(this.state.selectedTemplate)
+   } else {
       this.setState(state => {
         const selectedTemplate = [...state.selectedTemplate, id];
-        console.log(selectedTemplate);
         return {
           selectedTemplate
         };
@@ -29,49 +29,50 @@ class TemplateList extends ListView {
     }
   };
 
-  handleClick = event => {
-    console.log(event.target.id);
-    let myId = event.target.id;
-    // if(!this.state.selectedTemplate.length){
-    //   this.setState(state => {
-    //     const selectedTemplate = [...state.selectedTemplate,myId];
-    //     console.log(selectedTemplate)
-    //     return {
-    //       selectedTemplate
-    //     }
-    //   })
-    // }
-    this.setState({ selectedTemplate: myId }, () => {
-      let url = `/api/templates/execute?templateId=${this.state.selectedTemplate}`;
+  handleExecute = event => {
+    let url= `/api/templates/execute?templateId=${this.state.selectedTemplate}`;
+    fetch(url, {
+      method: "POST",
+      body: JSON.stringify(this.state.selectedTemplate),
+      headers: { "Content-Type": "application/json" }
+    })
+      .then(response => response.text())
+      .then(data => console.log(data))
+  }
+
+  handleDelete = event => {
+    let url= `/api/templates/deleted?templateId=${this.state.selectedTemplate}`
       fetch(url, {
-        method: "POST",
+        method: "delete",
         body: JSON.stringify(this.state.selectedTemplate),
         headers: { "Content-Type": "application/json" }
       })
-        .then(response => response.json())
-        .then(json => {
-          console.log(json);
-        });
-    });
+        .then(response => response.text())
+        .then(data => {
+          console.log(data)
+        })
+  }
 
-    // fetch(`/api/templates/execute?templateId=${this.state.selectedTemplate}`, {
-    //   method: "POST",
-    //   body: JSON.stringify(this.state.selectedTemplate),
-    //   headers: { "Content-Type": "application/json" }
-    // })
-  };
+
+  handleFilterButton = () => {
+      this.setState(prevState => {
+        return {
+          filtered: !prevState.filtered
+        }
+      }, () => this.getList(this.state.filtered))
+  }
+
 
   componentDidMount() {
     let data = {
-      user: {
-        userId: "1",
-        teamId: "1"
-      },
-      pagination: {
-        pageNumber: 1,
-        recordPerPage: 20,
-        orderByColumn: "created_at",
-        searchBy: {}
+      "user": {
+        "userId": "1",
+        "teamId": "1"
+    },
+      "pagination": {
+        "pageNumber": 1,
+        "recordPerPage": 20,
+        "searchBy": {}
       }
     };
 
@@ -86,7 +87,10 @@ class TemplateList extends ListView {
       });
   }
 
+
   render() {
+    let myBulkAction = this.state.selectedTemplate.length > 0 && <BulkAction handleExecute={this.handleExecute} handleDelete={this.handleDelete}/>
+    let filterDisplay = this.state.filtered? "All Templates" : "My Templates"
     return (
       <div>
         <React.Fragment>
@@ -132,6 +136,12 @@ class TemplateList extends ListView {
             </form>
           </div>
           <section className="component" name="card-component">
+            <div>
+              {myBulkAction}
+            </div>
+            <div className="filterTemplates">
+              <button onClick={this.handleFilterButton}>{filterDisplay}</button>
+            </div>
             <div className="create">
               <button id="create-template-btn">
                 <Link to="/templates/create">
@@ -144,26 +154,24 @@ class TemplateList extends ListView {
                 </Link>
               </button>
             </div>
-            {this.state.list
-              ? this.state.list.map(item => {
-                  return (
-                    <CardComponent
-                      key={item.templateId}
-                      data={item}
-                      handleClick={this.handleClick}
-                      handleCheckbox={this.handleCheckbox}
-                    />
-                  );
-                })
-              : ""}
+            {this.state.list?
+              this.state.list.map(item => {
+                return (<CardComponent
+                           key={item.templateId}
+                           data={item}
+                           handleExecute={this.handleExecute}
+                           handleCheckbox={this.handleCheckbox}
+                           handleDelete={this.handleDelete} />)
+              })
+              : ''
+            }
             <div className="template-list-footer">
               <label id="records-per-page">Records per page:</label>
               <div id="custom-select">
                 <select
                   id="records-per-page-select"
                   value={this.state.value}
-                  onChange={this.handlePaginationDropdownChange}
-                >
+                  onChange={this.handlePaginationDropdownChange} >
                   <option value="10">10</option>
                   <option value="20">20</option>
                   <option value="50">50</option>
@@ -176,16 +184,14 @@ class TemplateList extends ListView {
               <div id="pagination-btns">
                 <button
                   onClick={this.handlePrevPage}
-                  className="pagination-btn"
-                >
+                  className="pagination-btn" >
                   <i className="material-icons md-13" id="pagination-back">
                     arrow_back_ios
                   </i>
                 </button>
                 <button
                   onClick={this.handleNextPage}
-                  className="pagination-btn"
-                >
+                  className="pagination-btn" >
                   <i className="material-icons md-13" id="pagination-forward">
                     arrow_forward_ios
                   </i>

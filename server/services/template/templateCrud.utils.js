@@ -11,9 +11,9 @@ const JavaEngineIP = `http://172.22.${dynamicAddress}:8080/v2`
 const templateListURL = `${JavaEngineIP}/template/getTemplateList`;
 const templateDetailsURL = `${JavaEngineIP}/template/getTemplateDetails`;
 const createTemplateURL = `${JavaEngineIP}/template/createTemplate`;
-const debugEndpoint = 'https://ptsv3.com/t/mwz5g-1566870939/post';
 const saveTemplateURL = `${JavaEngineIP}/template/saveTemplate`;
 const executeEndpoint = `${JavaEngineIP}/template/executeTemplate`;
+const deletedEndpoint = `${JavaEngineIP}/template/deleteTemplates`;
 
 const useStubData = process.env.OFFLINE === 'true';
 
@@ -22,15 +22,12 @@ const getAllTemplates = async (req, res) => {
   try {
     if(useStubData) {
       console.log('using stub response');
-
       const data = JSON.parse(fs.readFileSync(path.resolve(__dirname, '../../stubs/templatelist.stub.json')));
       res.status(200).send(data);
     } else {
       console.log('request - calling templateListURL');
-
       const templateList = request(templateListURL);
       req.pipe(templateList).pipe(res);
-
     }
   } catch (err) {
       console.error(err)
@@ -65,9 +62,20 @@ const execute = (req, res) => {
   }
 };
 
+const deleted = (req, res) => {
+  try {
+    const deletedCard = request(deletedEndpoint);
+    // res.send()
+    req.pipe(deletedCard).pipe(res);
+
+  } catch (err) {
+    console.error(err);
+    res.status(400);
+  }
+}
+
 // simular to running http.serverRequest
 const createTemplate = async (req, res) => {
-
   try {
     if(useStubData) {
       console.log('using stub response');
@@ -77,8 +85,6 @@ const createTemplate = async (req, res) => {
       const create = request(createTemplateURL);
       req.pipe(create).pipe(res);
     }
-
-
   } catch (err) {
     console.error(err);
     res.status(400);
@@ -110,5 +116,6 @@ module.exports = {
   getOneTemplate,
   createTemplate,
   saveTemplate,
-  execute
+  execute,
+  deleted
 }

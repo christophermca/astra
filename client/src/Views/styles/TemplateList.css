@@ -1,0 +1,9 @@
+.bulkAction {
+    display:flex;
+    justify-content: flex-start;
+    justify-content: space-around;
+  }
+
+.filterTemplates {
+    margin-left: auto;
+}
