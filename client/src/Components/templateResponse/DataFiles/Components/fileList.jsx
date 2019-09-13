@@ -1,22 +1,16 @@
 import React from 'react';
 
 export default (props) => {
-  let id=`file-${props.id}`
+  let id=``;
   return (
     <div className="data-file-list-item">
-      <input type="radio" checked={props.primary} id={id} name='dataFile' value=""/>
+      <input type="radio" checked={false} id={id} name='dataFile' value=""/>
       <label for={id}>
         <span>
-          {props.filePath}
+          {props.file_name}
         </span>
         <span>
-          {props.id}
-        </span>
-        <span>
-          {props.createDate? props.createDate : 'N/A'}
-        </span>
-        <span>
-          <img src="#" height="20" width="20" />
+          <a download href="/api/files/download"><img src="#" height="20" width="20" /></a>
         </span>
       </label>
     </div>
