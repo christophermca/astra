@@ -2,7 +2,7 @@ import React from "react";
 import { CardComponent } from "../../Components";
 import { Link } from "react-router-dom";
 import ListView from "./ListView.jsx";
-import BulkAction from './BulkCTA';
+import BulkCTA from './BulkCTA';
 import {handleExecute, handleDelete} from './utils/actions';
 import SearchAndFilter from './SearchAndFilter';
 
@@ -79,12 +79,13 @@ class TemplateList extends ListView {
 
   render() {
     let myBulkAction = this.state.selectedTemplate.length > 0 &&
-    <BulkAction handleExecute={this.handleExecute}
+    <BulkCTA handleExecute={this.handleExecute}
                 handleDelete={handleDelete}
                 handleOpenModal={this.handleOpenModal}
                 handleCloseModal={this.handleCloseModal}
                 handleConfirmExecute={this.handleConfirmExecute}
-                state={this.state}/>
+                selectedTemplate={this.state.selectedTemplate}
+                showModal={this.state.showModal} />
 
     let filterDisplay = this.state.filtered? "All Templates" : "My Templates"
     return (
