@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 
- class ListView extends Component {
+class ListView extends Component {
   constructor(props) {
     super(props);
     this.handlePaginationDropdownChange = this.handlePaginationDropdownChange.bind(
@@ -21,16 +21,16 @@ import React, {Component} from 'react';
   }
 
   getList(myTemplates=false) {
-     let dynamicData = {
-    "user": {
-      "userId": "1",
-      "teamId": "1"
-    },
-    "pagination": {
-      "pageNumber": this.state.currentPage,
-      "recordPerPage": this.state.value,
-      "searchBy": {}
-    }
+    let dynamicData = {
+      "user": {
+        "userId": "1",
+        "teamId": "1"
+      },
+      "pagination": {
+        "pageNumber": this.state.currentPage,
+        "recordPerPage": this.state.value,
+        "searchBy": {}
+      }
     };
 
 
