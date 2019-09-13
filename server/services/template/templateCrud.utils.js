@@ -7,17 +7,18 @@ const {IP: dynamicAddress} = require('../../config.js')
 // because of how are network is setup in office the final number in the ip
 // address is subject to change
 const JavaEngineIP = `http://172.22.${dynamicAddress}:8080/v2`
+
 const templateListURL = `${JavaEngineIP}/template/getTemplateList`;
 const templateDetailsURL = `${JavaEngineIP}/template/getTemplateDetails`;
 const createTemplateURL = `${JavaEngineIP}/template/createTemplate`;
+const saveTemplateURL = `${JavaEngineIP}/template/saveTemplate`;
 const executeEndpoint = `${JavaEngineIP}/template/executeTemplate`;
 const deletedEndpoint = `${JavaEngineIP}/template/deleteTemplates`;
-// const deletedEndpoint = "http://localhost:8080/v2/template/deleteTemplates"
 
 const useStubData = process.env.OFFLINE === 'true';
 
 const getAllTemplates = async (req, res) => {
-  console.log('[GET] all Templates - ')
+  console.log('[GET] all Templates')
   try {
     if(useStubData) {
       console.log('using stub response');
@@ -90,10 +91,31 @@ const createTemplate = async (req, res) => {
   }
 };
 
+const saveTemplate = async (req, res) => {
+  try {
+    if (useStubData) {
+      console.log("using stub response");
+      const data = {
+        message: "I'm the template"
+      }
+      res.status(200).send(data);
+    } else {
+      const save = request(saveTemplateURL);
+      req.pipe(save).pipe(res)
+      //.then(res.status(200).redirect('..'))
+    }
+  } catch (err) {
+    console.error(err);
+    res.status(400);
+  }
+}
+
+
 module.exports = {
   getAllTemplates,
   getOneTemplate,
   createTemplate,
+  saveTemplate,
   execute,
   deleted
 }

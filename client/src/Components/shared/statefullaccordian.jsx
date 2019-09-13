@@ -15,7 +15,6 @@ export default class StatefullAccordian extends React.Component {
   }
 
   handleAccordian = () => {
-    console.log(this.state.openAccordian);
     if (this.state.openAccordian) {
       this.setState({
         openAccordian: false,
