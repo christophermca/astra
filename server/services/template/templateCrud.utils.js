@@ -14,7 +14,6 @@ const createTemplateURL = `${JavaEngineIP}/template/createTemplate`;
 const saveTemplateURL = `${JavaEngineIP}/template/saveTemplate`;
 const executeEndpoint = `${JavaEngineIP}/template/executeTemplate`;
 const deletedEndpoint = `${JavaEngineIP}/template/deleteTemplates`;
-
 const useStubData = process.env.OFFLINE === 'true';
 
 const getAllTemplates = async (req, res) => {

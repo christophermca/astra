@@ -14,7 +14,6 @@ router.route("/create")
 
 router.route("/save")
   .put(templateCrud.saveTemplate)
-  .get(templateCrud.getAllTemplates)
 
 router.route("/execute")
   .post(templateCrud.execute);
