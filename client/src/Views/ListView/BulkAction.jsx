@@ -4,9 +4,9 @@ import Modal from 'react-modal';
 
 const BulkAction = (props) => {
     let numOfTempsDisplayed = props.state.selectedTemplate.length > 1 ? 
-    <p>{`${props.state.selectedTemplate.length} templates selected`}</p>
+    `${props.state.selectedTemplate.length} templates selected`
     :
-    <p>{`${props.state.selectedTemplate.length} template selected`}</p>
+    `${props.state.selectedTemplate.length} template selected`
 
     let numOfItems = props.state.selectedTemplate.length > 1 ? "these items?" : "this item?"
     return(

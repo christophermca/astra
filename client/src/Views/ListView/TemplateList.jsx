@@ -3,6 +3,7 @@ import { CardComponent } from "../../Components";
 import { Link } from "react-router-dom";
 import ListView from "./ListView.jsx";
 import BulkAction from './BulkAction';
+import '../styles/TemplateList.css';
 
 class TemplateList extends ListView {
   constructor(props) {
@@ -130,7 +131,6 @@ class TemplateList extends ListView {
   }
 
   handleConfirmExecute = (id) => {
-    debugger;
     this.handleExecute(id);
     this.handleCloseModal();
   }
