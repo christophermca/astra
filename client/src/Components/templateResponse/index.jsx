@@ -1,15 +1,14 @@
 import React from "react";
-import "./style.scss";
 import StatefullAccordian from "../shared/statefullaccordian";
 import AssertionData from "../shared/assertions/assertionData";
-import { EndpointRequestHeader } from "../shared/index";
 import DataFiles from "./DataFiles";
 import ContextVariables from "./ContextVariables/contextVariables";
-import { TemplateContext } from "../../Contexts/index";
-import { ContextMenu, MenuItem, ContextMenuTrigger } from "react-contextmenu";
 import Modal from "react-modal";
 import QueryBuilder from "../shared/assertions/assertion";
-
+import { EndpointRequestHeader } from "../shared/index";
+import { TemplateContext } from "../../Contexts/index";
+import { ContextMenu, MenuItem, ContextMenuTrigger } from "react-contextmenu";
+import "./style.scss";
 import "./ContextVariables/style.css";
 
 let contextArray = [];
@@ -50,26 +49,19 @@ export default class TemplateResponse extends React.Component {
   }
 
   uploadInlineData(inlineData) {
-    const temp = [];
-    for (let item of inlineData.entries()) {
-      temp.push(item);
-    }
-    this.setState(prevState => (prevState["inlineDatasets"] = temp));
+    this.setState(prevState => (prevState["inlineDatasets"] = inlineData.entries().map(entry => entry)));
   }
 
   componentDidMount() {
     const obj = this.props.data.responseBody;
-
-    let objPath = this.nestedObjectToArray(obj);
-
-    let assertionObj = objPath.map(i => {
-      let iKey = i.substring(i.lastIndexOf(".") + 1);
-      let path = i;
-
-      let obj = { [iKey]: path };
-      return obj;
-    });
-
+    const objPath = this.nestedObjectToArray(obj);
+    // const assertionObj = objPath.map(i => {
+    //   let iKey = i.substring(i.lastIndexOf(".") + 1);
+    //   let path = i;
+    //   let obj = { [iKey]: path };
+    //   return obj;
+    // });
+    const assertionObj = objPath.map(path => ({ [path.substring(i.lastIndexOf(".") + 1)]: path }));
     this.setState({ assertionPathResponse: assertionObj });
   }
 
@@ -86,7 +78,7 @@ export default class TemplateResponse extends React.Component {
     } else {
       Object.keys(obj).map(key => {
         if (typeof obj[key] === "object") {
-          var chunk = this.nestedObjectToArray(obj[key]);
+          const chunk = this.nestedObjectToArray(obj[key]);
           chunk.map(item => {
             result.push(key + "." + item);
           });
@@ -107,7 +99,6 @@ export default class TemplateResponse extends React.Component {
       startRange = window.getSelection().anchorOffset;
       endRange = window.getSelection().extentOffset;
     }
-
     this.setState({
       currentSelection: text,
       startRange: startRange,
@@ -119,7 +110,6 @@ export default class TemplateResponse extends React.Component {
 
   handleContextVariables = e => {
     let contextName = e.target.value;
-
     this.setState({
       contextName: contextName
     });
@@ -175,9 +165,7 @@ export default class TemplateResponse extends React.Component {
   onDelete(e, name) {
     e.preventDefault();
 
-    contextArray = contextArray.filter(el => {
-      return el.name !== name;
-    });
+    contextArray = contextArray.filter(el => el.name !== name);
 
     this.setState({ contextVariables: contextArray });
 
@@ -239,11 +227,12 @@ export default class TemplateResponse extends React.Component {
       <TemplateContext.Provider value={this.state}>
         <form id="template-response" onSubmit={this.handleSave}>
           <ContextMenuTrigger id="contextMenu">
+            <div onContextMenu = {this.onContextClick}>
             <EndpointRequestHeader
-              onContextMenu={this.onContextClick}
               method={data.requestType}
               url={data.httpUrlPathParams}
             />
+            </div>
           </ContextMenuTrigger>
           <main>
             <section className="response-body">
@@ -287,16 +276,16 @@ export default class TemplateResponse extends React.Component {
             <section className="assertions">
               <StatefullAccordian name="Context Variables">
                 <div className="context">
-                  {this.state.contextVariables.map(i => {
+                  {this.state.contextVariables.map(contextVariable => {
                     return (
-                      <div className="contextWrapper">
+                      <div key={contextVariable.name} className="contextWrapper">
                         <h1 className="contextName">
                           {" "}
-                          <span ref="nameRef">{i.name}</span>: {i.value}{" "}
+                          <span ref="nameRef">{contextVariable.name}</span>: {contextVariable.value}{" "}
                         </h1>
                         <button
                           className="contextDelete"
-                          onClick={evt => this.onDelete(evt, i.name)}
+                          onClick={evt => this.onDelete(evt, contextVariable.name)}
                         >
                           X
                         </button>
