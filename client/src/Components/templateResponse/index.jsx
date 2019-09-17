@@ -132,8 +132,8 @@ export default class TemplateResponse extends React.Component {
 
     var clicked = str.substr(0, str.indexOf('\n'));
     clicked = clicked.trim();
-    clicked = clicked.replace(/\"|[,\s]*$/g, "");              // remove trailing comma and surrounding quotes
-    clicked = clicked.split(': ');                            // split on key/value
+    clicked = clicked.replace(/\"|[,\s]*$/g, "");               // remove trailing comma and surrounding quotes
+    clicked = clicked.split(': ');                              // split on key/value
 
     clickedItems.push(clicked);
 

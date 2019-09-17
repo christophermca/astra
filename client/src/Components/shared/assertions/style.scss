@@ -1,6 +1,4 @@
 .query-builder {
-    width: 80%;
-    min-width: 450px;
     margin: 12px auto;
     
     [draggable] {
@@ -105,6 +103,7 @@
         color: #fff;
         background-color: #d9363e;
         border-color: #d9363e;
+        flex: 0 0 auto;
       }
     }
   

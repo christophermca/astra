@@ -195,7 +195,7 @@ export default class QueryBuilder {
       if (groupIndex === 0) {
         // Create 'Add Group' button if it doesn't exist
         if (!_addGroupBtn) {
-          let addGroupButton = this.makeElement(`<button type="button" class="${this.config.cssClasses.buttonGroup}"></button>`);
+          let addGroupButton = this.makeElement(`<button type="button" class="${this.config.cssClasses.button}"></button>`);
           addGroupButton.classList.add('btn-addGroup');
           addGroupButton.appendChild(this.makeElement(this.config.icons.plusCircle));
           addGroupButton.appendChild(this.makeElement('<span>Add Group</span>'));
