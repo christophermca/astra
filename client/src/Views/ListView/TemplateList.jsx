@@ -2,7 +2,9 @@ import React from "react";
 import { CardComponent } from "../../Components";
 import { Link } from "react-router-dom";
 import ListView from "./ListView.jsx";
-import BulkAction from './BulkAction';
+import BulkCTA from './BulkCTA';
+import {handleExecute, handleDelete} from './utils/actions';
+import SearchAndFilter from './SearchAndFilter';
 
 class TemplateList extends ListView {
   constructor(props) {
@@ -15,7 +17,7 @@ class TemplateList extends ListView {
     }
   }
 
- handleCheckbox = id => {
+  handleCheckbox = id => {
    if (this.state.selectedTemplate.includes(id)) {
      this.setState(prevState => ({selectedTemplate:prevState.selectedTemplate.filter(el => el !== id)}))
      console.log(this.state.selectedTemplate)
@@ -28,31 +30,6 @@ class TemplateList extends ListView {
       });
     }
   };
-
-  handleExecute = event => {
-    let url= `/api/templates/execute?templateId=${this.state.selectedTemplate}`;
-    fetch(url, {
-      method: "POST",
-      body: JSON.stringify(this.state.selectedTemplate),
-      headers: { "Content-Type": "application/json" }
-    })
-      .then(response => response.text())
-      .then(data => console.log(data))
-  }
-
-  handleDelete = event => {
-    let url= `/api/templates/deleted?templateId=${this.state.selectedTemplate}`
-      fetch(url, {
-        method: "delete",
-        body: JSON.stringify(this.state.selectedTemplate),
-        headers: { "Content-Type": "application/json" }
-      })
-        .then(response => response.text())
-        .then(data => {
-          console.log(data)
-        })
-  }
-
 
   handleFilterButton = () => {
       this.setState(prevState => {
@@ -71,7 +48,7 @@ class TemplateList extends ListView {
   }
 
   handleConfirmExecute = () => {
-    this.handleExecute();
+    handleExecute();
     this.handleCloseModal();
   }
 
@@ -102,57 +79,24 @@ class TemplateList extends ListView {
 
   render() {
     let myBulkAction = this.state.selectedTemplate.length > 0 &&
-    <BulkAction handleExecute={this.handleExecute}
-                handleDelete={this.handleDelete}
+    <BulkCTA handleExecute={this.handleExecute}
+                handleDelete={handleDelete}
                 handleOpenModal={this.handleOpenModal}
                 handleCloseModal={this.handleCloseModal}
                 handleConfirmExecute={this.handleConfirmExecute}
-                state={this.state}/>
+                selectedTemplate={this.state.selectedTemplate}
+                showModal={this.state.showModal} />
 
     let filterDisplay = this.state.filtered? "All Templates" : "My Templates"
     return (
       <div>
         <React.Fragment>
           <div className="search-bar-div">
-            <form onSubmit={this.onSearchSubmit}>
-              <label>Template Name </label>
-              <input
-                type="text"
-                id="template-name-search-bar"
-                placeholder="Search"
-                value={this.state.templateNameValue}
-                name="templateNameValue"
-                onChange={this.handleChange}
-              />
-              <label>Template ID </label>
-              <input
-                type="text"
-                id="template-id-search-bar"
-                placeholder="Search"
-                value={this.state.templateIdValue}
-                name="templateIdValue"
-                onChange={this.handleChange}
-              />
-              <label>Team Name </label>
-              <input
-                type="text"
-                id="team-search-bar"
-                placeholder="Search"
-                value={this.state.teamNameValue}
-                name="teamNameValue"
-                onChange={this.handleChange}
-              />
-              <label>User ID </label>
-              <input
-                type="text"
-                id="user-id-search-bar"
-                placeholder="Search"
-                value={this.state.userIdValue}
-                name="userIdValue"
-                onChange={this.handleChange}
-              />
-              <button type="submit">APPLY</button>
-            </form>
+            <SearchAndFilter templateName={this.state.templateNameValue}
+                             templateId={this.state.templateId}
+                             teamName={this.state.teamName}
+                             userId={this.state.userId}
+                             submitSearch={this.onSearchSubmit}/>
           </div>
           <section className="component" name="card-component">
             <div>
@@ -178,9 +122,9 @@ class TemplateList extends ListView {
                 return (<CardComponent
                            key={item.templateId}
                            data={item}
-                           handleExecute={this.handleExecute}
+                           handleExecute={handleExecute}
                            handleCheckbox={this.handleCheckbox}
-                           handleDelete={this.handleDelete} />)
+                           handleDelete={handleDelete} />)
               })
               : ''
             }
@@ -190,7 +134,8 @@ class TemplateList extends ListView {
                 <select
                   id="records-per-page-select"
                   value={this.state.value}
-                  onChange={this.handlePaginationDropdownChange} >
+                  onChange={this.handlePaginationDropdownChange}
+                >
                   <option value="10">10</option>
                   <option value="20">20</option>
                   <option value="50">50</option>
